@@ -1,0 +1,85 @@
+<div data-ng-controller="CreateTaxMappingController">
+
+	<ul class="breadcrumb">
+    	<li><a href="#/organization">{{'label.anchor.organization' | translate}}</a> <span class="divider">/</span></li>
+    	<li><a href="#/taxmapping">{{'label.taxmapping' | translate}}</a><span class="divider">/</span></li>
+        <li class="active">{{'label.create.new.taxmapping' | translate}}</li>
+    </ul>
+  
+    <form name="createtaxform" class="form-horizontal well"  data-ng-submit="submit()">
+    	<api-validate></api-validate>
+        <fieldset>
+        	<legend>{{'label.create.new.taxmapping' | translate}}</legend>
+          
+          <table>
+          <tr><td>
+          	<div class="control-group">
+            	<label class="control-label" for="taxCode">{{'label.taxCode' | translate }}<span class="required">*</span></label>
+            	<div class="controls">
+              		<input type="text" id="taxCode" name="taxCode" data-ng-model="formData.taxCode" data-ng-maxlength="10"></br>
+              		<span data-ng-show="createtaxform.taxCode.$dirty && createtaxform.taxCode.$invalid">
+              			<small class="error-row">{{'error.code.definition.length.validation'| translate}}</small>
+              		</span>
+            	</div>
+          	</div>
+          	</td></tr>
+           <tr><td>
+          	<div class="control-group">
+            	<label class="control-label" for="chargeType">{{'label.chargeType' | translate }}<span class="required">*</span></label>
+             	<div class="controls">
+              		 <select id="chargeType" data-ng-model="formData.chargeType"  data-ng-options="chargeTypeData.mCodeValue as chargeTypeData.mCodeValue for chargeTypeData in chargeTypeDatas">
+             		 <option value="">{{'label.menu.selectone' | translate}}</option></select>
+            	</div>
+          	</div>
+          	</td></tr>
+          	
+          <tr><td>
+           <div class="control-group">
+            <label class="control-label" for="taxType">{{'label.taxType' | translate }}<span class="required">*</span></label>
+            <div class="controls">
+              <select id="taxType" data-ng-model="formData.taxType"  data-ng-options="taxTypeData.mCodeValue as taxTypeData.mCodeValue for taxTypeData in taxTypeDatas">
+              <option value="">{{'label.menu.selectone' | translate}}</option></select>
+            </div>
+          </div>
+          </td></tr>
+          
+          <tr><td>	
+          <div class="control-group">
+          		<label class="control-label" for="rate">{{'label.rate' | translate }}<span class="required">*</span></label>
+            	<div class="controls">
+            		<input type="text" id="rate" name="rate" data-ng-model="formData.rate"></br>
+            		<span data-ng-show="createtaxform.rate.$dirty && createtaxform.rate.$invalid">
+						<small class="error-row">{{'error.not.decimal.validation' | translate}}</small>            		
+            		</span>
+            	</div>
+          	</div>
+          	</td></tr>
+          
+          <tr><td>
+           	<div class="control-group">
+           		<label class="control-label" for="startDate">{{'label.startDate' | translate }}<span class="required">*</span></label>
+            	<div class="controls">
+              		<input type="text" datepicker-pop="dd MMMM yyyy" readonly data-ng-model="start.date"  is-open="opened" min="minDate" date-disabled="disabled(date, mode)" style="background-color:#FFFFFF;" required late-Validate />
+            	</div>
+          	</div>
+          	</td></tr>
+          
+        <tr><td>
+          <div class="control-group">
+            	<label class="control-label" for="taxInclusive">{{'label.taxInclusive' | translate}}</label>
+                <div class="controls">
+                	<label class="checkbox">
+                    	<input type="checkbox" data-ng-model="formData.taxInclusive">
+                    </label>
+                </div>
+             </div>
+        </td></tr>
+                <tr><td align="right">
+          		<a href="#/taxmapping"><button id="cancel" type="reset" class="btn">{{'label.button.cancel'| translate}}</button></a>
+            	<button id="submit" type="submit" data-ng-disabled="createtaxform.$dirty && createtaxform.$invalid" class="btn btn-primary">{{'label.button.save'| translate}}</button>
+     	</td></tr></table>
+          
+        </fieldset>
+      </form>
+      
+</div>

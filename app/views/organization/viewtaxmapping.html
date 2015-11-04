@@ -1,0 +1,50 @@
+<div data-ng-controller="ViewTaxMappingController">
+
+	<div class="paddedbottom10">
+		<ul class="breadcrumb">
+	    	<li><a href="#/organization">{{'label.anchor.organization' | translate}}</a> <span class="divider">/</span></li>
+	        <li><a href="#/taxmapping">{{'label.taxmapping' | translate}}</a><span class="divider">/</span></li>
+	        <li class="active">{{taxmapping.taxCode}}</li>
+	    </ul>
+	    
+	    <div class="pull-right">
+	    	<div class="btn-group">
+	          <a href="#/edittaxmapping/{{id}}" class="btn btn-primary">
+	          	<i class="icon-edit icon-white"></i> {{'label.button.edit' | translate}}
+	         </a>
+	      	</div>
+	    </div>
+	</div>
+
+	<div class="row paddedleft">
+		<h3>&nbsp;&nbsp;&nbsp;{{taxmapping.taxCode}}</h3>
+		
+		<table style="width:100%;">
+			<tr>
+				<td><strong>{{'label.taxCode' | translate }}</strong></td>
+				<td>{{taxmapping.taxCode}}</td>
+			</tr>
+			<tr>
+				<td><strong>{{'label.chargeType' | translate }}</strong></td>
+				<td>{{taxmapping.chargeType}}</td>
+			</tr>
+			<tr>
+				<td><strong>{{'label.taxType' | translate }}</strong></td>
+				<td>{{taxmapping.taxType}}</td>
+			</tr>
+			<tr>
+				<td><strong>{{'label.rate' | translate }}</strong></td>
+				<td>{{taxmapping.rate}}</td>
+			</tr>
+			<tr>
+				<td><strong>{{'label.startDate' | translate }}</strong></td>
+				<td>{{taxmapping.startDate | DateFormat}}</td>
+			</tr>
+			<tr>
+				<td><strong>{{'label.taxInclusive' | translate }}</strong></td>
+				<td>{{taxmapping.taxInclusive}}</td>
+			</tr>
+		</table>
+	</div>
+	
+</div>
