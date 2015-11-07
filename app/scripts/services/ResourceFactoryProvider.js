@@ -311,7 +311,9 @@
         	  getAlltaxmapping: {method: 'GET', params: {}}
           }),
           
-          taxCalculationResource: defineResource(apiVer + "/loans/tax/:loanId", {}, {update: {method: 'PUT', params: {}}})
+          taxCalculationResource: defineResource(apiVer + "/loans/tax/:loanId", {}, {update: {method: 'PUT', params: {}}}),
+          
+          calculationResource: defineResource(apiVer + "/loans/calculator", {}, {update: {method: 'PUT', params: {}}})
           
         };
       }];

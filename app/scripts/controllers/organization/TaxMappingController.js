@@ -5,6 +5,14 @@
         
         resourceFactory.taxmappingResource.query(function(data) {
             scope.taxmappings = data;
+            for(var i in scope.taxmappings){
+            	
+            	if(scope.taxmappings[i].taxInclusive == 1){
+            		scope.taxmappings[i].taxInclusive = true;
+            	}else{
+            		scope.taxmappings[i].taxInclusive = false;
+            	}
+            }
         });
     }
   });

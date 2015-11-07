@@ -1,0 +1,226 @@
+ <div ng-controller="CalculatorController" >  
+      <div>
+        <ul class="breadcrumb">
+          <li class="active">{{'label.anchor.calculator' | translate}}</li>
+        </ul>
+      </div>
+ <form name="createcalculatorform" novalidate="" class="form-horizontal well" rc-submit="submit()">
+        <api-validate></api-validate>
+        <fieldset>
+          <legend>{{'label.anchor.calculator' | translate}}</legend>
+		<table>
+         <tr><td>
+          <div class="control-group">
+            <label class="control-label" for="productId">{{ 'label.heading.loanproduct' | translate }}&nbsp;<span class="required">*</span></label>
+            <div class="controls">
+              <select id="productId" id="productId" name="productId" ng-model="formData.productId" ng-options="product.id as product.name for product in leaseproducts" value="{{product.id}}" ng-change="leaseProductChange(formData.productId)" required="required">
+                <option style="display:none" value="">{{'label.selectloanproduct' | translate}}</option>
+              </select>
+              <form-validate valattributeform="createcalculatorform" valattribute="productId"/>
+            </div>
+          </div>
+			</td>
+			<td>
+          <div class="control-group">
+            <label class="control-label" for="principal">{{ 'label.calculator.vehicle.cost' | translate }}<span class="required">*</span></label>
+            <div class="controls">
+              <input type="text" id="principal" name="principal" ng-model="formData.principal" required late-Validate/>
+              <form-validate valattributeform="createcalculatorform" valattribute="principal"/>
+            </div>
+          </div>
+          </td>
+          </tr>
+          <tr>
+          <td>
+          <div class="control-group">
+            <label class="control-label" for="costOfFund">{{ 'label.calculator.costOfFund' | translate }}<span class="required">*</span></label>
+            <div class="controls">
+              <input type="text" id="costOfFund" name="costOfFund" ng-model="formData.costOfFund" required late-Validate/>
+              <form-validate valattributeform="createcalculatorform" valattribute="costOfFund"/>
+            </div>
+          </div>
+          </td>
+          <td>
+          <div class="control-group">
+            <label class="control-label" for="maintenance">{{ 'label.calculator.maintenance' | translate }}<span class="required">*</span></label>
+            <div class="controls">
+              <input type="text" id="maintenance" name="maintenance" ng-model="formData.maintenance" required late-Validate/>
+              <form-validate valattributeform="createcalculatorform" valattribute="maintenance"/>
+            </div>
+          </div>
+          </td>
+          </tr>
+          <tr>
+          <td>
+          <div class="control-group">
+            <label class="control-label" for="interest">{{ 'label.calculator.interest' | translate }}<span class="required">*</span></label>
+            <div class="controls">
+              <input type="text" id="interest" name="interest" ng-model="formData.interestRatePerPeriod" required late-Validate/>
+              <form-validate valattributeform="createcalculatorform" valattribute="interest"/>
+            </div>
+          </div>
+          </td>
+          <td>
+          <div class="control-group">
+            <label class="control-label" for="deposite">{{ 'label.calculator.deposite' | translate }}</label>
+            <div class="controls">
+              <input type="text" id="deposite" name="deposite" ng-model="formData.deposite"/>
+            </div>
+          </div>
+       	  </td>
+       	  </tr>
+       	  </table>
+
+          <div class="offset9">
+            <button type="submit" class="btn btn-primary">{{'label.button.calculate'| translate}}</button>
+          </div>
+        </fieldset>
+      </form>
+     <h3 align="center" ng-show="leaseCalculator">{{'label.lease.calculator'| translate}}</h3 >
+     <table class="table" ng-show="leaseCalculator">
+              <thead>
+                <tr>
+                    <th scope="col">{{'label.terms'| translate}}</th>  
+                    <th scope="col" data-ng-repeat="key in keys">{{key}}</th>
+                </tr>
+              </thead>
+              <tbody>
+              <tr>
+              	<td>{{'label.retailprice' | translate}}</td>
+              	<td ng-repeat="retailPrice in retailPrice">{{retailPrice.retailPrice}}</td>
+              </tr>
+              <tr>
+              	<td>{{'label.vatamount' | translate}}</td>
+              	<td ng-repeat="vatAmount in vatAmount">{{vatAmount.vatAmount}}</td>
+              </tr>
+              <tr>
+              	<td>{{'label.purchaseprice' | translate}}</td>
+              	<td ng-repeat="purchasePrice in purchasePrice">{{purchasePrice.purchasePrice}}</td>
+              </tr>
+              <tr>
+              	<td></td>
+              	<td colspan="{{keys.length}}" align="center"><strong>{{'label.cof.maintenancechargesPerYear' | translate}}</strong></td>
+              </tr>
+              <tr>
+              	<td>{{'label.coi' | translate}}</td>
+              	<td ng-repeat="coiForMonth in coiForMonth">{{coiForMonth.coiForMonth}}</td>
+              </tr>
+              <tr>
+              	<td>{{'label.cof' | translate}}</td>
+              	<td ng-repeat="cofForMonth in cofForMonth">{{cofForMonth.cofForMonth}}</td>
+              </tr>
+              <tr>
+              	<td>{{'label.maintenance' | translate}}</td>
+              	<td ng-repeat="maintenanceForMonth in maintenanceForMonth">{{maintenanceForMonth.maintenanceForMonth}}</td>
+              </tr>
+              <tr>
+              	<td>{{'label.deprecisation' | translate}}</td>
+              	<td ng-repeat="deprecisationForMonth in deprecisationForMonth">{{deprecisationForMonth.deprecisationForMonth}}</td>
+              </tr>
+              <tr>
+              	<td>{{'label.margin' | translate}}</td>
+              	<td ng-repeat="margin in margin">{{margin.margin}}</td>
+              </tr>
+              <tr>
+              	<td>{{'label.total' | translate}}</td>
+              	<td ng-repeat="totalForMonth in totalForMonth">{{totalForMonth.totalForMonth}}</td>
+              </tr>
+              <tr>
+              	<td></td>
+              	<td colspan="{{keys.length}}" align="center"><strong>{{'label.totalTermwiseCharges' | translate}}</strong></td>
+              </tr>
+              <tr>
+              	<td>{{'label.coi' | translate}}</td>
+              	<td ng-repeat="coiForYear in coiForYear">{{coiForYear.coiForYear}}</td>
+              </tr>
+              <tr>
+              	<td>{{'label.cof' | translate}}</td>
+              	<td ng-repeat="cofForYear in cofForYear">{{cofForYear.cofForYear}}</td>
+              </tr>
+              <tr>
+              	<td>{{'label.maintenance' | translate}}</td>
+              	<td ng-repeat="maintenanceForYear in maintenanceForYear">{{maintenanceForYear.maintenanceForYear}}</td>
+              </tr>
+              <tr>
+              	<td>{{'label.deprecisation' | translate}}</td>
+              	<td ng-repeat="deprecisationForYear in deprecisationForYear">{{deprecisationForYear.deprecisationForYear}}</td>
+              </tr>
+              <tr>
+              	<td></td>
+              	<td colspan="{{keys.length}}" align="center"><strong>{{'label.totalMaintenanceCharges' | translate}}</strong></td>
+              </tr>
+              <tr>
+              	<td>{{'label.totalW/oMaintenance' | translate}}</td>
+              	<td ng-repeat="totalWOMaintenance in totalWOMaintenance">{{totalWOMaintenance.totalWOMaintenance}}</td>
+              </tr>
+              <tr>
+              	<td>{{'label.totalmaintenance' | translate}}</td>
+              	<td ng-repeat="totalMaintenance in totalMaintenance">{{totalMaintenance.totalMaintenance}}</td>
+              </tr>
+               <tr>
+              	<td></td>
+              	<td colspan="{{keys.length}}" align="center"><strong>{{'label.rate.costMaintenanceChargesperMonth' | translate}}</strong></td>
+              </tr>
+               <tr>
+              	<td>{{'label.rateW/oMaintenance' | translate}}</td>
+              	<td ng-repeat="rateWOMaintenance in rateWOMaintenance">{{rateWOMaintenance.rateWOMaintenance}}</td>
+              </tr>
+              <tr>
+              	<td>{{'label.costW/oMaintenance' | translate}}</td>
+              	<td ng-repeat="costWOMaintenance in costWOMaintenance">{{costWOMaintenance.costWOMaintenance}}</td>
+              </tr>
+              <tr>
+              	<td>{{'label.ratewithmaintenance' | translate}}</td>
+              	<td ng-repeat="rateWithMaintenance in rateWithMaintenance">{{rateWithMaintenance.rateWithMaintenance}}</td>
+              </tr>
+              <tr>
+              	<td></td>
+              	<td colspan="{{keys.length}}" align="center"><strong>{{'label.residualCostPerAnnum' | translate}}</strong></td>
+              </tr>
+              <tr>
+              	<td>{{'label.deprecisation' | translate}}</td>
+              	<td ng-repeat="residualDeprecisation in residualDeprecisation">{{residualDeprecisation.residualDeprecisation}}%</td>
+              </tr>
+              <tr>
+              	<td>{{'label.residualCost(VEP)' | translate}}</td>
+              	<td ng-repeat="residualCost in residualCost">{{residualCost.residualCost}}%</td>
+              </tr>
+              <tr>
+              	<td>{{'label.residualAmount(VEP)' | translate}}</td>
+              	<td ng-repeat="residualAmountVEP in residualAmountVEP">{{residualAmountVEP.residualAmountVEP}}</td>
+              </tr>
+              <tr>
+              	<td>{{'label.residualAmount(VIP)' | translate}}</td>
+              	<td ng-repeat="residualAmountVIP in residualAmountVIP">{{residualAmountVIP.residualAmountVIP}}</td>
+              </tr>
+              <tr>
+              	<td>{{'label.quotew/oMaintaince' | translate}}</td>
+              	<td ng-repeat="quoteWOMaintenance in quoteWOMaintenance">{{quoteWOMaintenance.quoteWOMaintenance}}</td>
+              </tr>
+              <tr>
+              	<td>{{'label.quotewithMaintaince' | translate}}</td>
+              	<td ng-repeat="quoteWMaintenance in quoteWMaintenance">{{quoteWMaintenance.quoteWMaintenance}}</td>
+              </tr>
+              <tr>
+              	<td>{{'label.mileage' | translate}}</td>
+              	<td ng-repeat="mileage in mileage">{{mileage.mileage}}</td>
+              </tr>
+              <tr>
+              	<td>{{'label.excess' | translate}}</td>
+              	<td ng-repeat="excess in excess">{{excess.excess}}</td>
+              </tr>
+              <tr>
+              	<td>{{'label.financialleasepayout' | translate}}</td>
+              	<td ng-repeat="financialleasepayout in financialleasepayout">{{financialleasepayout.financialleasepayout}}</td>
+              </tr>
+              <tr>
+              	<td>{{'label.accountingWDV' | translate}}</td>
+              	<td ng-repeat="accountingWDV in accountingWDV">{{accountingWDV.accountingWDV}}</td>
+              </tr>
+              <tr>
+              	<td>{{'label.taxWDV' | translate}}</td>
+              	<td ng-repeat="taxWDV in taxWDV">{{taxWDV.taxWDV}}</td>
+              </tr>
+              </tbody>
+            </table>
+</div> 
