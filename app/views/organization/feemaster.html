@@ -1,0 +1,53 @@
+<div data-ng-controller="FeeMasterController">
+   <div>
+    <ul class="breadcrumb">
+        <li><a href="#/organization">{{'label.anchor.organization' | translate}}</a> <span class="divider">/</span></li>
+        <li class="active">{{'label.feemaster' | translate}}&nbsp;&nbsp;</li>
+    </ul>
+    </div>
+    <div class="pull-right">
+        <a href="#/createfeemaster" class="btn btn-primary"><i class="icon-plus icon-white"></i> {{ 'label.create.feemaster' | translate }}</a>
+    </div>
+
+  <div class="row-fluid">
+    <input data-ng-model="filterText" type="text" class="span marginbottom0px" placeholder="{{'placeholder.searchbar.feemaster' | translate}}">
+	<table class="table">
+        <thead>
+            <tr class="graybg">
+                <th>{{ 'label.feemaster.code' | translate }}</th>
+                <th>{{ 'label.feemaster.description' | translate }}</th>
+                <th>{{ 'label.feemaster.transactiontype' | translate }}</th>
+                <th>{{ 'label.chargecode' | translate }}</th>
+                <!-- <th>{{ 'label.feemaster.defaultfeeamount' | translate }}</th> -->
+                <th>{{ 'label.heading.actions' | translate }}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr data-ng-repeat="feeMasterData in feeMasterDatas | filter:filterText">
+                <td><a href="#/viewfeemaster/{{feeMasterData.id}}" >{{feeMasterData.feeCode}}</a></td>            
+                <td>{{feeMasterData.feeDescription}}</td>        
+                <td>{{feeMasterData.transactionType}}</td>
+                <td>{{feeMasterData.chargeCode}}</td>
+               <!--  <td class="pointer"  data-ng-click="routeTo(feeMasterData.id)">{{feeMasterData.defaultFeeAmount}}</td> -->
+                <td class="pointer">
+                 <a href="#/editfeemaster/{{feeMasterData.id}}"
+                    data-popover="{{'button.edit' | translate}}" data-popover-trigger="mouseenter" class="icon-edit"></a>&nbsp;
+	             <a data-ng-click="deleteFeeMaster(feeMasterData.id)"
+	                data-popover="{{'button.delete' | translate}}" data-popover-trigger="mouseenter"><i class="icon-remove icon-white"></i></a></td>         
+            </tr>
+        </tbody>
+    </table>
+ </div>
+ <script type="text/ng-template" id="approve.html">
+                    <div class="modal-header silver">
+                        <h3 class="bolder">{{'label.delete.feemaster' | translate}}</h3>
+                    </div>
+                    <div class="modal-body style="height:60px;">
+                       <h4>Are you sure?</h4>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn" ng-click="cancel()">{{'button.cancel' | translate}}</button>
+                        <button class="btn btn-primary" ng-click="approve()">{{'label.confirm' | translate}}</button>
+                    </div>
+      </script>
+</div>

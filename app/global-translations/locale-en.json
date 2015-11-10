@@ -2422,5 +2422,37 @@
     "label.rate.costMaintenanceChargesperMonth":"Rate & Cost Maintenance Charges per Month",
     "label.residualCostPerAnnum":"Residual Cost Per Annum",
     
-    "----------------------": "------------"
+    "----------------------": "------------",
+    
+    "#Fee Master  ":".......",
+	"label.feemaster"  					:  "Fee Master",
+	"label.create.feemaster"  			:  "Create Fee Master",
+	"label.edit.feemaster"  			:  "Edit Fee Master",
+	"label.delete.feemaster"  			:  "Delete Fee Master",
+	"label.feemaster.code"  			:  "Fee Code",
+	"label.feemaster.description"  		:  "Fee Description",
+	"label.feemaster.transactiontype"  	:  "Transaction Type",
+	"label.feemaster.defaultfeeamount" 	:  "Default Fee Amount",
+	"label.feemaster.regionprices" 		:  "Region Prices",
+	"label.feemaster.id" 				:  "Fee Master Id",
+	"label.feemaster.regionid" 			:  "Region Id",
+	"label.feemaster.list.regionprices" :  "List of Region Prices",
+	"label.feemaster.selete.regionname" :  "Select Region Name",
+	"placeholder.searchbar.feemaster" 	:  "Filter by Fee Code",
+	"label.chargecode" 					:  "Charge Code",
+	
+	"validation.msg.feemaster.feeCode.cannot.be.blank"    		 : "Fee Code cannot be blank",
+	"validation.msg.feemaster.feeDescription.cannot.be.blank"    : "Fee Description cannot be blank",
+	"validation.msg.feemaster.transactionType.cannot.be.blank"   : "Transaction Type cannot be blank",
+	"validation.msg.feemaster.chargeCode.cannot.be.blank"  		 : "Charge Code cannot be blank",
+	"validation.msg.feemaster.defaultFeeAmount.cannot.be.blank"  : "Default Fee Amount cannot be blank",
+	"error.msg.feemaster.regional.price.not.found":"No Regional Price found for this Service Transfer",
+	"validation.msg.feemaster.regionPrices.not.greater.than.zero" :"Please add atleast one region price",
+	"label.pgconfig.editconfig":"Edit Configurations",
+	"label.form.module":"Module",
+	
+	"error.msg.fee.transaction.alredy.exists":"A Fee with this transaction already exists,Please Update it",
+	"error.msg.active.plans.found.for.client":"Actvie plans found for this serial Number `{{params[0].value}}`",
+	
+	"----------------------": "------------"
 }
