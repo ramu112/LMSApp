@@ -512,6 +512,9 @@
       })
       .when('/viewtaxmapping/:id',{
     	  templateUrl: 'views/organization/viewtaxmapping.html'
+      })
+      .when('/calculator',{
+    	  templateUrl: 'views/calculator/calculator.html'
       });
     $locationProvider.html5Mode(false);
   };
