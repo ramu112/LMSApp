@@ -2387,7 +2387,7 @@
     "label.calculator.costOfFund":"COF",
     "label.calculator.maintenance":"Maintenance",
     "label.calculator.interest":"Interest Rate",
-    "label.calculator.deposite":"Deposite",
+    "label.calculator.deposit":"Deposit",
     "label.button.calculate":"Calculate",
     "label.lease.calculator":"Lease Calculator",
     "label.terms":"Terms",
@@ -2415,6 +2415,8 @@
     "label.accountingWDV":"Accounting WDV",
     "label.taxWDV":"Tax WDV",
     "label.total":"Total",
+    "label.calculator.terms":"Terms",
+    "label.button.download":"Download",
     
     "label.cof.maintenancechargesPerYear":"COF & Maintenance charges Per Year",
     "label.totalTermwiseCharges":"Total Term wise Charges",

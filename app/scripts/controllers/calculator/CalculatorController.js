@@ -1,13 +1,16 @@
 (function(module) {
   mifosX.controllers = _.extend(module, {
-	  CalculatorController: function(scope, resourceFactory, location) {
+	  CalculatorController: function(scope, resourceFactory, location,$http,$rootScope,API_VERSION) {
 		  
 		  scope.formData = {};
 		  scope.leaseproducts = [];
 		  scope.leaseCalculator = false;
+		  scope.termsData = [{value : 12},{value : 24},{value : 36},{value : 48},{value : 60},{value : 90}];
+		  scope.terms = 60;
         resourceFactory.loanProductResource.getAllLoanProducts(function(data) {
             scope.leaseproducts = data;
         });
+        
         
         scope.leaseProductChange = function(id){
         	delete scope.formData.vehicleCost;
@@ -15,13 +18,14 @@
         	resourceFactory.loanProductResource.get({loanProductId : id, template:'true'}, function(data) {
         		scope.formData.principal = data.principal;
         		scope.formData.interestRatePerPeriod = data.interestRatePerPeriod;
+        		scope.formData.deposit = 0;
         		scope.charges = data.charges;
         		for(var i in scope.charges){
         			if(scope.charges[i].name == 'COF'){
-        				scope.formData.costOfFund = scope.charges[i].amount; 
+        				scope.formData.costOfFund = (scope.charges[i].amount*12).toFixed(2); 
         			}
         			if(scope.charges[i].name == 'Maintenance charge'){
-        				scope.formData.maintenance = scope.charges[i].amount; 
+        				scope.formData.maintenance = (scope.charges[i].amount*12).toFixed(2); 
         			}
         		}
         	});
@@ -30,7 +34,16 @@
         scope.submit = function() {  
         	
             scope.formData.locale='en'; 
-            scope.formData.payTerms = ["12","24","36","48","60","90"];
+            scope.formData.payTerms = [];
+            
+            for(var i in scope.termsData){
+            	
+              if(scope.termsData[i].value <= scope.terms){
+            	scope.formData.payTerms.push(scope.termsData[i].value);
+              }
+            }
+                        
+            /*scope.formData.payTerms = ["12","24","36","48","60","90"];*/
 
             resourceFactory.calculationResource.save(scope.formData,function(data){
             	scope.leaseCalculator = true;
@@ -39,26 +52,26 @@
             	scope.retailPrice = [];
             	scope.vatAmount = [];
             	scope.purchasePrice = [];
-            	scope.coiForMonth = [];
-            	scope.cofForMonth = [];
-            	scope.maintenanceForMonth = [];
-            	scope.deprecisationForMonth = [];
-            	scope.margin = [];
-            	scope.totalForMonth = [];
             	scope.coiForYear = [];
             	scope.cofForYear = [];
             	scope.maintenanceForYear = [];
             	scope.deprecisationForYear = [];
-            	scope.totalWOMaintenance = [];
+            	scope.margin = [];
+            	scope.totalForYear = [];
+            	scope.coi = [];
+            	scope.cof = [];
+            	scope.maintenance = [];
+            	scope.deprecisation = [];
+            	scope.totalWithOutMaintenance = [];
             	scope.totalMaintenance = [];
-            	scope.rateWOMaintenance = [];
-            	scope.costWOMaintenance = [];
+            	scope.rateWithOutMaintenance = [];
+            	scope.costWithOutMaintenance = [];
             	scope.rateWithMaintenance = [];
             	scope.residualDeprecisation = [];
             	scope.residualCost = [];
             	scope.residualAmountVEP = [];
             	scope.residualAmountVIP = [];
-            	scope.quoteWOMaintenance = [];
+            	scope.quoteWithOutMaintenance = [];
             	scope.quoteWMaintenance = [];
             	scope.mileage = [];
             	scope.excess = [];
@@ -71,26 +84,26 @@
             		scope.retailPrice.push({"retailPrice":Math.round(scope.calculationData[i].retailPrice)});
             		scope.vatAmount.push({"vatAmount":(scope.calculationData[i].vatAmount).toFixed(2)});
             		scope.purchasePrice.push({"purchasePrice":(scope.calculationData[i].purchasePrice).toFixed(2)});
-            		scope.coiForMonth.push({"coiForMonth":(scope.calculationData[i].coiForMonth).toFixed(2)});
-            		scope.cofForMonth.push({"cofForMonth":(scope.calculationData[i].cofForMonth).toFixed(2)});
-            		scope.maintenanceForMonth.push({"maintenanceForMonth":(scope.calculationData[i].maintenanceForMonth).toFixed(2)});
-            		scope.deprecisationForMonth.push({"deprecisationForMonth":Math.round(scope.calculationData[i].deprecisationForMonth)});
-            		scope.margin.push({"margin":""});
-            		scope.totalForMonth.push({"totalForMonth":(scope.calculationData[i].totalForMonth).toFixed(2)});
             		scope.coiForYear.push({"coiForYear":(scope.calculationData[i].coiForYear).toFixed(2)});
             		scope.cofForYear.push({"cofForYear":(scope.calculationData[i].cofForYear).toFixed(2)});
             		scope.maintenanceForYear.push({"maintenanceForYear":(scope.calculationData[i].maintenanceForYear).toFixed(2)});
-            		scope.deprecisationForYear.push({"deprecisationForYear":(scope.calculationData[i].deprecisationForYear).toFixed(2)});
-            		scope.totalWOMaintenance.push({"totalWOMaintenance":(scope.calculationData[i].totalWOMaintenance).toFixed(2)});
+            		scope.deprecisationForYear.push({"deprecisationForYear":Math.round(scope.calculationData[i].deprecisationForYear)});
+            		scope.margin.push({"margin":""});
+            		scope.totalForYear.push({"totalForYear":(scope.calculationData[i].totalForYear).toFixed(2)});
+            		scope.coi.push({"coi":(scope.calculationData[i].coi).toFixed(2)});
+            		scope.cof.push({"cof":(scope.calculationData[i].cof).toFixed(2)});
+            		scope.maintenance.push({"maintenance":(scope.calculationData[i].maintenance).toFixed(2)});
+            		scope.deprecisation.push({"deprecisation":(scope.calculationData[i].deprecisation).toFixed(2)});
+            		scope.totalWithOutMaintenance.push({"totalWithOutMaintenance":(scope.calculationData[i].totalWithOutMaintenance).toFixed(2)});
             		scope.totalMaintenance.push({"totalMaintenance":(scope.calculationData[i].totalMaintenance).toFixed(2)});
-            		scope.rateWOMaintenance.push({"rateWOMaintenance":(scope.calculationData[i].rateWOMaintenance).toFixed(2)});
-            		scope.costWOMaintenance.push({"costWOMaintenance":(scope.calculationData[i].costWOMaintenance).toFixed(2)});
+            		scope.rateWithOutMaintenance.push({"rateWithOutMaintenance":(scope.calculationData[i].rateWithOutMaintenance).toFixed(2)});
+            		scope.costWithOutMaintenance.push({"costWithOutMaintenance":(scope.calculationData[i].costWithOutMaintenance).toFixed(2)});
             		scope.rateWithMaintenance.push({"rateWithMaintenance":(scope.calculationData[i].rateWithMaintenance).toFixed(2)});
             		scope.residualDeprecisation.push({"residualDeprecisation":Math.round(scope.calculationData[i].residualDeprecisation*100)});
             		scope.residualCost.push({"residualCost":Math.round(scope.calculationData[i].residualCost*100)});
             		scope.residualAmountVEP.push({"residualAmountVEP":Math.round(scope.calculationData[i].residualAmountVEP)});
             		scope.residualAmountVIP.push({"residualAmountVIP":Math.round(scope.calculationData[i].residualAmountVIP)});
-            		scope.quoteWOMaintenance.push({"quoteWOMaintenance":Math.round(scope.calculationData[i].quoteWOMaintenance)});
+            		scope.quoteWithOutMaintenance.push({"quoteWithOutMaintenance":Math.round(scope.calculationData[i].quoteWithOutMaintenance)});
             		scope.quoteWMaintenance.push({"quoteWMaintenance":Math.round(scope.calculationData[i].quoteWMaintenance)});
             		scope.mileage.push({"mileage":""});
             		scope.excess.push({"excess":0.39});
@@ -99,34 +112,37 @@
             		scope.taxWDV.push({"taxWDV":Math.round(scope.calculationData[i].taxWDV)});
             	}
             	
-            	/*for(i in scope.calculationData){
-            		
-            		var key = i;
-            		var val = scope.calculationData[i];
-            		for(j in val){
-            			
-            			var sub_key = j;
-            			var sub_val = val[j];
-            			if(i==0){
-            				var obj = {};
-         				   	obj[sub_key] = [sub_val];
-            				scope.leaseCalcutaionsArray.push(obj);
-            			}else{
-            				for(var k in scope.leaseCalcutaionsArray){
-            					if(typeof(scope.leaseCalcutaionsArray[k][sub_key]) == 'object')
-            						scope.leaseCalcutaionsArray[k][sub_key].push(sub_val);
-            				}
-            			}
-            			
-            		}
-            		
-            	}*/
-            	
             });
         };
+        
+        scope.residualChange = function(val){
+        	if(val && val != ""){
+        		var index  = scope.deprecisationForYear.length-1;
+        		
+        		scope.totalForYear[index].totalForYear -= scope.deprecisationForYear[index].deprecisationForYear;
+        		scope.deprecisationForYear[index].deprecisationForYear = Math.round((scope.purchasePrice[0].purchasePrice * val)/100);
+        		
+        		scope.totalForYear[index].totalForYear = (scope.totalForYear[index].totalForYear + scope.deprecisationForYear[index].deprecisationForYear).toFixed(2);
+        		
+        		var pos = scope.deprecisation.length-1;var termPos = scope.formData.payTerms.length-1;
+        		scope.deprecisation[pos].deprecisation = ((scope.deprecisationForYear[index].deprecisationForYear)*
+        														(scope.formData.payTerms[termPos]/12)).toFixed(2);
+        	}
+        }
+        
+        scope.downloadFile = function (){
+            
+           // window.open($rootScope.hostUrl+ API_VERSION +'/loans/printlsrdoc/'+routeParams.loanId+'?tenantIdentifier=default');
+        	
+        	resourceFactory.calculationExportResource.save(scope.formData,function(data){
+        		data = angular.fromJson(angular.toJson(data));
+        		var fileName = data.fileName;
+        		window.open($rootScope.hostUrl+ API_VERSION +'/loans/calculator/export?tenantIdentifier=default&file='+fileName);
+        	});
+       };
     }
   });
-  mifosX.ng.application.controller('CalculatorController', ['$scope', 'ResourceFactory', '$location', mifosX.controllers.CalculatorController]).run(function($log) {
+  mifosX.ng.application.controller('CalculatorController', ['$scope', 'ResourceFactory', '$location','$http','$rootScope','API_VERSION', mifosX.controllers.CalculatorController]).run(function($log) {
     $log.info("CalculatorController initialized");
   });
 }(mifosX.controllers || {}));
