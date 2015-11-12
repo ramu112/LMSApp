@@ -35,7 +35,8 @@
           <div class="control-group">
             <label class="control-label" for="costOfFund">{{ 'label.calculator.costOfFund' | translate }}<span class="required">*</span></label>
             <div class="controls">
-              <input type="text" id="costOfFund" name="costOfFund" ng-model="formData.costOfFund" required late-Validate/>
+              <input type="text" id="costOfFund" name="costOfFund" ng-model="formData.costOfFund" class="input-small" required late-Validate/>
+              <span><img alt="" src="./images/slash.jpg" width="18px">Year</span>
               <form-validate valattributeform="createcalculatorform" valattribute="costOfFund"/>
             </div>
           </div>
@@ -44,7 +45,8 @@
           <div class="control-group">
             <label class="control-label" for="maintenance">{{ 'label.calculator.maintenance' | translate }}<span class="required">*</span></label>
             <div class="controls">
-              <input type="text" id="maintenance" name="maintenance" ng-model="formData.maintenance" required late-Validate/>
+              <input type="text" id="maintenance" name="maintenance" ng-model="formData.maintenance" class="input-small" required late-Validate/>
+              <span><img alt="" src="./images/slash.jpg" width="18px">Year</span>
               <form-validate valattributeform="createcalculatorform" valattribute="maintenance"/>
             </div>
           </div>
@@ -74,12 +76,39 @@
           <div class="control-group">
             <label class="control-label" for="terms">{{ 'label.calculator.terms' | translate }}</label>
             <div class="controls">
-              <select id="terms" data-ng-model="terms" name="terms" 
+              <input type="text" id="terms" name="terms" ng-model="terms" class="input-small"/>
+              <!-- <select id="terms" data-ng-model="terms" name="terms" 
               	data-ng-options="termsData.value as termsData.value for termsData in termsData">
-              </select>
+              </select> -->
             </div>
           </div>
        	  </td>
+       	  <td>
+       	    <div class="control-group">
+	            <label class="control-label" for="mileage">{{ 'label.calculator.mileage' | translate }}</label>
+	            <div class="controls">
+	              <input type="text" id="mileage" name="mileage" ng-model="formData.mileage" />
+	            </div>
+          	</div>
+       	  </td>
+       	  </tr>
+       	  <tr>
+       	    <td>
+       	      <div class="control-group">
+	            <label class="control-label" for="excess">{{ 'label.calculator.excess' | translate }}</label>
+	            <div class="controls">
+	              <input type="text" id="excess" name="excess" ng-model="formData.excess"/>
+	            </div>
+          	  </div>
+       	    </td>
+       	    <td>
+       	      <div class="control-group">
+	            <label class="control-label" for="flpayout">{{ 'label.calculator.flpayout' | translate }}</label>
+	            <div class="controls">
+	              <input type="text" id="flpayout" name="flpayout" ng-model="formData.FLPForYear"/>
+	            </div>
+          	  </div>
+       	    </td>
        	  </tr>
        	  </table>
 
@@ -193,8 +222,8 @@
               <tr>
               	<td>{{'label.deprecisation' | translate}}</td>
               	<td ng-repeat="residualDeprecisation in residualDeprecisation">
-              			<span ng-hide="$last">{{residualDeprecisation.residualDeprecisation}}</span>
-              			<input ng-show="$last" type="text" class="input-small" ng-model="residualDeprecisation.residualDeprecisation" ng-change="residualChange(residualDeprecisation.residualDeprecisation)"/>%
+              			 <span ng-hide="$last">{{residualDeprecisation.residualDeprecisation}}</span>
+              			<input type="text" ng-show="$last" class="input-small" ng-model="residualDeprecisation.residualDeprecisation" ng-change="residualChange(residualDeprecisation.residualDeprecisation)"/>%
               	</td>
               </tr>
               <tr>
@@ -215,7 +244,7 @@
               </tr>
               <tr>
               	<td>{{'label.quotewithMaintaince' | translate}}</td>
-              	<td ng-repeat="quoteWMaintenance in quoteWMaintenance">{{quoteWMaintenance.quoteWMaintenance}}</td>
+              	<td ng-repeat="quoteWithMaintenance in quoteWithMaintenance">{{quoteWithMaintenance.quoteWithMaintenance}}</td>
               </tr>
               <tr>
               	<td>{{'label.mileage' | translate}}</td>
@@ -227,7 +256,11 @@
               </tr>
               <tr>
               	<td>{{'label.financialleasepayout' | translate}}</td>
-              	<td ng-repeat="financialleasepayout in financialleasepayout">{{financialleasepayout.financialleasepayout}}</td>
+              	<td ng-repeat="financialLeasePayoutForYear in financialLeasePayoutForYear">{{financialLeasePayoutForYear.financialLeasePayoutForYear}}</td>
+              </tr>
+              <tr>
+              	<td>{{'label.financialleasepayout' | translate}}</td>
+              	<td ng-repeat="financialLeasePayout in financialLeasePayout">{{financialLeasePayout.financialLeasePayout}}</td>
               </tr>
               <tr>
               	<td>{{'label.accountingWDV' | translate}}</td>

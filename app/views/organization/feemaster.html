@@ -17,8 +17,7 @@
                 <th>{{ 'label.feemaster.code' | translate }}</th>
                 <th>{{ 'label.feemaster.description' | translate }}</th>
                 <th>{{ 'label.feemaster.transactiontype' | translate }}</th>
-                <th>{{ 'label.chargecode' | translate }}</th>
-                <!-- <th>{{ 'label.feemaster.defaultfeeamount' | translate }}</th> -->
+                <th>{{ 'label.feemaster.defaultfeeamount' | translate }}</th>
                 <th>{{ 'label.heading.actions' | translate }}</th>
             </tr>
         </thead>
@@ -27,8 +26,7 @@
                 <td><a href="#/viewfeemaster/{{feeMasterData.id}}" >{{feeMasterData.feeCode}}</a></td>            
                 <td>{{feeMasterData.feeDescription}}</td>        
                 <td>{{feeMasterData.transactionType}}</td>
-                <td>{{feeMasterData.chargeCode}}</td>
-               <!--  <td class="pointer"  data-ng-click="routeTo(feeMasterData.id)">{{feeMasterData.defaultFeeAmount}}</td> -->
+                <td>{{feeMasterData.defaultFeeAmount}}</td>
                 <td class="pointer">
                  <a href="#/editfeemaster/{{feeMasterData.id}}"
                     data-popover="{{'button.edit' | translate}}" data-popover-trigger="mouseenter" class="icon-edit"></a>&nbsp;

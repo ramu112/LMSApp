@@ -2416,6 +2416,9 @@
     "label.taxWDV":"Tax WDV",
     "label.total":"Total",
     "label.calculator.terms":"Terms",
+    "label.calculator.mileage":"Mileage",
+    "label.calculator.excess":"Excess",
+    "label.calculator.flpayout":"FINANCIAL LEASE PAYOUT",
     "label.button.download":"Download",
     
     "label.cof.maintenancechargesPerYear":"COF & Maintenance charges Per Year",

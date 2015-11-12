@@ -5,8 +5,7 @@
 		  scope.formData = {};
 		  scope.leaseproducts = [];
 		  scope.leaseCalculator = false;
-		  scope.termsData = [{value : 12},{value : 24},{value : 36},{value : 48},{value : 60},{value : 90}];
-		  scope.terms = 60;
+		  /*scope.termsData = [{value : 12},{value : 24},{value : 36},{value : 48},{value : 60},{value : 72},{value : 84},{value : 90},{value : 96}];*/
         resourceFactory.loanProductResource.getAllLoanProducts(function(data) {
             scope.leaseproducts = data;
         });
@@ -19,6 +18,10 @@
         		scope.formData.principal = data.principal;
         		scope.formData.interestRatePerPeriod = data.interestRatePerPeriod;
         		scope.formData.deposit = 0;
+        		scope.formData.mileage = 2500;
+        		scope.formData.excess = 0.39;
+        		scope.formData.FLPForYear = 500;
+        		scope.terms = data.numberOfRepayments;
         		scope.charges = data.charges;
         		for(var i in scope.charges){
         			if(scope.charges[i].name == 'COF'){
@@ -36,15 +39,21 @@
             scope.formData.locale='en'; 
             scope.formData.payTerms = [];
             
-            for(var i in scope.termsData){
-            	
-              if(scope.termsData[i].value <= scope.terms){
-            	scope.formData.payTerms.push(scope.termsData[i].value);
-              }
-            }
-                        
-            /*scope.formData.payTerms = ["12","24","36","48","60","90"];*/
-
+        	if(scope.terms % 12 == 0){
+        		var num = scope.terms / 12;
+        		for(var i=1;i<=num;i++){
+        			scope.formData.payTerms.push(i*12);
+        		}
+        	}else{
+        		var remainder = scope.terms % 12;
+        		var val = scope.terms - remainder;
+        		var num = val / 12;
+        		for(var i=1;i<=num;i++){
+        			scope.formData.payTerms.push(i*12);
+        		}
+        		scope.formData.payTerms.push(scope.terms);
+        	}
+            
             resourceFactory.calculationResource.save(scope.formData,function(data){
             	scope.leaseCalculator = true;
             	scope.calculationData = data.payTerms || [];
@@ -72,10 +81,11 @@
             	scope.residualAmountVEP = [];
             	scope.residualAmountVIP = [];
             	scope.quoteWithOutMaintenance = [];
-            	scope.quoteWMaintenance = [];
+            	scope.quoteWithMaintenance = [];
             	scope.mileage = [];
             	scope.excess = [];
-            	scope.financialleasepayout = [];
+            	scope.financialLeasePayoutForYear = [];
+            	scope.financialLeasePayout = [];
             	scope.accountingWDV = [];
             	scope.taxWDV = [];
             	
@@ -104,10 +114,11 @@
             		scope.residualAmountVEP.push({"residualAmountVEP":Math.round(scope.calculationData[i].residualAmountVEP)});
             		scope.residualAmountVIP.push({"residualAmountVIP":Math.round(scope.calculationData[i].residualAmountVIP)});
             		scope.quoteWithOutMaintenance.push({"quoteWithOutMaintenance":Math.round(scope.calculationData[i].quoteWithOutMaintenance)});
-            		scope.quoteWMaintenance.push({"quoteWMaintenance":Math.round(scope.calculationData[i].quoteWMaintenance)});
-            		scope.mileage.push({"mileage":""});
-            		scope.excess.push({"excess":0.39});
-            		scope.financialleasepayout.push({"financialleasepayout":""});
+            		scope.quoteWithMaintenance.push({"quoteWithMaintenance":Math.round(scope.calculationData[i].quoteWithMaintenance)});
+            		scope.mileage.push({"mileage":Math.round(scope.calculationData[i].mileage)});
+            		scope.excess.push({"excess":scope.calculationData[i].excess});
+            		scope.financialLeasePayoutForYear.push({"financialLeasePayoutForYear":scope.calculationData[i].financialLeasePayoutForYear});
+            		scope.financialLeasePayout.push({"financialLeasePayout":(scope.calculationData[i].financialLeasePayout).toFixed(2)});
             		scope.accountingWDV.push({"accountingWDV":Math.round(scope.calculationData[i].accountWDV)});
             		scope.taxWDV.push({"taxWDV":Math.round(scope.calculationData[i].taxWDV)});
             	}
@@ -133,8 +144,14 @@
         scope.downloadFile = function (){
             
            // window.open($rootScope.hostUrl+ API_VERSION +'/loans/printlsrdoc/'+routeParams.loanId+'?tenantIdentifier=default');
-        	
-        	resourceFactory.calculationExportResource.save(scope.formData,function(data){
+          var jsonData = scope.formData;
+          jsonData.deprecisationArray = [];
+          for(var i in scope.residualDeprecisation){
+        	  jsonData.deprecisationArray.push({key : scope.keys[i],value : scope.residualDeprecisation[i].residualDeprecisation,locale:"en"});
+          }
+          
+          console.log(jsonData);
+        	resourceFactory.calculationExportResource.save(jsonData,function(data){
         		data = angular.fromJson(angular.toJson(data));
         		var fileName = data.fileName;
         		window.open($rootScope.hostUrl+ API_VERSION +'/loans/calculator/export?tenantIdentifier=default&file='+fileName);

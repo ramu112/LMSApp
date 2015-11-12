@@ -1,38 +1,23 @@
 (function(module) {
   mifosX.controllers = _.extend(module, {
-	  ViewFeeMasterController: function(scope, routeParams , location,resourceFactory ,PermissionService,$modal) {
-        scope.PermissionService = PermissionService;
+	  ViewFeeMasterController: function(scope, routeParams , location,resourceFactory ,$modal) {
         
-        scope.feeMasterData = [],scope.regionDatas = [],scope.feeMasterRegionPricesDatas = [],scope.availbleRegions = [];
+        scope.feeMasterData = [];
         resourceFactory.feeMasterResource.get({id: routeParams.id} , function(data) {
             scope.feeMasterData = data.feeMasterData;
-            scope.regionDatas = data.regionDatas;
-            scope.feeMasterRegionPricesDatas = data.feeMasterRegionPricesDatas;
             
-            for(var i in scope.feeMasterRegionPricesDatas){
-            	for(var j in  scope.regionDatas){
-            		if(scope.regionDatas[j].id == scope.feeMasterRegionPricesDatas[i].regionId){
-            			scope.availbleRegions.push({
-            										"amount" : scope.feeMasterRegionPricesDatas[i].amount,
-            										"regionName" : scope.regionDatas[j].regionName,
-            			});
-            			break;
-            		}
-            	}
-            }
-           
         });
 
         scope.deleteFeeMaster = function (){
         	 $modal.open({
-	                templateUrl: 'approve.html',
-	                controller: approveCtrl,
+	                templateUrl: 'delete.html',
+	                controller: deleteCtrl,
 	                resolve:{}
 	            });
         };
         
-    	function  approveCtrl($scope, $modalInstance) {
-    		$scope.approve = function () {
+    	function  deleteCtrl($scope, $modalInstance) {
+    		$scope.delete = function () {
             	resourceFactory.feeMasterResource.remove({id: routeParams.id} , {} , function() {
             	  $modalInstance.dismiss('delete');
                   location.path('/feemaster');
@@ -49,7 +34,6 @@
     '$routeParams', 
     '$location',
     'ResourceFactory',
-    'PermissionService',
     '$modal',
     mifosX.controllers.ViewFeeMasterController]).run(function($log) {
     $log.info("ViewFeeMasterController initialized");

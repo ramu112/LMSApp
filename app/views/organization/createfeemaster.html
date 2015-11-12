@@ -6,7 +6,7 @@
       <li class="active">{{'label.create.feemaster' | translate}}</li>
     </ul>
   </div>
-      <form name="createfeemasterform" novalidate class="form-horizontal well"  data-ng-submit="submit()">
+      <form name="createfeemasterform" novalidate class="form-horizontal well"  rc-submit="submit()">
        <api-validate></api-validate>
         <fieldset>
           <legend>{{'label.create.feemaster' | translate}}</legend>
@@ -16,15 +16,8 @@
 				   <div class="control-group">
             		 <label class="control-label" for="feeCode">{{'label.feemaster.code' | translate }}&nbsp;<span class="required">*</span></label>
             		   <div class="controls">
-              			<input type="text" id="feeCode" name="feeCode" data-ng-model="formData.feeCode" required data-ng-maxlength="10"  data-late-Validate><br/>
-              			  <span data-ng-show = "createfeemasterform.feeCode.$invalid">
-	              			<small class="error" data-ng-show="createfeemasterform.feeCode.$error.req">
-		                      {{'label.required.field' | translate}}
-		                    </small>
-              				<small class="error"  data-ng-show="createfeemasterform.feeCode.$error.maxlength">
-              						{{'error.code.definition.length.validation'| translate}}
-              				</small>
-		                  </span>
+              			<input type="text" id="feeCode" name="feeCode" data-ng-model="formData.feeCode" required maxlength="10"  ><br/>
+              				<form-validate valattributeform="createfeemasterform" valattribute="feeCode"/>
             		   </div>
           		     </div>
 				</td>
@@ -32,12 +25,8 @@
 					<div class="control-group">
            				<label class="control-label" for="feeDescription">{{'label.feemaster.description' | translate }}&nbsp;<span class="required">*</span></label>
            				<div class="controls">
-             				<input type="text" id="feeDescription" name="feeDescription" data-ng-model="formData.feeDescription"  required data-late-Validate><br/>
-             				<span data-ng-show = "createfeemasterform.feeDescription.$invalid">
-		              			<small class="error" data-ng-show="createfeemasterform.feeDescription.$error.req">
-			                      {{'label.required.field' | translate}}
-			                    </small>
-              				</span>
+             				<input type="text" id="feeDescription" name="feeDescription" data-ng-model="formData.feeDescription"  required ><br/>
+             				<form-validate valattributeform="createfeemasterform" valattribute="feeDescription"/>
            				</div>
          			</div>
 				</td>
@@ -48,55 +37,58 @@
            	 			<label class="control-label" for="transactionType">{{'label.feemaster.transactiontype' | translate }}&nbsp;<span class="required">*</span></label>
             			<div class="controls">
               				<select id="transactionType" data-ng-model="formData.transactionType" name="transactionType" 
-              				 	data-ng-options="transactionTypeData.mCodeValue as transactionTypeData.mCodeValue for transactionTypeData in transactionTypeDatas"  required data-late-Validate>
-              				</select><br/>
-              				<span data-ng-show = "createfeemasterform.transactionType.$invalid">
-		              			<small class="error" data-ng-show="createfeemasterform.transactionType.$error.req">
-			                      {{'label.required.field' | translate}}
-			                    </small>
-              				</span>
+              				 	data-ng-options="transactionTypeData.mCodeValue as transactionTypeData.mCodeValue for transactionTypeData in transactionTypeDatas"  required>
+              				 	<option value="">{{'label.selectone' | translate}}</option>
+              				</select>
+              				<form-validate valattributeform="createfeemasterform" valattribute="transactionType"/>
             			</div>
           			</div>
 				</td>
 				<td valign="top">
 				  <div class="control-group">
-            		<label class="control-label" for="chargeCode">{{'label.chargecode' | translate }}&nbsp;<span class="required">*</span></label>
-            		<div class="controls">
-              			<select id="chargeCode" name="chargeCode" data-ng-model="formData.chargeCode"  data-ng-options="chargesData.chargeCode as chargesData.chargeDescription for chargesData in chargeDatas"   required data-late-Validate>
-              			</select><br/>
-              			<span data-ng-show = "createfeemasterform.chargeCode.$invalid">
-	              			<small class="error" data-ng-show="createfeemasterform.chargeCode.$error.req">
-		                      {{'label.required.field' | translate}}
-		                    </small>
-             			</span>
-            		</div>
-          		  </div>
+                    <label class="control-label">{{'label.input.chargetimetype' | translate}}<span class="required">*</span></label>
+                    <div class="controls">
+                        <select id="chargeTimeType" name="chargetimetype" ng-model="formData.chargeTimeType"  ng-options="timetype.id as timetype.value for timetype in chargeTimeTypeOptions" value="{{timetype.id}}" required>
+                          <option value="">{{'label.selectone' | translate}}</option>
+                        </select>
+                        <form-validate valattributeform="createfeemasterform" valattribute="chargetimetype"/>
+                    </div>
+                </div>
 				</td>
 			</tr>
 			<tr>
-				<td colspan="2" valign="top">
-					<div class="control-group">
-	         		   <label class="control-label" for="defaultFeeAmount ">{{'label.feemaster.defaultfeeamount' | translate }}&nbsp;<span class="required">*</span></label>
-	         		   <div class="controls">
-	           				<input type="text" id="defaultFeeAmount" name="defaultFeeAmount" data-ng-model="formData.defaultFeeAmount" required data-late-Validate><br/>
-           					<span data-ng-show = "createfeemasterform.defaultFeeAmount.$invalid">
-		              			<small class="error" data-ng-show="createfeemasterform.defaultFeeAmount.$error.req">
-			                      {{'label.required.field' | translate}}
-			                    </small>
-	           					<small class="error" data-ng-show="createfeemasterform.defaultFeeAmount.$error.pattern&&!createfeemasterform.defaultFeeAmount.$error.req">
-	           						{{'error.not.decimal.validation'| translate}}
-	           					</small>
-	             			</span>
-	         			</div>
-	        		</div>
-				</td> 
+			  <td valign="top">
+			  	<div class="control-group">
+                    <label class="control-label">{{'label.input.chargecalculation' | translate}}<span class="required">*</span></label>
+                    <div class="controls">
+                        <select id="chargeCalculationType" name="chargecalculation" ng-model="formData.chargeCalculationType"  ng-options="chargecalculation.id as chargecalculation.value for chargecalculation in chargeCalculationTypeOptions" value="{{chargecalculation.id}}" required>
+                          <option value="">{{'label.selectone' | translate}}</option>
+                        </select>
+                        <form-validate valattributeform="createfeemasterform" valattribute="chargecalculation"/>
+                    </div>
+                </div>
+			  </td>
+			  <td valign="top">
+				<div class="control-group">
+        		   <label class="control-label" for="defaultFeeAmount ">{{'label.feemaster.defaultfeeamount' | translate }}&nbsp;<span class="required">*</span></label>
+        		   <div class="controls">
+          				<input type="text" id="defaultFeeAmount" name="defaultFeeAmount" data-ng-model="formData.defaultFeeAmount" required><br/>
+         					<form-validate valattributeform="createfeemasterform" valattribute="defaultFeeAmount"/>
+        			</div>
+       			</div>
+			  </td>
+			</tr>
+			<tr>
+			  <td></td>
+			  <td>
+				<div class="pull-right">
+		          <a href="#/feemaster"><button id="cancel" type="reset" class="btn" >{{'label.button.cancel'| translate}}</button></a>
+		          <button id="submit" type="submit" class="btn btn-primary"  >{{'label.button.save'| translate}}</button>
+		       	</div>	
+			  </td>
 			</tr>
 		</table>
      </fieldset>
-		<div class="offset8">
-          <a href="#/feemaster"><button id="cancel" type="reset" class="btn" >{{'label.button.cancel'| translate}}</button></a>
-          <button id="submit" type="submit" class="btn btn-primary"  >{{'label.button.save'| translate}}</button>
-       	</div>	
   </form>
  </div>
  
