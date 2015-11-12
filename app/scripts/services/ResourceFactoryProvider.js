@@ -313,7 +313,13 @@
           
           taxCalculationResource: defineResource(apiVer + "/loans/tax/:loanId", {}, {update: {method: 'PUT', params: {}}}),
           
-          calculationResource: defineResource(apiVer + "/loans/calculator", {}, {update: {method: 'PUT', params: {}}})
+          calculationResource: defineResource(apiVer + "/loans/calculator", {}, {update: {method: 'PUT', params: {}}}),
+          
+          calculationExportResource: defineResource(apiVer + "/loans/calculator/export", {}, {update: {method: 'PUT', params: {}}}),
+          
+          feeMasterResource: defineResource(apiVer + "/feemaster/:id", {id:'@id'},{update: { method: 'PUT' }}),
+          
+          feeMasterTemplateResource: defineResource(apiVer + "/feemaster/template", {},{})
           
         };
       }];
