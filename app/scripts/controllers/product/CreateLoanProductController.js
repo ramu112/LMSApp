@@ -14,6 +14,7 @@
         scope.irFlag = false;
         scope.chargeFlag = false;
         scope.taxFlag = false;
+        scope.depositFlag = false;
         scope.frFlag = false;
         scope.fiFlag = false;
         scope.piFlag = false;
@@ -88,8 +89,24 @@
         			data.taxId = data.id;
         			data.taxInclusive = data.taxInclusive == 1 ? true :false;
         			scope.taxesArray.push(data);
-        			//to charge select box empty
+        			//to taxes select box empty
         			scope.taxId = '';
+        		});
+        	}
+        };
+        
+        scope.depositArray = [];
+        scope.depositSelected = function(depositId) {
+        	
+        	if (depositId) {
+        		scope.depositFlag=true;
+        		resourceFactory.feeMasterResource.get({id: depositId} , function(data) {
+                    var feeMasterData = data.feeMasterData;
+                    
+                    feeMasterData.depositId = feeMasterData.id;
+        			scope.depositArray.push(feeMasterData);
+        			//to deposit select box empty
+        			scope.depositId = '';
         		});
         	}
         };
@@ -100,6 +117,10 @@
         
         scope.deleteTax = function(index) {
         	scope.taxesArray.splice(index,1);
+        };
+        
+        scope.deleteDeposit = function(index) {
+        	scope.depositArray.splice(index,1);
         };
 
         //advanced accounting rule
@@ -209,6 +230,7 @@
           scope.penaltyToIncomeAccountMappings = [];
           scope.chargesSelected = [];
           scope.taxesSelected = [];
+          scope.depositsSelected = [];
 
           var temp = '';
 
@@ -252,12 +274,20 @@
         	  }
         	  scope.taxesSelected.push(temp);
           }
+          
+          for (var i in scope.depositArray) {
+        	  temp = {
+        			  id : scope.depositArray[i].id
+        	  }
+        	  scope.depositsSelected.push(temp);
+          }
 
           this.formData.paymentChannelToFundSourceMappings = scope.paymentChannelToFundSourceMappings;
           this.formData.feeToIncomeAccountMappings = scope.feeToIncomeAccountMappings;
           this.formData.penaltyToIncomeAccountMappings = scope.penaltyToIncomeAccountMappings;
           this.formData.charges = scope.chargesSelected;
           this.formData.taxes = scope.taxesSelected;
+          this.formData.feeMasterData = scope.depositsSelected;
           this.formData.dateFormat = "dd MMMM yyyy";
           this.formData.locale = "en";
           this.formData.startDate = reqFirstDate;

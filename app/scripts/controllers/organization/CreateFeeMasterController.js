@@ -7,6 +7,9 @@
 		  resourceFactory.feeMasterTemplateResource.get(function(data){
 			 scope.chargeDatas = data.chargeDatas;
 			 scope.transactionTypeDatas = data.transactionTypeDatas;
+			 scope.depositCalculationTypeOptions = data.depositCalculationTypeOptions;
+             scope.depositTimeTypeOptions = data.depositTimeTypeOptions;
+             scope.depositOnTypeOptions = data.depositOnTypeOptions;
 		  });
 		  
         scope.submit = function() {
@@ -22,8 +25,7 @@
           		delete scope.formData.itemId;
           		delete scope.formData.isRefundable;
           	}
-          	scope.formData.locale = $rootScope.locale.code;
-          	scope.formData.defaultFeeAmount=0;
+          	scope.formData.locale = "en";
              resourceFactory.feeMasterResource.save(scope.formData,function(data){
               location.path('/viewfeemaster/' + data.resourceId);
             });
