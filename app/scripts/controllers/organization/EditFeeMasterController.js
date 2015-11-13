@@ -7,15 +7,17 @@
 	        resourceFactory.feeMasterResource.get({id: routeParams.id} , function(data) {
 	            scope.feeMasterData = data.feeMasterData;
 	            scope.transactionTypeDatas 		= data.transactionTypeDatas;
-	            scope.chargeCalculationTypeOptions = data.chargeCalculationTypeOptions;
-	            scope.chargeTimeTypeOptions = data.chargeTimeTypeOptions;
+	            scope.depositCalculationTypeOptions = data.depositCalculationTypeOptions;
+	            scope.depositTimeTypeOptions = data.depositTimeTypeOptions;
+	            scope.depositOnTypeOptions = data.depositOnTypeOptions;
 	            
 	            scope.formData.feeCode 			= scope.feeMasterData.feeCode;
 	            scope.formData.feeDescription 	= scope.feeMasterData.feeDescription;
 	            scope.formData.transactionType	= scope.feeMasterData.transactionType;
-	            scope.formData.chargeTimeType 	= scope.feeMasterData.chargeTimeType.id;
-	            scope.formData.chargeCalculationType = scope.feeMasterData.chargeCalculationType.id;
-	            scope.formData.defaultFeeAmount = scope.feeMasterData.defaultFeeAmount;
+	            scope.formData.depositTimeType 	= scope.feeMasterData.depositTimeType.id;
+	            scope.formData.depositCalculationType = scope.feeMasterData.depositCalculationType.id;
+	            scope.formData.depositOn 			= scope.feeMasterData.depositOnType.id;
+	            scope.formData.amount 				= scope.feeMasterData.amount;
 	            
 	            if(scope.feeMasterData.isRefundable != undefined){
 	            	scope.formData.isRefundable = scope.feeMasterData.isRefundable == 'Y'?true:false;

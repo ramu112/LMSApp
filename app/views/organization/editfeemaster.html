@@ -46,37 +46,50 @@
 				</td>
 				<td valign="top">
 				  <div class="control-group">
-                    <label class="control-label">{{'label.input.chargetimetype' | translate}}<span class="required">*</span></label>
+                    <label class="control-label">{{'label.input.depositon' | translate}}<span class="required">*</span></label>
                     <div class="controls">
-                        <select id="chargeTimeType" name="chargetimetype" ng-model="formData.chargeTimeType"  ng-options="timetype.id as timetype.value for timetype in chargeTimeTypeOptions" value="{{timetype.id}}" required>
+                        <select id="depositOn" name="depositOn" ng-model="formData.depositOn"  ng-options="depositOn.id as depositOn.value for depositOn in depositOnTypeOptions" value="{{depositOn.id}}" required>
                           <option value="">{{'label.selectone' | translate}}</option>
                         </select>
-                        <form-validate valattributeform="editfeemasterform" valattribute="chargetimetype"/>
+                        <form-validate valattributeform="editfeemasterform" valattribute="depositOn"/>
                     </div>
                 </div>
 				</td>
 			</tr>
 			<tr>
 			  <td valign="top">
-			  	<div class="control-group">
-                    <label class="control-label">{{'label.input.chargecalculation' | translate}}<span class="required">*</span></label>
+				  <div class="control-group">
+                    <label class="control-label">{{'label.input.deposittimetype' | translate}}<span class="required">*</span></label>
                     <div class="controls">
-                        <select id="chargeCalculationType" name="chargecalculation" ng-model="formData.chargeCalculationType"  ng-options="chargecalculation.id as chargecalculation.value for chargecalculation in chargeCalculationTypeOptions" value="{{chargecalculation.id}}" required>
+                        <select id="depositTimeType" name="depositTimeType" ng-model="formData.depositTimeType"  ng-options="timetype.id as timetype.value for timetype in depositTimeTypeOptions" value="{{timetype.id}}" required>
                           <option value="">{{'label.selectone' | translate}}</option>
                         </select>
-                        <form-validate valattributeform="editfeemasterform" valattribute="chargecalculation"/>
+                        <form-validate valattributeform="editfeemasterform" valattribute="depositTimeType"/>
+                    </div>
+                </div>
+				</td>			
+			  <td valign="top">
+			  	<div class="control-group">
+                    <label class="control-label">{{'label.input.depositcalculation' | translate}}<span class="required">*</span></label>
+                    <div class="controls">
+                        <select id="depositCalculationType" name="depositcalculation" ng-model="formData.depositCalculationType"  ng-options="depositcalculation.id as depositcalculation.value for depositcalculation in depositCalculationTypeOptions" value="{{depositcalculation.id}}" required>
+                          <option value="">{{'label.selectone' | translate}}</option>
+                        </select>
+                        <form-validate valattributeform="editfeemasterform" valattribute="depositcalculation"/>
                     </div>
                 </div>
 			  </td>
-			  <td valign="top">
-				<div class="control-group">
-        		   <label class="control-label" for="defaultFeeAmount ">{{'label.feemaster.defaultfeeamount' | translate }}&nbsp;<span class="required">*</span></label>
-        		   <div class="controls">
-          				<input type="text" id="defaultFeeAmount" name="defaultFeeAmount" data-ng-model="formData.defaultFeeAmount" required><br/>
-         					<form-validate valattributeform="editfeemasterform" valattribute="defaultFeeAmount"/>
-        			</div>
-       			</div>
-			  </td>
+			</tr>
+			<tr>
+		      <td valign="top">
+			   <div class="control-group">
+       		      <label class="control-label" for="amount ">{{'label.feemaster.amount' | translate }}&nbsp;<span class="required">*</span></label>
+       		      <div class="controls">
+         				<input type="text" id="amount" name="amount" data-ng-model="formData.amount" required><br/>
+        					<form-validate valattributeform="editfeemasterform" valattribute="amount"/>
+       			   </div>
+      			</div>
+		      </td>
 			</tr>
 			<tr>
 			  <td></td>

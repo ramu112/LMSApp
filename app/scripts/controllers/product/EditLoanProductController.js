@@ -13,6 +13,7 @@
         scope.pvFlag = false;
         scope.rvFlag = false;
         scope.taxesArray = [];
+        scope.depositArray = [];
 
         resourceFactory.loanProductResource.get({loanProductId : routeParams.id, template:'true'}, function(data) {
             scope.product = data;
@@ -29,6 +30,7 @@
                 }
             }
             scope.taxesArray = scope.product.taxes || [];
+            scope.depositArray = scope.product.feeMasterData || [];
             if(data.startDate){scope.date.first = new Date(data.startDate);}
             if(data.closeDate){scope.date.second = new Date(data.closeDate);}
             scope.formData = {
@@ -182,8 +184,23 @@
         			data.taxId = data.id;
         			data.taxInclusive = data.taxInclusive == 1 ? true :false;
         			scope.taxesArray.push(data);
-        			//to charge select box empty
+        			//to taxes select box empty
         			scope.taxId = '';
+        		});
+        	}
+        };
+        
+        scope.depositArray = [];
+        scope.depositSelected = function(depositId) {
+        	
+        	if (depositId) {
+        		resourceFactory.feeMasterResource.get({id: depositId} , function(data) {
+                    var feeMasterData = data.feeMasterData;
+                    
+                    feeMasterData.depositId = feeMasterData.id;
+        			scope.depositArray.push(feeMasterData);
+        			//to deposit select box empty
+        			scope.depositId = '';
         		});
         	}
         };
@@ -194,6 +211,10 @@
         
         scope.deleteTax = function(index) {
         	scope.taxesArray.splice(index,1);
+        };
+        
+        scope.deleteDeposit = function(index) {
+        	scope.depositArray.splice(index,1);
         };
 
         //advanced accounting rule
@@ -302,6 +323,7 @@
           scope.penaltyToIncomeAccountMappings = [];
           scope.chargesSelected = [];
           scope.taxesSelected = [];
+          scope.depositsSelected = [];
           var reqFirstDate = dateFilter(scope.date.first,'dd MMMM yyyy');
           var reqSecondDate = dateFilter(scope.date.second,'dd MMMM yyyy');
           var temp = '';
@@ -345,12 +367,20 @@
         	  }
         	  scope.taxesSelected.push(temp);
           }
+          
+          for (var i in scope.depositArray) {
+        	  temp = {
+        			  id : scope.depositArray[i].id
+        	  }
+        	  scope.depositsSelected.push(temp);
+          }
 
           this.formData.paymentChannelToFundSourceMappings = scope.paymentChannelToFundSourceMappings;
           this.formData.feeToIncomeAccountMappings = scope.feeToIncomeAccountMappings;
           this.formData.penaltyToIncomeAccountMappings = scope.penaltyToIncomeAccountMappings;
           this.formData.charges = scope.chargesSelected;
           this.formData.taxes = scope.taxesSelected;
+          this.formData.feeMasterData = scope.depositsSelected;
           this.formData.dateFormat = "dd MMMM yyyy";
           this.formData.locale = "en";
           this.formData.startDate = reqFirstDate;

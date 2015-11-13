@@ -7,8 +7,9 @@
 		  resourceFactory.feeMasterTemplateResource.get(function(data){
 			 scope.chargeDatas = data.chargeDatas;
 			 scope.transactionTypeDatas = data.transactionTypeDatas;
-			 scope.chargeCalculationTypeOptions = data.chargeCalculationTypeOptions;
-             scope.chargeTimeTypeOptions = data.chargeTimeTypeOptions;
+			 scope.depositCalculationTypeOptions = data.depositCalculationTypeOptions;
+             scope.depositTimeTypeOptions = data.depositTimeTypeOptions;
+             scope.depositOnTypeOptions = data.depositOnTypeOptions;
 		  });
 		  
         scope.submit = function() {

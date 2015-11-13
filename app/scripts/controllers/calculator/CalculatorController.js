@@ -53,8 +53,15 @@
         		}
         		scope.formData.payTerms.push(scope.terms);
         	}
-            
-            resourceFactory.calculationResource.save(scope.formData,function(data){
+        	
+        	delete scope.formData.deprecisationArray;
+        	postRequestSend(scope.formData);
+
+        };
+        
+        function postRequestSend(formData){
+        	
+            resourceFactory.calculationResource.save(formData,function(data){
             	scope.leaseCalculator = true;
             	scope.calculationData = data.payTerms || [];
             	scope.keys  = [];
@@ -64,12 +71,16 @@
             	scope.coiForYear = [];
             	scope.cofForYear = [];
             	scope.maintenanceForYear = [];
+            	scope.replacementTyresForYear = [];
+            	scope.comprehensiveInsuranceForYear = [];
             	scope.deprecisationForYear = [];
             	scope.margin = [];
             	scope.totalForYear = [];
             	scope.coi = [];
             	scope.cof = [];
             	scope.maintenance = [];
+            	scope.replacementTyres = [];
+            	scope.comprehensiveInsurance = [];
             	scope.deprecisation = [];
             	scope.totalWithOutMaintenance = [];
             	scope.totalMaintenance = [];
@@ -88,6 +99,7 @@
             	scope.financialLeasePayout = [];
             	scope.accountingWDV = [];
             	scope.taxWDV = [];
+            	scope.taxWDV = [];
             	
             	for(var i in scope.calculationData){
             		scope.keys.push(scope.calculationData[i].key); 
@@ -97,12 +109,16 @@
             		scope.coiForYear.push({"coiForYear":(scope.calculationData[i].coiForYear).toFixed(2)});
             		scope.cofForYear.push({"cofForYear":(scope.calculationData[i].cofForYear).toFixed(2)});
             		scope.maintenanceForYear.push({"maintenanceForYear":(scope.calculationData[i].maintenanceForYear).toFixed(2)});
+            		scope.replacementTyresForYear.push({"replacementTyresForYear":(scope.calculationData[i].replacementTyresForYear).toFixed(2)});
+            		scope.comprehensiveInsuranceForYear.push({"comprehensiveInsuranceForYear":(scope.calculationData[i].comprehensiveInsuranceForYear).toFixed(2)});
             		scope.deprecisationForYear.push({"deprecisationForYear":Math.round(scope.calculationData[i].deprecisationForYear)});
             		scope.margin.push({"margin":""});
             		scope.totalForYear.push({"totalForYear":(scope.calculationData[i].totalForYear).toFixed(2)});
             		scope.coi.push({"coi":(scope.calculationData[i].coi).toFixed(2)});
             		scope.cof.push({"cof":(scope.calculationData[i].cof).toFixed(2)});
             		scope.maintenance.push({"maintenance":(scope.calculationData[i].maintenance).toFixed(2)});
+            		scope.replacementTyres.push({"replacementTyres":(scope.calculationData[i].replacementTyres).toFixed(2)});
+            		scope.comprehensiveInsurance.push({"comprehensiveInsurance":(scope.calculationData[i].comprehensiveInsurance).toFixed(2)});
             		scope.deprecisation.push({"deprecisation":(scope.calculationData[i].deprecisation).toFixed(2)});
             		scope.totalWithOutMaintenance.push({"totalWithOutMaintenance":(scope.calculationData[i].totalWithOutMaintenance).toFixed(2)});
             		scope.totalMaintenance.push({"totalMaintenance":(scope.calculationData[i].totalMaintenance).toFixed(2)});
@@ -124,7 +140,7 @@
             	}
             	
             });
-        };
+        }
         
         scope.residualChange = function(val){
         	if(val && val != ""){
@@ -141,17 +157,59 @@
         	}
         }
         
+        scope.jsonData = {};scope.deprecisationArray = []; scope.jsonData.deprecisationArray=[];
+        scope.forYearChange = function(val,i,name){
+        	scope.deprecisationArray = scope.jsonData.deprecisationArray;
+        	scope.jsonData = scope.formData;
+        	scope.jsonData.deprecisationArray = scope.deprecisationArray || [];
+        	
+        	scope.jsonData.deprecisationArray = _.filter(scope.jsonData.deprecisationArray, function(q){
+        		return q.key != scope.keys[i];
+        	});
+        	
+        	function prepareJson (){
+        		
+	        	scope.jsonData.deprecisationArray.push({	"key" : scope.keys[i],
+	          										"costOfFund" : scope.cofForYear[i].cofForYear,
+	          										"maintenance" : scope.maintenanceForYear[i].maintenanceForYear,
+	          										"replacementTyres" : scope.replacementTyresForYear[i].replacementTyresForYear,
+	          										"comprehensiveInsurance" : scope.comprehensiveInsuranceForYear[i].comprehensiveInsuranceForYear,
+	          										"deprecisation" : scope.residualDeprecisation[i].residualDeprecisation,
+	          										"locale":"en"});
+	        	
+	        	
+	        	
+	          	postRequestSend(scope.jsonData);
+        	 }prepareJson();
+        	
+        	/*if(name == 'cof' && !angular.equals(scope.cofForYear[i].cofForYear, val)){
+        		prepareJson();
+        	}else if(name == 'maintenance' && !angular.equals(scope.maintenanceForYear[i].maintenanceForYear, val)){
+        		console.log(name);
+        		prepareJson();
+        	}else if(name == 'replacementTyres' && !angular.equals(scope.replacementTyresForYear[i].replacementTyresForYear, val)){
+        		prepareJson();
+        	}else if(name == 'comprehensive' && !angular.equals(scope.comprehensiveInsuranceForYear[i].comprehensiveInsuranceForYear, val)){
+        		prepareJson();
+        	}else if(name == 'deprecisation' && !angular.equals(scope.residualDeprecisation[i].residualDeprecisation, val)){
+        		prepareJson();
+        	}else{
+        		console.log("No One Change");
+        	}*/
+
+           }
+        
         scope.downloadFile = function (){
             
            // window.open($rootScope.hostUrl+ API_VERSION +'/loans/printlsrdoc/'+routeParams.loanId+'?tenantIdentifier=default');
-          var jsonData = scope.formData;
+          /*var jsonData = scope.formData;
           jsonData.deprecisationArray = [];
           for(var i in scope.residualDeprecisation){
         	  jsonData.deprecisationArray.push({key : scope.keys[i],value : scope.residualDeprecisation[i].residualDeprecisation,locale:"en"});
           }
-          
-          console.log(jsonData);
-        	resourceFactory.calculationExportResource.save(jsonData,function(data){
+*/          
+          console.log(scope.jsonData);
+        	resourceFactory.calculationExportResource.save(scope.jsonData,function(data){
         		data = angular.fromJson(angular.toJson(data));
         		var fileName = data.fileName;
         		window.open($rootScope.hostUrl+ API_VERSION +'/loans/calculator/export?tenantIdentifier=default&file='+fileName);

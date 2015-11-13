@@ -92,7 +92,7 @@
                             class="required">*</span></label>
                     <select id="currencyCode" ng-model="formData.currencyCode"
                             ng-options="currency.code as currency.name for currency in product.currencyOptions"
-                            value="{{currency.code}}"/>
+                            value="{{currency.code}}"></select>
                 </td>
                 <td width="40%">
                     <label class="control-label">{{ 'label.input.decimalplaces' | translate }}&nbsp;<span
@@ -170,7 +170,8 @@
                                         <select id="principalValueUsageCondition{{$index}}" class="input-small"
                                                 ng-model="borrowerCycleVariation.valueConditionType"
                                                 ng-options="valueConditionType.id as valueConditionType.value for valueConditionType in product.valueConditionTypeOptions"
-                                                style="margin-left: -19px;" value="{{valueConditionType.id}}"/>
+                                                style="margin-left: -19px;" value="{{valueConditionType.id}}">
+                                                </select>
                                     </td>
                                     <td><input id="principalCycleNumber{{$index}}" type="text" class="input-small"
                                                ng-model="borrowerCycleVariation.borrowerCycleNumber"/>
@@ -246,7 +247,8 @@
                                         <select style="margin-left: -19px;" id="repaymentValueUsageCondition{{$index}}"
                                                 class="input-small" ng-model="borrowerCycleVariation.valueConditionType"
                                                 ng-options="valueConditionType.id as valueConditionType.value for valueConditionType in product.valueConditionTypeOptions"
-                                                value="{{valueConditionType.id}}"/>
+                                                value="{{valueConditionType.id}}">
+                                                </select>
                                     </td>
                                     <td><input id="repaymentCycleNumber{{$index}}" type="text" class="input-small"
                                                ng-model="borrowerCycleVariation.borrowerCycleNumber"/>
@@ -286,7 +288,7 @@
                    ng-model="formData.repaymentEvery" required late-validate/>&nbsp;
             <select id="repaymentFrequencyType" class="input-small" ng-model="formData.repaymentFrequencyType"
                     ng-options="repaymentFrequencyType.id as repaymentFrequencyType.value for repaymentFrequencyType in product.repaymentFrequencyTypeOptions"
-                    value="{{repaymentFrequencyType.id}}"/>
+                    value="{{repaymentFrequencyType.id}}"></select>
             <form-validate valattributeform="createloanproductform" valattribute="repaymentEvery"/>
         </td>
         <td width="40%"></td>
@@ -307,7 +309,7 @@
 
             <select class="input-small" id="interestRateFrequencyType" ng-model="formData.interestRateFrequencyType"
                     ng-options="interestRateFrequencyType.id as interestRateFrequencyType.value for interestRateFrequencyType in product.interestRateFrequencyTypeOptions"
-                    value="{{interestRateFrequencyType.id}}"/>
+                    value="{{interestRateFrequencyType.id}}"></select>
             <form-validate valattributeform="createloanproductform" valattribute="interestRatePerPeriod"/>
         </td>
     </tr>
@@ -340,7 +342,7 @@
                                                 id="interestRateValueUsageCondition{{$index}}" class="input-small"
                                                 ng-model="borrowerCycleVariation.valueConditionType"
                                                 ng-options="valueConditionType.id as valueConditionType.value for valueConditionType in product.valueConditionTypeOptions"
-                                                value="{{valueConditionType.id}}"/>
+                                                value="{{valueConditionType.id}}"></select>
                                     </td>
                                     <td><input id="interestRateCycleNumber{{$index}}" type="text" class="input-small"
                                                ng-model="borrowerCycleVariation.borrowerCycleNumber"/>
@@ -391,14 +393,14 @@
                             class="required">*</span></label>
                     <select id="amortizationType" ng-model="formData.amortizationType"
                             ng-options="amortizationType.id as amortizationType.value for amortizationType in product.amortizationTypeOptions"
-                            value="{{amortizationType.id}}">
+                            value="{{amortizationType.id}}"></select>
                 </td>
                 <td width="40%">
                     <label class="control-label">{{ 'label.input.interestmethod' | translate }}&nbsp;<span
                             class="required">*</span></label>
                     <select id="interestType" ng-model="formData.interestType"
                             ng-options="interestType.id as interestType.value for interestType in product.interestTypeOptions"
-                            value="{{interestType.id}}">
+                            value="{{interestType.id}}"></select>
                 </td>
             </tr>
             <tr>
@@ -407,7 +409,7 @@
                             class="required">*</span></label>
                     <select id="interestCalculationPeriodType" ng-model="formData.interestCalculationPeriodType"
                             ng-options="interestCalculationPeriodType.id as interestCalculationPeriodType.value for interestCalculationPeriodType in product.interestCalculationPeriodTypeOptions"
-                            value="{{interestCalculationPeriodType.id}}">
+                            value="{{interestCalculationPeriodType.id}}"></select>
                 </td>
                 <td>
                     <label class="control-label">{{ 'label.input.arearstolerance' | translate }}&nbsp;</label>
@@ -421,7 +423,7 @@
                             class="required">*</span></label>
                     <select id="transactionProcessingStrategyId" ng-model="formData.transactionProcessingStrategyId"
                             ng-options="transactionProcessingStrategy.id as transactionProcessingStrategy.name for transactionProcessingStrategy in product.transactionProcessingStrategyOptions"
-                            value="{{transactionProcessingStrategy.id}}"/>
+                            value="{{transactionProcessingStrategy.id}}"></select>
                 </td>
                 <td>
                     <label class="control-label">{{ 'label.input.interestfreeperiod' | translate }}&nbsp;</label>
@@ -540,6 +542,53 @@
                                 <td>{{tax.rate}}</td>
                                 <td>{{tax.taxInclusive}}</td>
                                 <td><a ng-click="deleteTax($index)"><i class="icon-remove icon-white"></i></a></td>
+                            </tr>
+                        </table>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </td>
+</tr>
+
+<tr class="span2"></tr>
+<tr>
+    <td>
+        <label class="control-label"><h4>{{ 'label.heading.deposit' | translate }}</h4></label>
+    </td>
+    <td class="blockquoteresult">
+        <table>
+            <tr>
+                <td>
+                    <select id="taxId" ng-model="depositId"
+                            ng-options="feeMasterData.id as feeMasterData.feeCode for feeMasterData in product.feeMasterDataOptions"
+                            value="{{feeMasterData.id}}">
+                        <option style="display:none" value="">{{'label.selectdeposit' | translate}}</option>
+                    </select>
+                    <button type="button" style="margin-top: -10px;" class="btn btn-primary"
+                            ng-click="depositSelected(depositId)">{{ 'label.button.add' | translate }}
+                    </button>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="span">
+                        <table data-ng-show="depositFlag" class="table" style="width: 800px">
+                            <tr class="graybg">
+                                <th>{{'label.feemaster.code' | translate }}</th>
+                                <th>{{'label.feemaster.transactiontype' | translate }}</th>
+                                <th>{{'label.input.deposittimetype' | translate }}</th>
+                                <th>{{'label.input.depositcalculation' | translate }}</th>
+                                <th>{{'label.feemaster.amount' | translate }}</th>
+                                <th>{{'label.heading.actions' | translate}}</th>
+                            </tr>
+                            <tr ng-repeat="deposit in depositArray">
+                                <td>{{deposit.feeCode}}</td>
+                                <td>{{deposit.transactionType}}</td>
+                                <td>{{deposit.depositTimeType.value}}</td>
+                                <td>{{deposit.depositCalculationType.value}}</td>
+                                <td>{{deposit.amount}}</td>
+                                <td><a ng-click="deleteDeposit($index)"><i class="icon-remove icon-white"></i></a></td>
                             </tr>
                         </table>
                     </div>
