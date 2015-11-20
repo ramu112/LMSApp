@@ -2469,5 +2469,38 @@
 	"error.msg.fee.transaction.alredy.exists":"A Fee with this transaction already exists,Please Update it",
 	"error.msg.active.plans.found.for.client":"Actvie plans found for this serial Number `{{params[0].value}}`",
 	
+	"----------------------": "------------",
+	
+	"#Prospects  ":".......",
+	"label.anchor.prospects" : "Prospect",
+	"label.prospects" : "Prospects",
+	"link.create.new.prospect" : "Create Prospect",
+	"label.prev" : "prev",
+	"label.next" : "next",
+	"table.heading.name" : "Name",
+	"table.heading.emailId" : "Email Id",
+	"table.heading.phonenumber" : "Phone No",
+	"table.heading.address" : "Address",
+	"table.heading.status" : "Status",
+	"table.action" : "Action",
+	
+	"label.createprospect" : "Create Prospect",
+	"link.prospects" : "Prospects",
+	"label.prospect.personaldetails" : "Personal Details ",
+	"label.firstname" : "First Name",
+	"label.middlename" : "Middle Name",
+	"label.lastname" : "Last Name",
+	"label.mobilephone" : "Mobile Phone",
+	"label.emailid" : "Email Id",
+	
+	"label.prospect.addressdetails" : "Address Details",
+	"label.address" : "Address",
+	"label.source" : "Source",
+	"label.plan" : "Product",
+	"label.nextcalltime" : "Next Call Time",
+	"Note" : "Note",
+	"button.cancel" : "cancel",
+	"button.save" : "save",
+	
 	"----------------------": "------------"
 }

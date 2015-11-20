@@ -527,6 +527,24 @@
       })
       .when('/editfeemaster/:id', {
     	  templateUrl: 'views/organization/editfeemaster.html'
+      })
+      .when('/cancelprospects',{
+    	  templateUrl: 'views/crm/prospects/cancelprospects.html'
+      })
+      .when('/createprospects',{
+    	  templateUrl: 'views/crm/prospects/createprospects.html'
+      })
+      .when('/editprospects',{
+    	  templateUrl: 'views/crm/prospects/editprospects.html'
+      })
+      .when('/followprospects',{
+    	  templateUrl: 'views/crm/prospects/followprospects.html'
+      })
+      .when('/prospects',{
+    	  templateUrl: 'views/crm/prospects/prospects.html'
+      })
+      .when('/viewprospects',{
+    	  templateUrl: 'views/crm/prospects/viewprospects.html'
       });
     $locationProvider.html5Mode(false);
   };
