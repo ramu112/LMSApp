@@ -546,6 +546,57 @@
       .when('/viewprospects',{
     	  templateUrl: 'views/crm/prospects/viewprospects.html'
       });
+    .when('/inventory', {
+        templateUrl: 'views/inventory/inventory.html'
+    })
+    .when('/createitemdetails',{
+  	  templateUrl: 'views/inventory/createitemdetails.html'
+    })
+    .when('/addgrndetails', {
+      templateUrl: 'views/inventory/grn/addgrndetails.html'
+    })
+    .when('/itemsale',{
+  	  templateUrl: 'views/inventory/itemSale.html'
+    })
+    .when('/itemsale/:officeId',{
+  	  templateUrl: 'views/inventory/itemSale.html'
+    })
+    .when('/edititem/:id/:totalItem',{
+  	  templateUrl: 'views/inventory/item/edititem.html'
+    })
+    .when('/createmrn',{
+  	  templateUrl: 'views/inventory/mrn/createmrn.html'
+    })
+    .when('/movemrn/',{
+  	  templateUrl: 'views/inventory/mrn/movemrn.html'
+    })
+    .when('/createitem', {
+        templateUrl: 'views/inventory/item/createitem.html'
+    })
+    .when('/createsupplier',{
+  	  templateUrl: 'views/inventory/createvendor.html'
+    })
+    .when('/editgrn/:id',{
+  	  templateUrl: 'views/inventory/grn/editgrn.html'
+    })
+    .when('/viewgrn/:id',{
+  	  templateUrl: 'views/inventory/grn/viewgrn.html'
+    })
+    .when('/viewitem/:id/:showtype/:totalItem',{
+  	  templateUrl: 'views/inventory/item/viewitem.html'
+    })
+    .when('/viewmovedmrn/:id',{
+  	  templateUrl: 'views/inventory/mrn/viewmovedmrn.html'
+    })
+    .when('/viewmrn/:id',{
+  	  templateUrl: 'views/inventory/mrn/viewmrn.html'
+    })
+    .when('/editsupplier/:id',{
+  	  templateUrl: 'views/inventory/editsupplier.html'
+    })
+    .when('/viewitemdetails/:id', {
+      templateUrl: 'views/inventory/viewitemdetails.html'
+    })
     $locationProvider.html5Mode(false);
   };
   mifosX.ng.application.config(defineRoutes).run(function($log) {
