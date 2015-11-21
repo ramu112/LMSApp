@@ -9,6 +9,7 @@
             scope.formData = {};
             scope.chargeFormData = {}; //For charges
             scope.taxFormData = {}; //For taxes
+            scope.depositFormData = {}; //For deposit
             scope.collateralFormData = {}; //For collaterals
             scope.inparams = {resourceType : 'template'};
             scope.date = {};
@@ -51,6 +52,7 @@
             	  scope.loanaccountinfo.taxes[i].taxInclusive = (scope.loanaccountinfo.taxes[i].taxInclusive == 1) ? true:false;
               }
               scope.taxesArray = scope.loanaccountinfo.taxes || [];
+              scope.depositArray = scope.loanaccountinfo.feeMasterData || [];
               scope.collaterals = [];
 
               if (scope.loanaccountinfo.calendarOptions) {
@@ -101,6 +103,19 @@
             		});
             	}
             }
+            scope.depositArray = [];
+            scope.addDeposit = function() {
+            	if (scope.depositFormData.depositId) {
+            		resourceFactory.feeMasterResource.get({id: scope.depositFormData.depositId} , function(data) {
+                        var feeMasterData = data.feeMasterData;
+                        
+                        feeMasterData.feeMasterId = feeMasterData.id;
+            			scope.depositArray.push(feeMasterData);
+            			//to deposit select box empty
+            			scope.depositFormData.depositId = undefined;
+            		});
+            	}
+            }
 
             scope.deleteCharge = function(index) {
               scope.charges.splice(index,1);
@@ -109,6 +124,10 @@
             scope.deleteTax = function(index) {
             	scope.taxesArray.splice(index,1);
             	scope.taxAmountCal(0);
+            }
+            
+            scope.deleteDeposit = function(index) {
+            	scope.depositArray.splice(index,1);
             }
 
             scope.syncRepaymentsWithMeetingchange = function() {
@@ -138,7 +157,11 @@
             
             scope.taxAmountCal = function(flagVal){
             	var taxCalformData = {};
-            	taxCalformData.principal = scope.formData.principal;
+            	if(scope.depositArray && scope.depositArray.length > 0){
+            		taxCalformData.principal = scope.subtract(scope.formData.principal,scope.depositArray[0].amount);
+            	}else{
+            		taxCalformData.principal = scope.formData.principal;
+            	}
             	taxCalformData.locale = "en";
             	taxCalformData.taxes = [];
             	for(var i in scope.taxesArray){
@@ -182,7 +205,7 @@
             	
                 // Make sure charges and collaterals are empty before initializing.
                 delete scope.formData.charges;
-                delete scope.formData.taxesArray;
+                delete scope.formData.depositArray;
                 delete scope.formData.collateral;
                 var reqFirstDate = dateFilter(scope.date.first,'dd MMMM yyyy');
                 var reqSecondDate = dateFilter(scope.date.second,'dd MMMM yyyy');
@@ -193,6 +216,13 @@
                   for (var i in scope.charges) {
                     scope.formData.charges.push({ chargeId:scope.charges[i].chargeId, amount:scope.charges[i].amount, dueDate:dateFilter(scope.charges[i].dueDate,'dd MMMM yyyy') });
                   }
+                }
+                
+                if (scope.depositArray.length > 0) {
+                	scope.formData.depositArray = [];
+                	for (var i in scope.depositArray) {
+                		scope.formData.depositArray.push({depositId:scope.depositArray[i].feeMasterId, amount:scope.depositArray[i].amount});
+                	}
                 }
                 
                 /*if (scope.taxesArray.length > 0) {
@@ -241,6 +271,7 @@
                 // Make sure charges and collaterals are empty before initializing.
                 delete scope.formData.charges;
                 delete scope.formData.taxesArray;
+                delete scope.formData.depositArray;
                 delete scope.formData.collateral;
                 var reqFirstDate = dateFilter(scope.date.first,'dd MMMM yyyy');
                 var reqSecondDate = dateFilter(scope.date.second,'dd MMMM yyyy');
@@ -253,6 +284,13 @@
                   for (var i in scope.charges) {
                     scope.formData.charges.push({ chargeId:scope.charges[i].chargeId, amount:scope.charges[i].amount, dueDate: dateFilter(scope.charges[i].dueDate,'dd MMMM yyyy') });
                   }
+                }
+                
+                if (scope.depositArray.length > 0) {
+                	scope.formData.depositArray = [];
+                	for (var i in scope.depositArray) {
+                		scope.formData.depositArray.push({ depositId:scope.depositArray[i].feeMasterId, amount:scope.depositArray[i].amount });
+                	}
                 }
                 
                 if (scope.collaterals.length > 0) {

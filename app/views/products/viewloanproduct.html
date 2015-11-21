@@ -222,13 +222,14 @@
     <td colspan="4"><br/></td>
 </tr>
 <tr class="bottomborder">
-    <td colspan="5"><strong>{{'label.heading.deposit' | translate}}</strong></td>
+    <td colspan="6"><strong>{{'label.heading.deposit' | translate}}</strong></td>
 </tr>
 <tr class="bottomborder graybg">
     <td>{{'label.feemaster.code' | translate }}</td>
     <td>{{'label.feemaster.transactiontype' | translate }}</td>
     <td>{{'label.input.deposittimetype' | translate }}</td>
     <td>{{'label.input.depositcalculation' | translate }}</td>
+    <td>{{'label.feemaster.depositon' | translate }}</td>
     <td>{{'label.feemaster.amount' | translate }}</td>
 </tr>
 <tr ng-repeat="deposit in loanproduct.feeMasterData">
@@ -236,6 +237,7 @@
     <td>{{deposit.transactionType}}</td>
     <td>{{deposit.depositTimeType.value}}</td>
     <td>{{deposit.depositCalculationType.value}}</td>
+    <td>{{deposit.depositOnType.value}}</td>
     <td>{{deposit.amount}}</td>
 </tr>
 <tr>
