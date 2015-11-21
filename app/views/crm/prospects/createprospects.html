@@ -1,15 +1,11 @@
 <div>
 	<ul class="breadcrumb">
-		<li><a href="#/leads">{{'link.prospects' | translate}}</a> <span class="divider">/</span></li>
+		<li><a href="#/prospects">{{'link.prospects' | translate}}</a> <span class="divider">/</span></li>
 		<li class="active">{{'label.createprospect' | translate}}</li>
 	</ul>
 </div>
-<form name="createprospectsform" class="form-horizontal well" data-ng-controller="CreateProspectsController" data-ng-submit="submit()">
-	<div class="error" data-ng-show="errorStatus || errorDetails">
-		<label>{{'label.contract.error' | translate}}</label> 
-		<label data-ng-show="errorStatus">{{errorStatus}}</label> 
-		<label data-ng-hide="errorStatus" data-ng-repeat="error in errorDetails">{{error.code | translate}}</label>
-	</div>
+<form name="createprospectsform" novalidate class="form-horizontal well" data-ng-controller="CreateProspectsController" rc-submit="submit()">
+	<api-validate></api-validate>
 	<strong> {{'label.prospect.personaldetails' | translate}} </strong>
 
 	<table>
@@ -22,11 +18,8 @@
 							<div class="control-group">
 								<label class="control-label" for="firstName">{{'label.firstname' | translate }}<span class="required">*</span></label>
 								<div class="controls">
-									<input type="text" id="firstName" data-ng-model="formData.firstName" data-ng-pattern="/^[a-zA-Z0-9\-\&\s]+$/" name="firstname" data-late-Validate>
-									<div data-ng-show="createprospectsform.firstname.$dirty && createprospectsform.firstname.$invalid">
-										<small class="error" data-ng-show="createprospectsform.firstname.$error.pattern"> {{'label.prospect.error.name' | translate}} </small> 
-										<small class="error" data-ng-show="createprospectsform.firstname.$error.req"> {{'label.prospect.error.required' | translate}} </small>
-									</div>
+									<input type="text" id="firstName" name="firstName" data-ng-model="formData.firstName" required>
+									<form-validate valattributeform="createprospectsform" valattribute="firstName"/>
 								</div>
 							</div>
 						</td>
@@ -47,11 +40,8 @@
 							<div class="control-group">
 								<label class="control-label" for="lastName">{{'label.lastname' | translate }}<span class="required">*</span> </label>
 								<div class="controls">
-									<input type="text" id="lastName" data-ng-model="formData.lastName" data-ng-pattern="/^[a-zA-Z0-9\s]+$/" name="lastname" data-late-Validate>
-									<div data-ng-show="createprospectsform.lastname.$dirty && createprospectsform.lastname.$invalid">
-										<small class="error" data-ng-show="createprospectsform.lastname.$error.pattern"> {{'label.prospect.error.name' | translate}} </small> 
-										<small class="error" data-ng-show="createprospectsform.lastname.$error.req"> {{'label.prospect.error.required' | translate}} </small>
-									</div>
+									<input type="text" id="lastName" name="lastName" data-ng-model="formData.lastName" required>
+									<form-validate valattributeform="createprospectsform" valattribute="lastName"/>
 								</div>
 							</div>
 						</td>
@@ -65,12 +55,13 @@
 							<div class="control-group">
 								<label class="control-label" for="mobileNumber">{{'label.mobilephone' | translate }}<span class="required">*</span> </label>
 								<div class="controls">
-									<input type="text" id="mobileNumber" data-ng-model="formData.mobileNumber"
-										data-ng-pattern="/^(?!0+$)(?!1+$)(?!2+$)(?!3+$)(?!4+$)(?!5+$)(?!6+$)(?!7+$)(?!8+$)(?!9+$)\d{1,15}$/"
-										name="mobilenumber" maxlength="15">
-									<div data-ng-show="createprospectsform.mobilenumber.$dirty && createprospectsform.mobilenumber.$invalid">
-										<small class="error" data-ng-show="createprospectsform.mobilenumber.$error.pattern">{{'label.prospect.error.mobileno' | translate}} </small>
-									</div>
+									<input type="text" id="mobileNumber" data-ng-model="formData.mobileNumber" ng-pattern="/^[0-9]+$/"
+										name="mobilenumber" maxlength="15" required>
+									<span ng-show="createprospectsform.mobilenumber.$invalid && createprospectsform.mobilenumber.$dirty">
+				                      <small class="required" ng-show="createprospectsform.mobilenumber.$error.pattern"><br/>
+				                          {{'label.mustbenumeric' | translate}}
+				                      </small>
+					                </span>
 								</div>
 							</div>
 						</td>
@@ -82,9 +73,6 @@
 								<label class="control-label" for="emailId">{{'label.emailid' | translate }}</label>
 								<div class="controls">
 									<input type="emailId" id="emailId" ng-model="formData.emailId" name="emailId">
-									<div data-ng-show="createprospectsform.emailId.$dirty && createprospectsform.emailId.$invalid">
-										<small class="error" data-ng-show="createprospectsform.emailId.$error.emailId"> {{'label.prospect.error.email' | translate}} </small>
-									</div>
 								</div>
 							</div>
 						</td>
@@ -104,7 +92,8 @@
 							<div class="control-group">
 								<label class="control-label" for="address">{{'label.address' | translate }}<span class="required">*</span></label>
 								<div class="controls">
-									<input type="text" id="address" data-ng-model="formData.address">
+									<input type="text" id="address" data-ng-model="formData.address" name="address" required>
+									<form-validate valattributeform="createprospectsform" valattribute="address"/>
 								</div>
 							</div>
 						</td>
@@ -116,8 +105,8 @@
 									| translate }}<span class="required">*</span>
 								</label>
 								<div class="controls">
-									<textarea id="note" data-ng-model="formData.note"> </textarea>
-									<!-- style="width: 291px; height: 122px;" -->
+									<textarea id="note" data-ng-model="formData.note" name="note" required> </textarea>
+									<form-validate valattributeform="createprospectsform" valattribute="note"/>
 
 								</div>
 							</div>
@@ -247,7 +236,7 @@
 										data-ng-options="productData.productName as productData.productName for productData in productDatas"
 										data-value="{{productData.productName}}" ng-change="assignData(formData.preferredLoanProduct)">
 									</select>&nbsp;
-									<a href="#/calculator?id={{formData.loanProductId}}" class="btn btn-primary">{{'label.button.calculate'| translate}}</a>
+									<a href="{{calculateURL}}" ng-click="calculateBtn()" class="btn btn-primary">{{'label.button.calculate'| translate}}</a>
 								</div>
 							</div>
 						</td>

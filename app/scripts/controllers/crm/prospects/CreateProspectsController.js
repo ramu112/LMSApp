@@ -61,6 +61,14 @@
 					}
 				}
 			}
+			
+			scope.calculateBtn = function(){
+				if(scope.formData.loanProductId)
+					scope.calculateURL = "#/calculator?id="+scope.formData.loanProductId;
+				else{
+					alert("Please select product..!");
+				}
+			}
 				
 			scope.submit = function() {			
 				this.formData.locale = 'en';

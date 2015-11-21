@@ -105,7 +105,7 @@
             }
             scope.depositArray = [];
             scope.addDeposit = function() {
-            	if (scope.depositFormData.depositId) {
+            	if (scope.depositFormData.depositId && scope.depositArray.length <=0) {
             		resourceFactory.feeMasterResource.get({id: scope.depositFormData.depositId} , function(data) {
                         var feeMasterData = data.feeMasterData;
                         

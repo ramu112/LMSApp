@@ -284,7 +284,7 @@
                             value="{{feemasterData.id}}">
                         <option style="display:none" value="">{{'label.selectdeposit' | translate}}</option>
                     </select>
-                     <a ng-click="addDeposit()"><i class="icon-plus icon-white"></i></a>
+                     <a  ng-hide="depositArray.length >= 1"  ng-click="addDeposit()"><i class="icon-plus icon-white"></i></a>
                   </td>
                   <td width="50%">
                   </td>
