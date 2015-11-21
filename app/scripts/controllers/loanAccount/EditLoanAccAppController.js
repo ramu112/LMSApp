@@ -6,12 +6,13 @@
             scope.formData = {};
             scope.chargeFormData = {}; //For charges
             scope.taxFormData = {}; //For taxes
+            scope.depositFormData = {}; //For deposit
             scope.collateralFormData = {}; //For collaterals
             scope.collaterals = [];
             scope.restrictDate = new Date();
             scope.loanTaxMapData = [];
 
-            resourceFactory.loanResource.get({loanId : routeParams.id, template:true, associations:'charges,collateral,meeting,taxes'}, function(data) {
+            resourceFactory.loanResource.get({loanId : routeParams.id, template:true, associations:'charges,collateral,meeting,taxes,deposits'}, function(data) {
                   scope.loanaccountinfo = data;
 
                   resourceFactory.loanResource.get({resourceType : 'template', templateType:'collateral', productId:data.loanProductId, fields:'id,loanCollateralOptions'}, function(data) {
@@ -79,6 +80,8 @@
               }
               scope.taxesArray = scope.loanaccountinfo.taxes || [];
               
+              scope.depositArray = scope.loanaccountinfo.feeMasterData || [];
+              
               if (scope.loanaccountinfo.timeline.submittedOnDate) { scope.formData.submittedOnDate = new Date(scope.loanaccountinfo.timeline.submittedOnDate); }
               if (scope.loanaccountinfo.timeline.expectedDisbursementDate) { scope.formData.expectedDisbursementDate = new Date(scope.loanaccountinfo.timeline.expectedDisbursementDate); }
               if (scope.loanaccountinfo.interestChargedFromDate) { scope.formData.interestChargedFromDate = new Date(scope.loanaccountinfo.interestChargedFromDate); }
@@ -105,6 +108,10 @@
 
               if (scope.loanaccountinfo.meeting) {
                 scope.formData.syncRepaymentsWithMeeting = true;
+              }
+              
+              if(scope.depositArray.length > 0){
+            	  scope.formData.principal = rootScope.addition(scope.formData.principal,scope.depositArray[0].amountOrPercentage);
               }
               
               resourceFactory.taxCalculationResource.query({loanId : routeParams.id}, function(taxCalculationData) {
@@ -147,6 +154,21 @@
             		});
             	}
             }
+            
+            scope.addDeposit = function() {
+            	if (scope.depositFormData.depositId) {
+            		resourceFactory.feeMasterResource.get({id: scope.depositFormData.depositId} , function(data) {
+                        var feeMasterData = data.feeMasterData;
+                        
+                        feeMasterData.feeMasterId = feeMasterData.id;
+                        feeMasterData.id = null;
+                        feeMasterData.amountOrPercentage = feeMasterData.amount;
+            			scope.depositArray.push(feeMasterData);
+            			//to deposit select box empty
+            			scope.depositFormData.depositId = undefined;
+            		});
+            	}
+            }
 
             scope.deleteCharge = function(index) {
               scope.charges.splice(index,1);
@@ -155,6 +177,10 @@
             scope.deleteTax = function(index) {
             	scope.taxesArray.splice(index,1);
             	scope.taxAmountCal(0);
+            }
+            
+            scope.deleteDeposit = function(index) {
+            	scope.depositArray.splice(index,1);
             }
 
             scope.syncRepaymentsWithMeetingchange = function() {
@@ -184,7 +210,12 @@
             
             scope.taxAmountCal = function(flagVal){
             	var taxCalformData = {};
-            	taxCalformData.principal = scope.formData.principal;
+            	if(scope.depositArray && scope.depositArray.length > 0){
+            		taxCalformData.principal = scope.subtract(scope.formData.principal,scope.depositArray[0].amountOrPercentage);
+            	}else{
+            		taxCalformData.principal = scope.formData.principal;
+            	}
+            	console.log(taxCalformData.principal);
             	taxCalformData.locale = "en";
             	taxCalformData.taxes = [];
             	for(var i in scope.taxesArray){
@@ -241,6 +272,7 @@
             scope.previewRepayments = function() {
               // Make sure charges and collaterals are empty before initializing.
                 delete scope.formData.charges;
+                delete scope.formData.depositArray;
                 delete scope.formData.collateral;
 
                 if (scope.charges.length > 0) {
@@ -248,6 +280,13 @@
                   for (var i in scope.charges) {
                     scope.formData.charges.push({ chargeId:scope.charges[i].chargeId, amount:scope.charges[i].amountOrPercentage, dueDate:dateFilter(scope.charges[i].dueDate,'dd MMMM yyyy') });
                   }
+                }
+                
+                if (scope.depositArray.length > 0) {
+                	scope.formData.depositArray = [];
+                	for (var i in scope.depositArray) {
+                		scope.formData.depositArray.push({depositId:scope.depositArray[i].feeMasterId, amount:scope.depositArray[i].amountOrPercentage});
+                	}
                 }
 
                 if (scope.collaterals.length > 0) {
@@ -288,6 +327,7 @@
             scope.submit = function() {
                 // Make sure charges and collaterals are empty before initializing.
                 delete scope.formData.charges;
+                delete scope.formData.depositArray;
                 delete scope.formData.collateral;
                 
                 if (scope.charges.length > 0) {
@@ -295,6 +335,13 @@
                   for (var i in scope.charges) {
                     scope.formData.charges.push({id : scope.charges[i].id, chargeId:scope.charges[i].chargeId, amount:scope.charges[i].amountOrPercentage, dueDate:dateFilter(scope.charges[i].dueDate,'dd MMMM yyyy') });
                   }
+                }
+                
+                if (scope.depositArray.length > 0) {
+                	scope.formData.depositArray = [];
+                	for (var i in scope.depositArray) {
+                		scope.formData.depositArray.push({ id : scope.depositArray[i].id,depositId:scope.depositArray[i].feeMasterId, amount:scope.depositArray[i].amountOrPercentage });
+                	}
                 }
 
                 //if there is no charge selected 

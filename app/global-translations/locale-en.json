@@ -866,6 +866,7 @@
     "label.heading.days": "Days",
     "label.heading.disbursement": "Disbursement",
     "label.heading.principaldue": "Principal Due",
+    "label.heading.depositAmount": "Deposit Amount",
     "label.heading.residualAmount": "Residual Amount",
     "label.heading.principalbalance": "Principal Balance",
     "label.heading.interestdue": "Interest Due",

@@ -129,6 +129,14 @@
           else {
             scope.chargeTableShow = false;
           }
+          if(scope.loandetails.feeMasterData) {
+        	  scope.deposits = scope.loandetails.feeMasterData;
+        	  
+        	  scope.depositTableShow = true;
+          }
+          else {
+        	  scope.depositTableShow = false;
+          }
           
           if(scope.status=="Submitted and pending approval" || scope.status=="Active" || scope.status=="Approved" ){
               scope.choice = true;
