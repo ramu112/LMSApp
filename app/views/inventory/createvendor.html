@@ -1,0 +1,195 @@
+      <div>
+        <ul class="breadcrumb">
+          <li><a href="#/inventory">{{'link.admin.inventory' | translate}}</a> <span class="divider">/</span></li>
+          <li class="active">{{'label.createsupplier' | translate}}</li>
+        </ul>
+      </div>
+      <form name="createsupplierform" class="form-horizontal well" ng-controller="CreateVendorController" ng-submit="submit()">
+       <div class="error" ng-show="errorStatus || errorDetails">
+		<label>{{'label.contract.error' | translate}}</label>
+		<label ng-show="errorStatus">{{errorStatus}}</label>
+		<label ng-hide="errorStatus" ng-repeat="error in errorDetails">{{error.code | translate}}</label>
+	    </div>
+        <fieldset>
+          <legend>Create New Supplier</legend>
+
+          <div class="control-group">
+            <label class="control-label" for="supplierCode">{{ 'label.supplier.code' | translate }}&nbsp;<span class="required">*</span></label>
+            <div class="controls">
+              <input type="text" id="supplierCode" name="supplierCode" ng-model="formData.supplierCode"><!-- data-ng-maxlength="{{'code' | CodeValidate}}" -->
+              <span data-ng-show = "createsupplierform.supplierCode.$dirty && createsupplierform.supplierCode.$invalid">
+              	<small class="error-row">{{'error.code.definition.length.validation'| translate}}</small>
+              </span>
+            </div>
+          </div>
+          <div class="control-group">
+            <label class="control-label" for="supplierDescription">{{ 'label.supplier.description' | translate }}&nbsp;<span class="required">*</span></label>
+            <div class="controls">
+              <input type="text" id="supplierDescription" ng-model="formData.supplierDescription">
+            </div>
+          </div>
+           <div class="control-group">
+			<label class="control-label" for="supplierAddress">{{'label.supplier.address' | translate}}&nbsp;<span class="required">*</span></label>
+			<div class="controls">
+				<textarea rows="2" cols="2" ng-model="formData.supplierAddress"></textarea>
+			</div>
+		</div>   
+		  <div class="offset3" style="margin-left: 31.66%;">
+            <a href="#/inventory"><button id="cancel"  type="reset" class="btn" ng-click="reset123()">{{'button.cancel'| translate}}</button></a>
+            <button id="submit"  type="submit" data-ng-disabled="createsupplierform.$dirty && createsupplierform.$invalid" class="btn btn-primary">{{'button.save'| translate}}</button>
+          </div>  
+        </fieldset>
+        <!-- <fieldset>
+          <legend>Create Vendor</legend>
+          <table>
+			<tr>
+				<td>
+		          <div class="control-group">
+		            <label class="control-label" for="supplierCode">{{ 'label.vendor.name' | translate }}&nbsp;<span class="required">*</span></label>
+		            <div class="controls">
+		              <input type="text" id="supplierCode" name="supplierCode" ng-model="formData.supplierCode">data-ng-maxlength="{{'code' | CodeValidate}}"
+		              <span data-ng-show = "createsupplierform.supplierCode.$dirty && createsupplierform.supplierCode.$invalid">
+		              	<small class="error-row">{{'error.code.definition.length.validation'| translate}}</small>
+		              </span>
+		            </div>
+		          </div>
+	          </td>
+	          <td>
+		          <div class="control-group">
+	            	<label class="control-label" for="supplierCode">{{ 'label.vendor.fax' | translate }}&nbsp;<span class="required">*</span></label>
+	            	<div class="controls">
+	              	<input type="text" id="supplierCode" name="supplierCode" ng-model="formData.supplierCode">
+	              	<span data-ng-show = "createsupplierform.supplierCode.$dirty && createsupplierform.supplierCode.$invalid">
+	              	<small class="error-row">{{'error.code.definition.length.validation'| translate}}</small>
+	              </span>
+	            </div>
+	          	</div>
+	          </td>
+	       </tr>
+	       <tr>
+	          <td>
+		          <div class="control-group">
+		            <label class="control-label" for="supplierCode">{{ 'label.vendor.contact' | translate }}&nbsp;<span class="required">*</span></label>
+		            <div class="controls">
+		              <input type="text" id="supplierCode" name="supplierCode" ng-model="formData.supplierCode">
+		              <span data-ng-show = "createsupplierform.supplierCode.$dirty && createsupplierform.supplierCode.$invalid">
+		              	<small class="error-row">{{'error.code.definition.length.validation'| translate}}</small>
+		              </span>
+		            </div>
+		          </div>
+	          </td>
+	          <td>
+		          <div class="control-group">
+	            	<label class="control-label" for="supplierCode">{{ 'label.vendor.email' | translate }}&nbsp;<span class="required">*</span></label>
+	            		<div class="controls">
+	              		<input type="text" id="supplierCode" name="supplierCode" ng-model="formData.supplierCode">
+	              		<span data-ng-show = "createsupplierform.supplierCode.$dirty && createsupplierform.supplierCode.$invalid">
+	              		<small class="error-row">{{'error.code.definition.length.validation'| translate}}</small>
+	              	</span>
+	            	</div>
+	          	</div>
+	          </td>
+          </tr>
+          <tr>
+          		<td>
+          			<div class="control-group">
+            			<label class="control-label" for="supplierCode">{{ 'label.vendor.phone' | translate }}&nbsp;<span class="required">*</span></label>
+            			<div class="controls">
+             		 		<input type="text" id="supplierCode" name="supplierCode" ng-model="formData.supplierCode">
+             		 		<span data-ng-show = "createsupplierform.supplierCode.$dirty && createsupplierform.supplierCode.$invalid">
+              				<small class="error-row">{{'error.code.definition.length.validation'| translate}}</small>
+             	 			</span>
+            			</div>
+          			</div>
+          		</td>
+          		<td>
+          			<div class="control-group">
+						<label class="control-label" for="supplierAddress">{{'label.vendor.address1' | translate}}&nbsp;<span class="required">*</span></label>
+						<div class="controls">
+						<textarea rows="2" cols="2" ng-model="formData.supplierAddress"></textarea>
+						</div>
+					</div>
+          	   </td>
+          </tr>
+          <tr>
+          		<td>
+          			<div class="control-group">
+						<label class="control-label" for="quality">{{'label.vendor.vendortype' | translate }}</label>
+							<div class="controls">
+							<select ng-model="itemDetailsData.quality"  ng-options="q.mCodeValue as q.mCodeValue for q in qualityDatas" value="{{q.mCodeValue}}">
+							<option value="">{{'label.select.one' | translate}}</option>
+							</select>
+						</div>
+					</div>
+          		</td>
+          		<td>
+          			<div class="control-group">
+						<label class="control-label" for="supplierAddress">{{'label.vendor.address2' | translate}}&nbsp;<span class="required">*</span></label>
+						<div class="controls">
+						<textarea rows="2" cols="2" ng-model="formData.supplierAddress"></textarea>
+						</div>
+					</div>
+          		</td>
+          </tr>
+          <tr>
+          		<td>
+          			<div class="control-group">
+           			 	<label class="control-label" for="supplierCode">{{ 'label.vendor.city' | translate }}</label>
+            			<div class="controls">
+             		 	<input type="text" id="supplierCode" name="supplierCode" ng-model="formData.supplierCode">
+              			<span data-ng-show = "createsupplierform.supplierCode.$dirty && createsupplierform.supplierCode.$invalid">
+              			<small class="error-row">{{'error.code.definition.length.validation'| translate}}</small>
+              			</span>
+            		</div>
+         		 </div>
+          		</td>
+          		<td>
+          			<div class="control-group">
+           			 <label class="control-label" for="supplierCode">{{ 'label.vendor.comments' | translate }}</label>
+            		 <div class="controls">
+             		    <input type="text" id="supplierCode" name="supplierCode" ng-model="formData.supplierCode">
+              		    <span data-ng-show = "createsupplierform.supplierCode.$dirty && createsupplierform.supplierCode.$invalid">
+              		    <small class="error-row">{{'error.code.definition.length.validation'| translate}}</small>
+              			</span>
+            		</div>
+          			</div>
+          		</td>
+          </tr>
+		<tr>
+		<td>
+          <div class="control-group">
+            <label class="control-label" for="supplierCode">{{ 'label.vendor.state' | translate }}&nbsp;<span class="required">*</span></label>
+            <div class="controls">
+              <input type="text" id="supplierCode" name="supplierCode" ng-model="formData.supplierCode">
+              <span data-ng-show = "createsupplierform.supplierCode.$dirty && createsupplierform.supplierCode.$invalid">
+              	<small class="error-row">{{'error.code.definition.length.validation'| translate}}</small>
+              </span>
+            </div>
+          </div>
+          <div class="control-group">
+            <label class="control-label" for="supplierCode">{{ 'label.vendor.country' | translate }}&nbsp;<span class="required">*</span></label>
+            <div class="controls">
+              <input type="text" id="supplierCode" name="supplierCode" ng-model="formData.supplierCode">
+              <span data-ng-show = "createsupplierform.supplierCode.$dirty && createsupplierform.supplierCode.$invalid">
+              	<small class="error-row">{{'error.code.definition.length.validation'| translate}}</small>
+              </span>
+            </div>
+          </div>
+          <div class="control-group">
+            <label class="control-label" for="supplierCode">{{ 'label.vendor.postal' | translate }}&nbsp;<span class="required">*</span></label>
+            <div class="controls">
+              <input type="text" id="supplierCode" name="supplierCode" ng-model="formData.supplierCode">
+              <span data-ng-show = "createsupplierform.supplierCode.$dirty && createsupplierform.supplierCode.$invalid">
+              	<small class="error-row">{{'error.code.definition.length.validation'| translate}}</small>
+              </span>
+            </div>
+          </div>
+		</td>
+		</tr>
+		</table>
+		  <div class="offset3" style="margin-left: 31.66%;">
+            <a href="#/inventory"><button id="cancel"  type="reset" class="btn" ng-click="reset123()">{{'button.cancel'| translate}}</button></a>
+            <button id="submit"  type="submit" data-ng-disabled="createsupplierform.$dirty && createsupplierform.$invalid" class="btn btn-primary">{{'button.save'| translate}}</button>
+          </div>  
+        </fieldset> -->
+      </form>

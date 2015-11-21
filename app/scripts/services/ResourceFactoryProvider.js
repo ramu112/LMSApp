@@ -331,7 +331,88 @@
           
           prospectResource: defineResource(apiVer + "/prospects/:id", {id:'@id'},{update: { method: 'PUT' }}),
           
-          prospectConvertResource: defineResource(apiVer + "/prospects/converttoclient/:prospectId", {prospectId:'@prospectId'},{})
+          prospectConvertResource: defineResource(apiVer + "/prospects/converttoclient/:prospectId", {prospectId:'@prospectId'},{}),
+          itemDetailTemplateResource: defineResource(apiVer + "/itemdetails/template", {grnId: '@grnId'}, {
+              get: {method: 'GET', params: {}}	
+          }),
+          itemSaleResource: defineResource(apiVer + "/itemsales", {}, {
+          	 get: {method: 'GET', params: {}}
+         }) ,
+          itemDetailsResource: defineResource(apiVer + "/itemdetails/:itemId/:anotherresource", {itemId:'@itemId',anotherresource:'@anotherresource'}, {
+           	  getAlldetails: {method: 'GET', params: {}},
+                 get: {method: 'GET', params: {}},
+	             update: {method: 'PUT', params: {}}
+             }),
+          supplierResource: defineResource(apiVer + "/suppliers/:id", {id: '@id'}, {
+          	  getAlldetails: {method: 'GET', params: {}},
+                get: {method: 'GET', params: {},isArray: true},
+
+                update: {method: 'PUT', params: {}}
+            }),
+            itemResource: defineResource(apiVer + "/items/:itemId", {itemId:'@itemId'}, {
+          	   getAllItems: {method: 'GET', params: {}},
+                get: {method: 'GET', params: {}},
+                update: {method: 'PUT', params: {}}
+           }),
+           singleItemDetailResource: defineResource(apiVer + "/itemdetails/singleitem/:itemId", {}, {
+               get: {method: 'GET', params: {}}	
+           }),
+           grnTemplateResource: defineResource(apiVer + "/grn/template", {},{
+               get: {method: 'GET', params: {}}
+           }),
+           grnResource: defineResource(apiVer + "/grn/:grnId", {grnId: '@grnId'},{
+               get: {method: 'GET', params: {}},
+              update: {method: 'PUT', params: {}}
+           }),
+           itemDetailsTempDropdownResource: defineResource(apiVer + "/itemdetails/template/dropdown", {}, {
+           }),
+           itemhistoryResource: defineResource(apiVer + "/mrn/history/", {},{
+           	  getAlldetails: {method: 'GET', params: {}},
+           	  get: {method: 'GET', params: {}}
+              }),
+           itemSaleTemplateResource: defineResource(apiVer + "/itemsales/template", {}, {
+               get: {method: 'GET', params: {}}
+           }) ,
+          viewMrnResource: defineResource(apiVer + "/mrn/view/", {},{
+              getAlldetails: {method: 'GET', params: {}},
+              get: {method: 'GET', params: {}}
+                 }),
+           itemTemplateResource: defineResource(apiVer + "/items/template", {}, {
+              getAllItems: {method: 'GET', params: {}, isArray: true},
+              get: {method: 'GET', params: {}}
+               }),
+           mrnTemplateResource: defineResource(apiVer + "/mrn/template", {}, {
+               getAlldetails: {method: 'GET', params: {}, isArray: true},
+               get: {method: 'GET', params: {}}
+               }),
+           mrnResource: defineResource(apiVer + "/mrn/:mrnId", {}, {
+                 getAlldetails: {method: 'GET', params: {}, isArray: true},
+                 get: {method: 'GET', params: {}}
+               }),
+          moveMrnResource: defineResource(apiVer + "/mrn/template/ids", {}, {
+                 getAlldetails: {method: 'GET', params: {}, isArray: true},
+                 get: {method: 'GET', params: {}}
+               }),
+               
+          moveMrnSaveResource: defineResource(apiVer + "/mrn/movemrn/:mrnId", {}, {
+                 get: {method: 'GET', params: {}},
+               	 getMovedMrnResource: {method: 'GET', params: {mrnId:'@mrnId'}}
+               }),
+          moveItemSaleSaveResource: defineResource(apiVer + "/mrn/moveitemsale", {}, {
+                   get: {method: 'GET', params: {}},
+               }),
+          itemDetailsforDeleteResource: defineResource(apiVer + "/itemdetails/:itemId", {itemId:'@itemId'}, {
+           	  getAlldetails: {method: 'GET', params: {}},
+                  get: {method: 'GET', params: {}},
+		          update: {method: 'PUT', params: {}}
+                 }),
+         oneTimeSaleTemplateResourceData: defineResource(apiVer + "/onetimesales/:itemId/item", {itemId:'@itemId'}, {
+             get: {method: 'GET', params: {}}
+                   }),
+         oneTimeSaleQuantityResource: defineResource(apiVer + "/onetimesales/:itemId/totalprice", {itemId:'@itemId'}, {
+             get: {method: 'POST', params: {}}
+                // get: {method: 'GET', params: {}}
+               })
           
         };
       }];
