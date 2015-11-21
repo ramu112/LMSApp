@@ -193,7 +193,7 @@
         scope.depositArray = [];
         scope.depositSelected = function(depositId) {
         	
-        	if (depositId) {
+        	if (depositId && scope.depositArray.length <=0) {
         		resourceFactory.feeMasterResource.get({id: depositId} , function(data) {
                     var feeMasterData = data.feeMasterData;
                     

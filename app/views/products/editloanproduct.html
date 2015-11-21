@@ -639,7 +639,7 @@
                         <option style="display:none" value="">{{'label.selectdeposit' | translate}}</option>
                     </select>
                     <button type="button" style="margin-top: -10px;" class="btn btn-primary"
-                            ng-click="depositSelected(depositId)">{{ 'label.button.add' | translate }}
+                          ng-hide="depositArray.length >= 1"  ng-click="depositSelected(depositId)">{{ 'label.button.add' | translate }}
                     </button>
                 </td>
             </tr>

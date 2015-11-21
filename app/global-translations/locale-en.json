@@ -2483,6 +2483,7 @@
 	"table.heading.phonenumber" : "Phone No",
 	"table.heading.address" : "Address",
 	"table.heading.status" : "Status",
+	"label.note" : "Note",
 	"table.action" : "Action",
 	
 	"label.createprospect" : "Create Prospect",
@@ -2499,6 +2500,7 @@
 	"label.source" : "Source",
 	"label.plan" : "Product",
 	"label.nextcalltime" : "Next Call Time",
+	"label.nextcallDate" : "Next Call Date",
 	"Note" : "Note",
 	"button.cancel" : "cancel",
 	"button.save" : "save",

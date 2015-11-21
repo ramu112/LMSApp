@@ -13,16 +13,13 @@
 <form data-ng-submit="search(filterText)">
     <input data-ng-model="filterText" type="text" class="span marginbottom0px" placeholder="Filter by name">
 </form>	
-		<div class="error" data-ng-show="errorStatus || errorDetails">
-		<label>{{'label.contract.error' | translate}}</label>
-		<label data-ng-show="errorStatus">{{errorStatus}}</label>
-		<label data-ng-hide="errorStatus" data-ng-repeat="error in errorDetails">{{error.code | translate}}</label>
-	    </div>
+		<api-validate></api-validate>
 	<table class="table">
         <thead>
             <tr class="graybg">
                 <!-- <th>{{ 'table.heading.prospectId' | translate }}</th> -->
                 <th>{{ 'table.heading.name' | translate }}</th>
+                <th>{{ 'label.nextcallDate' | translate }}</th>
                 <th>{{ 'table.heading.emailId' | translate }}</th>
                 <th>{{ 'table.heading.phonenumber' | translate }}</th>
                 <th>{{ 'table.heading.address' | translate }}</th>           
@@ -34,6 +31,7 @@
             <tr class="pointer-main" data-ng-repeat="prospect in prospects.currentPageItems | filter:filterText">                      
                 <!-- <td class="pointer" data-ng-click="routeTo(prospect.id)">{{prospect.id}}</td> -->
                 <td class="pointer" data-ng-click="routeTo(prospect.id)">{{prospect.firstName}}&nbsp{{prospect.lastName}}</td>
+                <td class="pointer" data-ng-click="routeTo(prospect.id)">{{prospect.preferredCallingTime | DateFormat}}</td>
                 <td class="pointer" data-ng-click="routeTo(prospect.id)">{{prospect.emailId}}</td>         
                 <td class="pointer" data-ng-click="routeTo(prospect.id)">{{prospect.mobileNumber}}</td>  
                 <td class="pointer" data-ng-click="routeTo(prospect.id)">{{prospect.address}}</td>        
@@ -42,7 +40,7 @@
                 <a href="#/followprospects/{{prospect.id}}" 
 					data-ng-show="getVal(prospect.status)&&PermissionService.showMenu('FOLLOWUP_PROSPECT')"
 					style='color:#000000' data-popover="followup" data-popover-trigger="mouseenter" ><i class="icon-time"></i></a> 
-				<a data-ng-click="convertProspect(prospect.id)" 
+				<a data-ng-click="convertProspect(prospect.id)" ng-hide="prospect.status == 'Closed'"
 					style='color:#000000' data-popover="convert to client" data-popover-trigger="mouseenter" ><i class="icon-user"></i></a> 
 				<a href="#/editprospects/{{prospect.id}}"
 					data-ng-show="getVal(prospect.status)&&(PermissionService.showMenu('UPDATE_PROSPECT'))"
