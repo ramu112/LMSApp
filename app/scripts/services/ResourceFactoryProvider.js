@@ -319,7 +319,19 @@
           
           feeMasterResource: defineResource(apiVer + "/feemaster/:id", {id:'@id'},{update: { method: 'PUT' }}),
           
-          feeMasterTemplateResource: defineResource(apiVer + "/feemaster/template", {},{})
+          feeMasterTemplateResource: defineResource(apiVer + "/feemaster/template", {},{}),
+          
+          getAllProspectResource : defineResource(apiVer + "/prospects/allprospects", {},{
+        	  getAllDetails: {method: 'GET', params: {}}
+          }),
+          
+          prospectTemplateResource : defineResource(apiVer + "/prospects/template", {},{  
+        	  getTemplate: {method: 'GET', params: {}}
+          }),
+          
+          prospectResource: defineResource(apiVer + "/prospects/:id", {id:'@id'},{update: { method: 'PUT' }}),
+          
+          prospectConvertResource: defineResource(apiVer + "/prospects/converttoclient/:prospectId", {prospectId:'@prospectId'},{})
           
         };
       }];

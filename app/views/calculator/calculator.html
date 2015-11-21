@@ -13,7 +13,7 @@
           <div class="control-group">
             <label class="control-label" for="productId">{{ 'label.heading.loanproduct' | translate }}&nbsp;<span class="required">*</span></label>
             <div class="controls">
-              <select id="productId" id="productId" name="productId" ng-model="productId" ng-options="product.id as product.name for product in leaseproducts" value="{{product.id}}" ng-change="leaseProductChange(productId)" required="required">
+              <select id="productId" id="productId" name="productId" ng-model="formData.productId" ng-options="product.id as product.name for product in leaseproducts" ng-change="leaseProductChange(productId)" required="required">
                 <option style="display:none" value="">{{'label.selectloanproduct' | translate}}</option>
               </select>
               <form-validate valattributeform="createcalculatorform" valattribute="productId"/>
@@ -119,6 +119,7 @@
       </form>
      <h3 align="center" ng-show="leaseCalculator">{{'label.lease.calculator'| translate}}</h3>
      <div class=" btn btn-primary pull-right" ng-show="leaseCalculator" ng-click="downloadFile()">{{'label.button.download' | translate}}</div>
+     <div class=" btn btn-primary pull-right" ng-show="leaseCalculator && isProspect" ng-click="saveFile()">{{'label.button.save' | translate}}</div>
      <table class="table" ng-show="leaseCalculator">
               <thead>
                 <tr>
