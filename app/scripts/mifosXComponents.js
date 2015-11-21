@@ -199,7 +199,7 @@ define(['underscore', 'mifosX'], function() {
       'inventory/mrn/MoveMrnController',
       'inventory/mrn/ViewMovedMrnController',
       'inventory/ViewItemDetailController',
-      'inventory/ItemSaleController'
+      'inventory/ItemSaleController',
     ],
     filters: [
       'StatusLookup',

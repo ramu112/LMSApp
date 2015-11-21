@@ -545,7 +545,7 @@
       })
       .when('/viewprospects',{
     	  templateUrl: 'views/crm/prospects/viewprospects.html'
-      });
+      })
     .when('/inventory', {
         templateUrl: 'views/inventory/inventory.html'
     })
@@ -596,7 +596,7 @@
     })
     .when('/viewitemdetails/:id', {
       templateUrl: 'views/inventory/viewitemdetails.html'
-    })
+    });
     $locationProvider.html5Mode(false);
   };
   mifosX.ng.application.config(defineRoutes).run(function($log) {
