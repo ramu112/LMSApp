@@ -1,6 +1,6 @@
 (function(module) {
   mifosX.controllers = _.extend(module, {
-    MainController: function(scope, location, sessionManager, translate,$rootScope,localStorageService) {
+    MainController: function(scope, location, sessionManager, translate,localStorageService) {
         scope.activity = {};
         scope.activityQueue = [];
         if(localStorageService.get('Location')){
@@ -94,14 +94,20 @@
       sessionManager.restore(function(session) {
         scope.currentSession = session;
       });
+      
+      scope.addition = function(a,b){
+    	  return a+b;
+      }
+      scope.subtract = function(a,b){
+    	  return a-b;
+      }
     }
   });
   mifosX.ng.application.controller('MainController', [
-    '$scope',
+    '$rootScope',
     '$location',
     'SessionManager',
     '$translate',
-    '$rootScope',
     'localStorageService',
     mifosX.controllers.MainController
   ]).run(function($log) {

@@ -344,7 +344,7 @@
               <thead>
                 <tr>
                   <th colspan="5" scope="colgroup"></th>
-                  <th colspan="2" scope="colgroup">{{'label.heading.loanamountandbalance' | translate}}</th>
+                  <th colspan="5" scope="colgroup">{{'label.heading.loanamountandbalance' | translate}}</th>
                   <th colspan="3" scope="colgroup">{{'label.heading.totalcostofloan' | translate}}</th>
                   <th colspan="5" scope="colgroup">{{'label.heading.installmenttotals' | translate}}</th>
                 </tr>
@@ -356,8 +356,10 @@
                     <th scope="col">&nbsp;</th>
 
                     <th scope="col">{{'label.heading.principaldue' | translate}}</th>
+                    <th scope="col">{{'label.heading.depositAmount' | translate}}</th>
                     <th scope="col">{{'label.heading.residualAmount' | translate}}</th>
                     <th scope="col">{{'label.heading.balanceofloan' | translate}}</th>
+                    <th scope="col">&nbsp;</th>
 
                     <th scope="col">{{'label.heading.interest' | translate}}</th>
                     <th scope="col">{{'label.heading.fees' | translate}}</th>
@@ -380,8 +382,10 @@
                 <td ng-hide="period.obligationsMetOnDate"></td>
 
                 <td>{{period.principalDue}}</td>
+                <td>{{period.depositAmount}}</td>
                 <td>{{period.residualAmount}}</td>
                 <td>{{period.principalLoanBalanceOutstanding}}</td>
+                <td></td>
                 <td>{{period.interestOriginalDue}}</td>
                 <td>{{period.feeChargesDue}}</td>
                 <td>{{period.penaltyChargesDue}}</td>
@@ -400,6 +404,8 @@
                   <th colspan="3">{{'label.heading.total' | translate}}</th>
 
                   <th>{{loandetails.repaymentSchedule.totalPrincipalExpected}}</th>
+                  <th>&nbsp;</th>
+                  <th>&nbsp;</th>
                   <th>&nbsp;</th>
                   <th>&nbsp;</th>
                   <th>{{loandetails.repaymentSchedule.totalInterestCharged}}</th>
@@ -523,6 +529,27 @@
                     <a class="btn-success" data-ng-show="charge.chargePayable && status=='Active'" href="#/loanaccountcharge/{{loandetails.id}}/paycharge/{{charge.id}}">{{"label.button.pay" | translate}}</a>
                 </td>
                 <td></td>
+            </tr>
+          </table>
+        </tab>
+        
+        <tab ng-show="$parent.depositTableShow" heading="{{'label.heading.deposit' | translate}}">
+          <table class="table" width="100%">
+            <tr class="graybg">
+                <th>{{'label.feemaster.code' | translate }}</th>
+			    <th>{{'label.feemaster.transactiontype' | translate }}</th>
+			    <th>{{'label.input.deposittimetype' | translate }}</th>
+			    <th>{{'label.input.depositcalculation' | translate }}</th>
+			    <th>{{'label.feemaster.depositon' | translate }}</th>
+			    <th>{{'label.feemaster.amount' | translate }}</th>
+            </tr>
+            <tr ng-repeat="deposit in deposits">
+                <td>{{deposit.feeCode}}</td>
+			    <td>{{deposit.transactionType}}</td>
+			    <td>{{deposit.depositTimeType.value}}</td>
+			    <td>{{deposit.depositCalculationType.value}}</td>
+			    <td>{{deposit.depositOnType.value}}</td>
+			    <td>{{deposit.amount}}</td>
             </tr>
           </table>
         </tab>

@@ -652,6 +652,7 @@
                                 <th>{{'label.feemaster.transactiontype' | translate }}</th>
                                 <th>{{'label.input.deposittimetype' | translate }}</th>
                                 <th>{{'label.input.depositcalculation' | translate }}</th>
+                                <th>{{'label.feemaster.depositon' | translate }}</th>
                                 <th>{{'label.feemaster.amount' | translate }}</th>
                                 <th>{{'label.heading.actions' | translate}}</th>
                             </tr>
@@ -660,6 +661,7 @@
                                 <td>{{deposit.transactionType}}</td>
                                 <td>{{deposit.depositTimeType.value}}</td>
                                 <td>{{deposit.depositCalculationType.value}}</td>
+                                <td>{{deposit.depositOnType.value}}</td>
                                 <td>{{deposit.amount}}</td>
                                 <td><a ng-click="deleteDeposit($index)"><i class="icon-remove icon-white"></i></a></td>
                             </tr>
