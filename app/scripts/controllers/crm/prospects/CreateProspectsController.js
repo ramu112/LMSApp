@@ -27,7 +27,8 @@
 			
 			scope.downloadFile = function(){
 				
-				window.open($rootScope.hostUrl+ API_VERSION +'/loans/calculator/export?tenantIdentifier=default&file='+scope.formData.fileName);
+				//window.open($rootScope.hostUrl+ API_VERSION +'/loans/calculator/export?tenantIdentifier=default&file='+scope.formData.fileName);
+				window.open($rootScope.hostUrl+ API_VERSION +'/loans/calculator/export?tenantIdentifier=default&file='+scope.formData.location);
 			}
 
 			/*$('#timepicker1').timepicker({
