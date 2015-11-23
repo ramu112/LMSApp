@@ -2714,13 +2714,14 @@
 	
 	"validation.msg.itemsale.purchaseFrom.cannot.be.blank":"Please select office For purchase",
 	"validation.msg.itemsale.itemId.cannot.be.blank":"Please select Item",
-	"validation.msg.itemsale.chargeCode.cannot.be.blank":"Charge Code cannot be blank",
+	"validation.msg.item.chargeCodeData.cannot.be.blank":"Charge Code cannot be blank",
 	"validation.msg.itemsale.orderQuantity.cannot.be.blank":"Order Quantity cannot be blank",
 	"validation.msg.itemsale.unitPrice.cannot.be.blank":"Unit Price cannot be blank",
 	"validation.msg.itemsale.purchaseBy.cannot.be.blank":"Purchase By cannot be blank",
 	"validation.msg.itemsale.chargeAmount.cannot.be.blank":"Charge amount cannot be blank",
 	"label.item.warrantyexpirydate":"Warranty Expiry Date",
 	"label.item.manufacturer":"Manufacturer",
+	"error.msg.edit.items.assign.to.customer":"Item is assigned to customer, unable to edit it",
 	
 	"vendor":"....",
 	"label.vendor.name":"Name",

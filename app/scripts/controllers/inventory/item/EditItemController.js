@@ -3,7 +3,7 @@
     EditItemController: function(scope, routeParams, resourceFactory, location,$rootScope,webStorage, $filter,dateFilter) {
         scope.itemClassDatas = [];
         scope.unitDatas = [];
-        scope.chargesDatas = [];
+        //scope.chargesDatas = [];
         scope.formData = {};
         scope.removeItemPrices = [];
         scope.totalItem=routeParams.totalItem;
@@ -11,14 +11,17 @@
         scope.first.date = new Date();
         scope.manufacturerDatas=[];
         scope.itemmanufacturerData=[];
+        scope.chargeCodeDatas=[];
          resourceFactory.itemResource.get({itemId: routeParams.id} , function(data) {
+        	scope.chargeCodeDatas=data.chargeCodeData;
         	scope.manufacturerDatas=data.manufacturerDatas;
         	scope.itemClassDatas = data.itemClassData;
             scope.unitDatas = data.unitData;
-            scope.chargesDatas = data.chargesData;
+            //scope.chargesDatas = data.chargesData;
             scope.formData=data;
             scope.regionDatas = data.regionDatas;
             scope.itemPrices = data.itemPricesDatas;
+            scope.formData.chargeCodeData = data.chargeCode;
             for(var i in scope.itemPrices){
             	scope.itemPrices[i].price = $filter("number")(scope.itemPrices[i].price,2);
            }
@@ -55,7 +58,7 @@
         	 delete this.formData.id;
         	 delete this.formData.itemClassData;
         	 delete this.formData.unitData;
-        	 delete this.formData.chargesData;
+        	 delete this.formData.chargeCodeDatas;
         	 delete this.formData.auditDetails;
         	 delete this.formData.regionDatas;
         	 delete this.formData.itemPricesDatas;
