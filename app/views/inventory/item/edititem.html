@@ -99,7 +99,8 @@
 						<div class="control-group">
             			<label class="control-label" for="warranty">{{'label.item.warranty' | translate }}&nbsp;<span class="required">*</span></label>
             			<div class="controls">
-              			<input type="text" id="warranty" name="warranty" data-ng-model="formData.warranty"><br/><!--data-ng-pattern="{{'integer' | CodeValidate}}"  -->
+              			<input type="text" id="warranty" name="warranty" class="input-medium" data-ng-model="formData.warranty"><!--data-ng-pattern="{{'integer' | CodeValidate}}"  -->
+              			<span style="font-size:15px;"><img src="../app/images/slash.jpg" width="20">Month(s)</span><br/>
               			<span data-ng-show="edititemform.warranty.$dirty && edititemform.warranty.$invalid">
              				<small class="error-row">{{'error.not.numeric.validation'| translate}}</small>
              			</span>

@@ -2722,6 +2722,7 @@
 	"label.item.warrantyexpirydate":"Warranty Expiry Date",
 	"label.item.manufacturer":"Manufacturer",
 	"error.msg.edit.items.assign.to.customer":"Item is assigned to customer, unable to edit it",
+	"validation.msg.item.manufacturer.cannot.be.blank":"Manufacturer Cannot be blank",
 	
 	"vendor":"....",
 	"label.vendor.name":"Name",

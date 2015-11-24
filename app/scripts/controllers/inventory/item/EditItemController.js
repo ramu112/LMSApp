@@ -13,6 +13,9 @@
         scope.itemmanufacturerData=[];
         scope.chargeCodeDatas=[];
          resourceFactory.itemResource.get({itemId: routeParams.id} , function(data) {
+        	var reqDate = dateFilter(data.warrantyExpiryDate,'dd MMMM yyyy');
+        	scope.formData.dateFormat = 'dd MMMM yyyy';
+        	scope.first.date = reqDate;
         	scope.chargeCodeDatas=data.chargeCodeData;
         	scope.manufacturerDatas=data.manufacturerDatas;
         	scope.itemClassDatas = data.itemClassData;
@@ -82,7 +85,7 @@
         	 this.formData.locale = "en";
         	 var reqDate = dateFilter(scope.first.date,'dd MMMM yyyy');
              this.formData.dateFormat = 'dd MMMM yyyy';
-             this.formData.warrantyexpirydate = reqDate;
+             this.formData.warrantyExpiryDate = reqDate;
                resourceFactory.itemResource.update({'itemId': routeParams.id},this.formData,function(data){
              location.path('/viewitem/' + data.resourceId +'/item/'+ scope.totalItem);
 

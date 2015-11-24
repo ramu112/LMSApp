@@ -66,7 +66,7 @@
         	this.formData.locale = "en";
         	var reqDate = dateFilter(scope.first.date,'dd MMMM yyyy');
             this.formData.dateFormat = 'dd MMMM yyyy';
-            this.formData.warrantyexpirydate = reqDate;
+            this.formData.warrantyExpiryDate = reqDate;
             resourceFactory.itemResource.save(this.formData,function(data){
             location.path('/viewitem/'+data.resourceId+'/item/0');
 
