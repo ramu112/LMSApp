@@ -17,7 +17,7 @@
         	resourceFactory.loanProductResource.get({loanProductId : id, template:'true'}, function(data) {
         		scope.formData.principal = data.principal;
         		scope.formData.interestRatePerPeriod = data.interestRatePerPeriod;
-        		scope.formData.deposit = 0;
+        		scope.formData.deposit = data.feeMasterData[0].amount;
         		scope.formData.mileage = 2500;
         		scope.formData.excess = 0.39;
         		scope.formData.FLPForYear = 500;
