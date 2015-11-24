@@ -3,7 +3,7 @@
     CreateItemController: function(scope,webStorage, resourceFactory, location,$rootScope,dateFilter) {
     	 scope.itemClassDatas = [];
          scope.unitDatas = [];
-         scope.chargesDatas = [];
+         //scope.chargesDatas = [];
          scope.formData = [];
          scope.itemPrices = [];
          scope.manufacturerDatas=[];
@@ -11,16 +11,18 @@
          scope.itemPricesFormData={};
          scope.first = {};
          scope.first.date = new Date();
+         scope.chargeCodeData=[];
         resourceFactory.itemTemplateResource.get(function(data) {
+        	scope.chargeCodeData=data.chargeCodeData;
         	scope.manufacturerDatas=data.manufacturerDatas;
         	scope.itemClassDatas = data.itemClassData;
             scope.unitDatas = data.unitData;
-            scope.chargesDatas = data.chargesData;
+            //scope.chargesDatas = data.chargesData;
             scope.regionDatas = data.regionDatas;
             scope.formData = {
             		itemClassData : scope.itemClassDatas[0].id,
                     unitData : scope.unitDatas[0].id,
-                    chargesData : scope.chargesDatas[0].id,
+                    //chargesData : scope.chargesDatas[0].id,
                     };
         });
         

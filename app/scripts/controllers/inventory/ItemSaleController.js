@@ -15,13 +15,13 @@
     	   scope.purchase.date = new Date();
     	   scope.formData={};
     	   scope.data={};
-    	   scope.chargeDatas ={};
-    	   
+    	   //scope.chargeDatas ={};
+    	   scope.chargeCodeData=[];
         resourceFactory.itemSaleTemplateResource.get(function(data) {
-        	
+        	scope.chargeCodeData=data.chargeCodeData;
         	 scope.officeDatas = data.officeDatas;
         	 scope.itemDatas = data.itemDatas;
-        	 scope.chargeDatas = data.chargeDatas;
+        	 //scope.chargeDatas = data.chargeDatas;
         	 for(var i in scope.officeDatas){
         		 if(scope.officeDatas[i].id == scope.officeId){
         			 scope.officeDatas.splice(i,1); 
