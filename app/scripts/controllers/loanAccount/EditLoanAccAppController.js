@@ -313,7 +313,7 @@
                 
                 scope.taxAmountCal(0);
                 scope.actualPrincipalAmount = scope.formData.principal;
-                this.formData.principal = scope.finalPrincipalAmount;
+                this.formData.principal = scope.finalPrincipalAmount || scope.formData.principal;
 
               resourceFactory.loanResource.save({command:'calculateLoanSchedule'}, this.formData,function(data){
                 scope.repaymentscheduleinfo = data;

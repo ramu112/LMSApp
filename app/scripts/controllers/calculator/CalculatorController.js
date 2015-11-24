@@ -107,8 +107,8 @@
             	scope.quoteWithMaintenance = [];
             	scope.mileage = [];
             	scope.excess = [];
-            	scope.financialLeasePayoutForYear = [];
-            	scope.financialLeasePayout = [];
+            	scope.payoutAdminChargesForYear = [];
+            	scope.payoutAdminCharges = [];
             	scope.accountingWDV = [];
             	scope.taxWDV = [];
             	scope.taxWDV = [];
@@ -145,8 +145,8 @@
             		scope.quoteWithMaintenance.push({"quoteWithMaintenance":Math.round(scope.calculationData[i].quoteWithMaintenance)});
             		scope.mileage.push({"mileage":Math.round(scope.calculationData[i].mileage)});
             		scope.excess.push({"excess":scope.calculationData[i].excess});
-            		scope.financialLeasePayoutForYear.push({"financialLeasePayoutForYear":scope.calculationData[i].financialLeasePayoutForYear});
-            		scope.financialLeasePayout.push({"financialLeasePayout":(scope.calculationData[i].financialLeasePayout).toFixed(2)});
+            		scope.payoutAdminChargesForYear.push({"payoutAdminChargesForYear":scope.calculationData[i].payoutAdminChargesForYear});
+            		scope.payoutAdminCharges.push({"payoutAdminCharges":(scope.calculationData[i].payoutAdminCharges).toFixed(2)});
             		scope.accountingWDV.push({"accountingWDV":Math.round(scope.calculationData[i].accountWDV)});
             		scope.taxWDV.push({"taxWDV":Math.round(scope.calculationData[i].taxWDV)});
             	}
