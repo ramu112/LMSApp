@@ -1632,6 +1632,7 @@
 	  "table.heading.chargeType":"Charge Type",
 	  "table.heading.taxCode":"Tax Code",
 	  "table.heading.startDate":"Start Date",
+	  "table.heading.endDate":"End Date",
 	  "table.heading.taxType":"Tax Type",
 	  "table.heading.rate":"Rate",
 	  "table.heading.taxInclusive":"Tax Inclusive",

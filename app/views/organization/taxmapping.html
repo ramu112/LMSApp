@@ -18,6 +18,7 @@
                 	<th>{{ 'table.heading.taxType' | translate }}</th>
                 	<th>{{ 'table.heading.rate' | translate }}</th>
                 	<th>{{ 'table.heading.startDate' | translate }}</th>
+                	<th>{{ 'table.heading.endDate' | translate }}</th>
                 	<th>{{ 'table.heading.taxInclusive' | translate }}</th>
             	</tr>
         	</thead>
@@ -28,6 +29,7 @@
                 	<td>{{taxmapping.taxType}}</td> 
                 	<td>{{taxmapping.rate}}</td> 
                 	<td>{{taxmapping.startDate | DateFormat}}</td>
+                	<td>{{taxmapping.endDate | DateFormat}}</td>
                 	<td>{{taxmapping.taxInclusive}}</td> 
             	</tr>
         	</tbody>
