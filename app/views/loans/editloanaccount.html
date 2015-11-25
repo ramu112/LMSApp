@@ -14,7 +14,7 @@
             </td>
             <td width="44%">
                 <label class="control-label">{{ 'label.input.product' | translate }}&nbsp;<span class="required">*</span></label>
-                <select id="productId" ng-model="formData.productId" ng-options="product.id as product.name for product in loanaccountinfo.productOptions" value="{{product.id}}" ng-change="loanProductChange(formData.productId)"/>
+                <select id="productId" ng-model="formData.productId" ng-options="product.id as product.name for product in loanaccountinfo.productOptions" value="{{product.id}}" ng-change="loanProductChange(formData.productId,'true')"/>
             </td>
         </tr>
         <tr class="span2"></tr>

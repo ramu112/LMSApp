@@ -49,7 +49,7 @@
                   
             });
 
-            scope.loanProductChange = function(loanProductId) {
+            scope.loanProductChange = function(loanProductId,val) {
 
               var inparams = { resourceType:'template', productId:loanProductId, templateType:scope.templateType };
               if (scope.clientId) { inparams.clientId = scope.clientId; }
@@ -58,6 +58,8 @@
               resourceFactory.loanResource.get(inparams, function(data) {
                 scope.loanaccountinfo = data;
                 scope.collaterals = [];
+                scope.changeVal = val == 'true' ? true : false;
+                console.log(scope.changeVal);
                 scope.previewClientLoanAccInfo();
               });
 
@@ -110,7 +112,7 @@
                 scope.formData.syncRepaymentsWithMeeting = true;
               }
               
-              if(scope.depositArray.length > 0){
+              if(scope.depositArray.length > 0 && !scope.changeVal){
             	  scope.formData.principal = rootScope.addition(scope.formData.principal,scope.depositArray[0].amountOrPercentage);
               }
               
@@ -311,7 +313,7 @@
                 
                 scope.taxAmountCal(0);
                 scope.actualPrincipalAmount = scope.formData.principal;
-                this.formData.principal = scope.finalPrincipalAmount;
+                this.formData.principal = scope.finalPrincipalAmount || scope.formData.principal;
 
               resourceFactory.loanResource.save({command:'calculateLoanSchedule'}, this.formData,function(data){
                 scope.repaymentscheduleinfo = data;
@@ -337,8 +339,8 @@
                   }
                 }
                 
+                scope.formData.depositArray = [];
                 if (scope.depositArray.length > 0) {
-                	scope.formData.depositArray = [];
                 	for (var i in scope.depositArray) {
                 		scope.formData.depositArray.push({ id : scope.depositArray[i].id,depositId:scope.depositArray[i].feeMasterId, amount:scope.depositArray[i].amountOrPercentage });
                 	}
