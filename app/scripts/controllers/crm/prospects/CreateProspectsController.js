@@ -1,10 +1,6 @@
 (function(module) {
 	mifosX.controllers = _.extend(module, {				
-		CreateProspectsController : function(scope,resourceFactory, 
-				location, dateFilter,$rootScope,webStorage,API_VERSION) {
-			
-			scope.sourceOfPublicityDatas = [];
-			scope.productDatas = [];
+		CreateProspectsController : function(scope,resourceFactory,location, dateFilter,$rootScope) {
 			
 			scope.first = {};
 			var datetime = new Date();
@@ -12,72 +8,32 @@
 			scope.first.time = datetime.getHours() + ":" + datetime.getMinutes();
 	
 			scope.formData = {};
-			scope.minDate = new Date();
+			scope.minDate = datetime;
 			
-			var prospectData = webStorage.get("prospectData");
-			webStorage.remove("prospectData");
-			if(prospectData){
-				scope.formData = prospectData.formData;
-				scope.formData.location = prospectData.file;
-				scope.formData.prospectLoanCalculatorId = prospectData.prospectLoanCalculatorId;
-				
-				scope.isFileShow  = true;
-				
-			}
-			
-			scope.downloadFile = function(){
-				
-				//window.open($rootScope.hostUrl+ API_VERSION +'/loans/calculator/export?tenantIdentifier=default&file='+scope.formData.fileName);
-				window.open($rootScope.hostUrl+ API_VERSION +'/loans/calculator/export?tenantIdentifier=default&file='+scope.formData.location);
-			}
-
-			/*$('#timepicker1').timepicker({
-				showInputs : false,
-				showMeridian : false,
-				
-			});*/
-						
+			scope.sourceOfPublicityDatas = [];scope.productDatas = [];
 			resourceFactory.prospectTemplateResource.getTemplate(function(data) {
 				scope.sourceOfPublicityDatas = data.sourceOfPublicityData;
 				scope.productDatas = data.productData;
-				console.log(scope.productDatas);
-				
-										
-				/*for ( var i in scope.sourceOfPublicityDatas) {					
-					if (scope.sourceOfPublicityDatas[i].mCodeValue == "Phone") {												
-						scope.formData.sourceOfPublicity = scope.sourceOfPublicityDatas[i].mCodeValue;					
-					}									
-				}	*/						
 			});
 			
-			scope.assignData = function(val) {
-				this.formData.locale = 'en';
+			scope.productChange = function(id) {
 				
 				for(var i in scope.productDatas) {
-					if(val === scope.productDatas[i].productName) {
-						this.formData.loanProductId = scope.productDatas[i].id;
-						webStorage.add("prospectData",{formData : scope.formData,file:""});
+					if(id == scope.productDatas[i].id) {
+						scope.formData.preferredLoanProduct = scope.productDatas[i].productName;
+						//webStorage.add("prospectData",{formData : scope.formData,file:""});
 						break;
 					}
 				}
 			}
 			
-			scope.calculateBtn = function(){
-				if(scope.formData.loanProductId)
-					scope.calculateURL = "#/calculator?id="+scope.formData.loanProductId;
-				else{
-					alert("Please select product..!");
-				}
-			}
-				
 			scope.submit = function() {			
-				this.formData.locale = 'en';
-				var reqDate = dateFilter(scope.first.date,'yyyy-MM-dd HH:mm:ss');
-				this.formData.preferredCallingTime = reqDate;
+				scope.formData.locale = 'en';
+				scope.formData.preferredCallingTime = dateFilter(scope.first.date,'yyyy-MM-dd HH:mm:ss');
+				$rootScope.prospectFormData = {};
+				$rootScope.prospectFormData = scope.formData;
+				location.path("/calculator");
 				
-				resourceFactory.prospectResource.save(this.formData, function(data) {
-					location.path('/prospects');										
-				});							
 			};						
 		}			
 	});
@@ -87,8 +43,6 @@
 	'$location', 
 	'dateFilter',
 	'$rootScope',
-	'webStorage',
-	'API_VERSION',
 	mifosX.controllers.CreateProspectsController 
 	]).run(function($log) {
 		$log.info("CreateProspectsController initialized");	
