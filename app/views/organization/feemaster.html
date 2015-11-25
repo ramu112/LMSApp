@@ -30,9 +30,9 @@
                 <td>{{feeMasterData.depositOnType.value}}</td>
                 <td>{{feeMasterData.amount}}</td>
                 <td class="pointer">
-                 <a href="#/editfeemaster/{{feeMasterData.id}}"
+                 <a href="#/editfeemaster/{{feeMasterData.id}}" ng-hide="feeMasterData.feeCode == 'Default'"
                     data-popover="{{'label.button.edit' | translate}}" data-popover-trigger="mouseenter" class="icon-edit"></a>&nbsp;
-	             <a data-ng-click="deleteFeeMaster(feeMasterData.id)"
+	             <a data-ng-click="deleteFeeMaster(feeMasterData.id)" ng-hide="feeMasterData.feeCode == 'Default'"
 	                data-popover="{{'label.button.delete' | translate}}" data-popover-trigger="mouseenter"><i class="icon-remove icon-white"></i></a></td>         
             </tr>
         </tbody>

@@ -1,6 +1,6 @@
 <div>
 	<ul class="breadcrumb">
-		<li><a href="#/prospects">{{'link.prospects' | translate}}</a> <span class="divider">/</span></li>
+		<li><a href="#/prospects">{{'label.anchor.request.quotation' | translate}}</a> <span class="divider">/</span></li>
 		<li class="active">{{'label.createprospect' | translate}}</li>
 	</ul>
 </div>
@@ -9,253 +9,122 @@
 	<strong> {{'label.prospect.personaldetails' | translate}} </strong>
 
 	<table>
+		
 		<tr>
 			<td>
-				<table>
-					
-					<tr>
-						<td>
-							<div class="control-group">
-								<label class="control-label" for="firstName">{{'label.firstname' | translate }}<span class="required">*</span></label>
-								<div class="controls">
-									<input type="text" id="firstName" name="firstName" data-ng-model="formData.firstName" required>
-									<form-validate valattributeform="createprospectsform" valattribute="firstName"/>
-								</div>
-							</div>
-						</td>
-					</tr>
-
-					<tr>
-						<td>
-							<div class="control-group">
-								<label class="control-label" for="middleName">{{'label.middlename' | translate }}</label>
-								<div class="controls">
-									<input type="text" id="middleName" ng-model="formData.middleName">
-								</div>
-							</div>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<div class="control-group">
-								<label class="control-label" for="lastName">{{'label.lastname' | translate }}<span class="required">*</span> </label>
-								<div class="controls">
-									<input type="text" id="lastName" name="lastName" data-ng-model="formData.lastName" required>
-									<form-validate valattributeform="createprospectsform" valattribute="lastName"/>
-								</div>
-							</div>
-						</td>
-					</tr>
-				</table>
+				<div class="control-group">
+					<label class="control-label" for="firstName">{{'label.firstname' | translate }}<span class="required">*</span></label>
+					<div class="controls">
+						<input type="text" id="firstName" name="firstName" data-ng-model="formData.firstName" required>
+						<form-validate valattributeform="createprospectsform" valattribute="firstName"/>
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="middleName">{{'label.middlename' | translate }}</label>
+					<div class="controls">
+						<input type="text" id="middleName" ng-model="formData.middleName">
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="lastName">{{'label.lastname' | translate }}<span class="required">*</span> </label>
+					<div class="controls">
+						<input type="text" id="lastName" name="lastName" data-ng-model="formData.lastName" required>
+						<form-validate valattributeform="createprospectsform" valattribute="lastName"/>
+					</div>
+				</div>
 			</td>
-			<td>
-				<table>
-					<tr>
-						<td>
-							<div class="control-group">
-								<label class="control-label" for="mobileNumber">{{'label.mobilephone' | translate }}<span class="required">*</span> </label>
-								<div class="controls">
-									<input type="text" id="mobileNumber" data-ng-model="formData.mobileNumber" ng-pattern="/^[0-9]+$/"
-										name="mobilenumber" maxlength="15" required>
-									<span ng-show="createprospectsform.mobilenumber.$invalid && createprospectsform.mobilenumber.$dirty">
-				                      <small class="required" ng-show="createprospectsform.mobilenumber.$error.pattern"><br/>
-				                          {{'label.mustbenumeric' | translate}}
-				                      </small>
-					                </span>
-								</div>
-							</div>
-						</td>
-					</tr>
-					<tr>
-
-						<td>
-							<div class="control-group">
-								<label class="control-label" for="emailId">{{'label.emailid' | translate }}</label>
-								<div class="controls">
-									<input type="emailId" id="emailId" ng-model="formData.emailId" name="emailId">
-								</div>
-							</div>
-						</td>
-					</tr>
-				</table>
+			<td valign="top">
+				<div class="control-group">
+					<label class="control-label" for="mobileNumber">{{'label.mobilephone' | translate }}<span class="required">*</span> </label>
+					<div class="controls">
+						<input type="text" id="mobileNumber" data-ng-model="formData.mobileNumber" ng-pattern="/^[0-9]+$/"
+							name="mobilenumber" maxlength="15" required>
+						<span ng-show="createprospectsform.mobilenumber.$invalid && createprospectsform.mobilenumber.$dirty">
+	                      <small class="required" ng-show="createprospectsform.mobilenumber.$error.pattern"><br/>
+	                          {{'label.mustbenumeric' | translate}}
+	                      </small>
+		                </span>
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="emailId">{{'label.emailid' | translate }}</label>
+					<div class="controls">
+						<input type="email" id="emailId" ng-model="formData.emailId" name="emailId">
+					</div>
+				</div>
 			</td>
+		
 		</tr>
 	</table>
-	
 	<strong>{{'label.prospect.addressdetails' | translate}}</strong>
 	<table>
 		<tr>
 			<td>
-				<table>
-					<tr>
-						<td>
-							<div class="control-group">
-								<label class="control-label" for="address">{{'label.address' | translate }}<span class="required">*</span></label>
-								<div class="controls">
-									<input type="text" id="address" data-ng-model="formData.address" name="address" required>
-									<form-validate valattributeform="createprospectsform" valattribute="address"/>
-								</div>
-							</div>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<div class="control-group">
-								<label class="control-label" for="note">{{ 'label.note'
-									| translate }}<span class="required">*</span>
-								</label>
-								<div class="controls">
-									<textarea id="note" data-ng-model="formData.note" name="note" required> </textarea>
-									<form-validate valattributeform="createprospectsform" valattribute="note"/>
-
-								</div>
-							</div>
-						</td>
-					</tr>
-
-					<!-- <tr>
-						<td>
-							<div class="control-group">
-								<label class="control-label" for="streetArea">{{'label.street/area' | translate }}</label>
-								<div class="controls">
-									<input type="text" id="streetArea" data-ng-model="formData.streetArea">
-								</div>
-							</div>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<div class="control-group">
-								<label class="control-label" for="city"> {{'label.city/district' | translate }} <span class="required">*</span> </label>
-								<div class="controls">
-									<input type="text" id="city" name="city" data-ng-model="formData.city" list="citylist" data-ng-change="getStateAndCountry(formData.city)">
-								</div>
-							</div> 
-							<datalist id="citylist">
-								<option data-ng-repeat="cityData in cityDatas" value="{{cityData}}">
-							</datalist>
-
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<div class="control-group">
-								<label class="control-label" for="state"> {{'label.state' | translate }} </label>
-								<div class="controls">
-									<input type="text" id="state" data-ng-model="formData.state" readonly>
-								</div>
-							</div>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<div class="control-group">
-								<label class="control-label" for="country"> {{'label.country' | translate }} </label>
-								<div class="controls">
-									<input type="text" id="country" data-ng-model="formData.country" readonly>
-								</div>
-							</div>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<div class="control-group">
-								<label class="control-label" for="zipCode">{{'label.zipcode' | translate }}</label>
-								<div class="controls">
-									<input type="number" id="zipCode" ng-model="formData.zipCode" name="zipcode" ng-pattern="/^[0-9]+$/">
-              									<div ng-show="createprospectsform.zipcode.$dirty && createprospectsform.zipcode.$invalid" >
-              										<small class="error" ng-show="createprospectsform.zipcode.$error.pattern">digits only!!</small>
-            									</div>
-									<input type="text" id="zipcode" data-ng-model="formData.zipCode">
-								</div>
-							</div>
-						</td>
-					</tr> -->
-				</table>
+				<div class="control-group">
+					<label class="control-label" for="address">{{'label.address' | translate }}<span class="required">*</span></label>
+					<div class="controls">
+						<input type="text" id="address" name="address" data-ng-model="formData.address" required>
+						<form-validate valattributeform="createprospectsform" valattribute="address"/>
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="note">{{ 'label.note' | translate }}<span class="required">*</span></label>
+					<div class="controls">
+						<textarea id="note" data-ng-model="formData.note" name="note" required> </textarea>
+						<form-validate valattributeform="createprospectsform" valattribute="note"/>
+					</div>
+				</div>
 			</td>
-			<td>
-				<table>
-					<tr>
-						<td>
-							<div class="control-group">
-								<label class="control-label" for="sourceOfPublicity">{{'label.source' | translate }}</label>
-								<div class="controls">
-									<select data-ng-model="formData.sourceOfPublicity"
-										data-ng-options="sourceOfPublicityData.mCodeValue as sourceOfPublicityData.mCodeValue for sourceOfPublicityData in sourceOfPublicityDatas"
-										data-value="{{sourceOfPublicityData.mCodeValue}}">
-									</select>
-
-								</div>
-							</div>
-
-						</td>
-					</tr>
-					<!-- <tr data-ng-show="formData.sourceOfPublicity == 'Other'">
-						<td>
-							<div class="control-group">
-								<label class="control-label">{{ 'label.prospect.other' | translate }}</label>
-								<div class="controls">
-									<input type="text" id="sourceOther" data-ng-model="formData.sourceOther">
-								</div>
-							</div>
-
-						</td>
-					</tr> -->
-					
-					<tr>
-						<td>
-							<div class="control-group">
-								<label class="control-label">{{ 'label.nextcalltime' | translate }}</label>
-								<div class="controls">
-									<!-- <input type="text" ng-model="first.date" name="preferredCallingTime"/> -->
-									<input type="text" id="preferredCallingTime" min="minDate" data-datepicker-pop="dd MMMM yyyy" data-ng-model="first.date" required
-										data-late-Validate style="width: 130px; background-color: #FFFFFF;" />
-
-									 <input id="timepicker1" type="text"  data-ng-model="first.time"
-										style="width: 60px; background-color: #FFFFFF;">
-								</div>
-							</div>
-
-						</td>
-					</tr>
-					
-
-				</table>
+			<td valign="top">
+				<div class="control-group">
+					<label class="control-label" for="sourceOfPublicity">{{'label.source' | translate }}</label>
+					<div class="controls">
+						<select data-ng-model="formData.sourceOfPublicity"
+							data-ng-options="sourceOfPublicityData.mCodeValue as sourceOfPublicityData.mCodeValue for sourceOfPublicityData in sourceOfPublicityDatas"
+							data-value="{{sourceOfPublicityData.mCodeValue}}">
+						</select>
+	
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">{{ 'label.nextcalltime' | translate }}<span class="required">*</span></label>
+					<div class="controls">
+						<input type="text" name="preferredCallingTime" min="minDate" data-datepicker-pop="dd MMMM yyyy" data-ng-model="first.date" 
+							data-late-Validate style="width: 130px; background-color: #FFFFFF;" readonly required/>
+	
+						 <input id="timepicker1" type="text"  data-ng-model="first.time"
+							style="width: 60px; background-color: #FFFFFF;">
+							
+					   <form-validate valattributeform="createprospectsform" valattribute="preferredCallingTime"/>
+					</div>
+				</div>
 			</td>
 		</tr>
-
-	</table>
-	
-	<table>
 		<tr>
-						<td>
-							<div class="control-group">
-								<label class="control-label" for="preferredLoanProduct">{{'label.plan' | translate }}</label>
-								<div class="controls">
-									<select data-ng-model="formData.preferredLoanProduct" 
-										data-ng-options="productData.productName as productData.productName for productData in productDatas"
-										data-value="{{productData.productName}}" ng-change="assignData(formData.preferredLoanProduct)">
-									</select>&nbsp;
-									<a href="{{calculateURL}}" ng-click="calculateBtn()" class="btn btn-primary">{{'label.button.calculate'| translate}}</a>
-								</div>
-							</div>
-						</td>
-					</tr>
-					<tr ng-show= "isFileShow">
-					<td>
-					<div class="control-group">
-			              <div class="controls">
-			                <a ng-hide="formData.status =='-1'" ng-click="downloadFile()"><i class=" icon-download-alt icon-white"></i> Download File</a>
-			                &nbsp;{{formData.location}}
-			              </div>
-			            </div>
-            		</td>
-					</tr>
+		  <td>
+		  	 <div class="control-group">
+				<label class="control-label" for="loanProductId">{{'label.product' | translate }}<span class="required">*</span></label>
+				<div class="controls">
+					<select data-ng-model="formData.loanProductId" name="loanProductId" id="loanProductId"
+						data-ng-options="productData.id as productData.productName for productData in productDatas"
+						ng-change="productChange(formData.loanProductId)" required>
+					</select>&nbsp;
+					<form-validate valattributeform="createprospectsform" valattribute="loanProductId"/>
+				</div>
+			</div>
+			<!-- <div class="control-group" ng-show= "isFileShow">
+              <div class="controls">
+                <a ng-hide="formData.status =='-1'" ng-click="downloadFile()"><i class=" icon-download-alt icon-white"></i> Download File</a>
+                &nbsp;{{formData.location}}
+              </div>
+            </div> -->
+		  </td>
+		</tr>
 	</table>
-
-	<div class="offset3">
-		<a href="#/leads"><button type="reset" class="btn">{{'button.cancel'| translate}}</button></a>
-		<button type="submit" class="btn btn-primary">{{'button.save'| translate}}</button>
+	<br/>
+	<div class="offset5">
+		<a href="#/prospects"><button type="reset" class="btn">{{'button.cancel'| translate}}</button></a>
+		<button type="submit" class="btn btn-primary">{{'label.button.calculate'| translate}}</button>
 	</div>
 
 </form>

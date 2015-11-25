@@ -127,7 +127,7 @@
            			   scope.formData.principal -= scope.loanTaxMapData[i].taxAmount; 
            		   }
            	   }
-           	   scope.formData.principal = Math.ceil(scope.formData.principal);
+           	   scope.formData.principal = Math.round(scope.formData.principal);
               });
 
             }

@@ -99,12 +99,13 @@
     </nav>
     <div class="navbar navbar-fixed-top">
         <div class="navbar-inner">
-            <div class="container">
+            <div class="container" style="width: 975px;">
                 <a class="brand" href="#/home"><img src="" alt="" height="20"></a>
                 <div class="nav-collapse collapse" id="main-menu">
                     <ul class="nav" id="main-menu-left">
                         <li><a href="#/home" ng-class="{ activate: isActive('/home') }"><i class="icon-home icon-white"></i>{{ 'label.anchor.home' | translate }}</a></li>
-                        <li><a href="#/inventory" data-ng-class="{ activate: isActive('/inventory')}"><i class="icon-th icon-white"></i>{{ 'link.inventory' | translate }}</a></li>
+                        <li><a href="#/prospects" ng-class="{ activate: isActive('/prospects') }"><i class="icon-filter icon-white"></i>{{ 'label.anchor.request.quotation' | translate }}</a></li>
+                        <li><a href="#/inventory" data-ng-class="{ activate: isActive('/inventory')}"><i class="icon-list icon-white"></i>{{ 'link.inventory' | translate }}</a></li>
                         <li><a href="#/clients" ng-class="{ activate: isActive('/clients') }"> <i class="icon-group icon-white"></i>{{ 'label.anchor.clients' | translate }}</a></li>
                         <!-- <li><a ng-class="{ activate: isActive('acc') }" href="#/accounting"><i class="icon-money"></i>{{ 'label.anchor.accounting' | translate }}</a></li> -->
                         <li class="dropdown" id="reports-menu">
@@ -117,6 +118,7 @@
                                 <li><a href="#/reports/accounting">{{ 'label.anchor.accounting' | translate }}</a></li>
                             </ul>
                         </li>
+                        <li><a href="#/calculator" ng-class="{ activate: isActive('/calculator') }"><i class="icon-table icon-white"></i>{{ 'label.anchor.calculator' | translate }}</a></li>
                         <li class="dropdown" id="preview-menu">
                             <a class="dropdown-toggle" data-toggle="dropdown" ng-class="{ activate: isActive('admin') }" href="#"><i class="icon-wrench"></i>{{ 'label.anchor.admin' | translate }}<b class="caret"></b></a>
                             <ul class="dropdown-menu">
@@ -127,8 +129,6 @@
                                 <li><a href="#/templates">{{ 'label.anchor.templates' | translate }}</a></li>
                             </ul>
                         </li>
-                        <li><a href="#/calculator" ng-class="{ activate: isActive('/calculator') }"><i class="icon-th icon-white"></i>{{ 'label.anchor.calculator' | translate }}</a></li>
-                        <li><a href="#/prospects" ng-class="{ activate: isActive('/prospects') }"><i class="icon-th icon-white"></i>{{ 'label.anchor.prospects' | translate }}</a></li>
 
                     </ul>
                     <ul class="nav pull-right" id="main-menu-right">

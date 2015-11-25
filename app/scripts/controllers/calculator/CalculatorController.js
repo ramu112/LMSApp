@@ -6,7 +6,6 @@
 		  scope.productformId = {};
 		  scope.leaseproducts = [];
 		  scope.leaseCalculator = false;
-		  /*scope.termsData = [{value : 12},{value : 24},{value : 36},{value : 48},{value : 60},{value : 72},{value : 84},{value : 90},{value : 96}];*/
         resourceFactory.loanProductResource.getAllLoanProducts(function(data) {
             scope.leaseproducts = data;
         });
@@ -33,19 +32,14 @@
         				scope.formData.maintenance = (scope.charges[i].amount*12).toFixed(2); 
         			}
         		}
-        		console.log(scope.formData);
         	});
         }
         
-        scope.formData.productId = parseInt(location.search().id) || null;
-        console.log(location.search().id);
-        location.$$search = {};
-        
-        
         scope.isProspect  = false;
-        if(scope.formData.productId){
+        if($rootScope.prospectFormData && $rootScope.prospectFormData.loanProductId){
+        	scope.formData.productId = $rootScope.prospectFormData.loanProductId;
         	scope.isProspect  = true;
-        	 scope.leaseProductChange(scope.formData.productId);
+        	scope.leaseProductChange(scope.formData.productId);
         }
         
         scope.submit = function() {  
@@ -234,19 +228,21 @@
        
        scope.saveFile = function (){
     	   
-    	   console.log(scope.f);
     	   var json = {}; 
     	    json = (scope.jsonData.deprecisationArray.length > 0) ? scope.jsonData : scope.formData; 
         	resourceFactory.calculationExportResource.save({command:"PROSPECT"},json,function(data){
         		data = angular.fromJson(angular.toJson(data));
-        		var fileName = data.fileName;
-        		var prospectLoanCalculatorId = data.prospectLoanCalculatorId;
-        		var prospectData = webStorage.get("prospectData") || "";
-        		prospectData.file = fileName;
-        		prospectData.prospectLoanCalculatorId = prospectLoanCalculatorId;
-        		console.log(prospectData);
-        		webStorage.add("prospectData",prospectData);
-        		location.path("/createprospects");
+        		
+        		var formData = {};
+        		formData = $rootScope.prospectFormData;
+        		formData.location = data.fileName;
+        		formData.prospectLoanCalculatorId = data.prospectLoanCalculatorId;
+        		console.log(formData);
+        		
+        		resourceFactory.prospectResource.save(formData, function(data) {
+					location.path('/prospects');										
+				});
+        		
         	});
        };
     }
