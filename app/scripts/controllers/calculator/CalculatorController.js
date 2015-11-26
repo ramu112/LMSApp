@@ -243,9 +243,16 @@
         		formData.prospectLoanCalculatorId = data.prospectLoanCalculatorId;
         		console.log(formData);
         		
-        		resourceFactory.prospectResource.save(formData, function(data) {
-					location.path('/prospects');										
-				});
+        		if(formData.id){
+        			var id = formData.id; delete formData.id;
+        			resourceFactory.prospectResource.update({id:id},formData, function(data) {
+						location.path('/prospects');										
+					});
+        		}else{
+	        		resourceFactory.prospectResource.save(formData, function(data) {
+						location.path('/prospects');										
+					});
+        		}
         		
         	});
        };
