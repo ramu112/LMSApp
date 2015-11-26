@@ -40,7 +40,7 @@
 					style='color:#000000' data-popover="followup" data-popover-trigger="mouseenter" ><i class="icon-time"></i></a> 
 				<a data-ng-click="convertProspect(prospect.id)" ng-hide="prospect.status == 'Closed'"
 					style='color:#000000' data-popover="convert to client" data-popover-trigger="mouseenter" ><i class="icon-user"></i></a> 
-				<a href="#/editprospects/{{prospect.id}}"
+				<a href="#/editprospects/{{prospect.id}}" ng-hide="prospect.status == 'Closed'"
 					style='color:#000000' data-popover="Edit" data-popover-trigger="mouseenter" ><i class="icon-edit icon-white"></i></a> 
 				<a href="#/cancelprospects/{{prospect.id}}"
 					data-ng-show="getVal(prospect.status)&&(PermissionService.showMenu('DELETE_PROSPECT'))"

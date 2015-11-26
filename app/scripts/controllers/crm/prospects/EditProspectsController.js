@@ -22,16 +22,6 @@
 							break;
 						}
 					}
-					/*scope.formData.firstName = data.firstName;
-					scope.formData.middleName = data.middleName;
-					scope.formData.lastName = data.lastName;
-					scope.formData.mobileNumber = data.mobileNumber;
-					scope.formData.emailId = data.emailId;
-					scope.formData.sourceOfPublicity = data.sourceOfPublicity;
-					scope.formData.preferredLoanProduct = data.preferredLoanProduct;
-					scope.formData.preferredCallingTime = data.preferredCallingTime;
-					scope.formData.address = data.address;
-					scope.formData.note = data.note;*/
 					delete scope.formData.status;
 					delete scope.formData.isDeleted;
 					delete scope.formData.sourceOfPublicityData;
