@@ -1,6 +1,6 @@
 {
   "app lebels start" :"----------------------------------------------------",		
-  "label.product.title" : "Mifos-X Client",
+  "label.product.title" : "LMS Client",
   "label.change.language" : "Cambiar el idioma:",
   "label.username" : "Nombre de usuario",
   "label.password" : "Contraseña",
@@ -9,8 +9,8 @@
   "label.loanofficer" : "Oficial de préstamo :",
   "label.product.name" : "Mifos X",
   "label.product.version" : "Versión 1.6.3",
-  "label.product.status" : "MifosX es hasta la fecha",
-  "label.product.aboutus1" : "MifosX está diseñado por el ",
+  "label.product.status" : "LMS es hasta la fecha",
+  "label.product.aboutus1" : "LMS está diseñado por el ",
   "label.product.aboutus2" : "comunidad mundial",
   "label.product.aboutus3" : "trabajando juntos por más pobres, especialmente las mujeres, tener acceso a los servicios financieros.",
   "label.get.involved1" : "¿Suena interesante?",

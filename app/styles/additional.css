@@ -1,0 +1,67 @@
+.bgimg{
+	background:url('../images/slider-bg.jpg') repeat scroll 0 0 rgba(0, 0, 0, 0);
+	height: 600px;
+	width:1050px;
+}
+
+.logocss{
+	color:#2591dc;
+	font-size: 40px;
+	 font-weight: 400;
+}
+
+.darkthick{
+	color: #000000;
+    font-weight: 400;
+}
+
+.indexheader{
+	background-color: #f5f5f5;
+    border-bottom: 1px solid #dddddd;
+    margin: -15px -15px 15px;
+    padding: 10px 15px;
+}
+
+.indexheaderbody{
+	border: 1px solid #DDDDDD;
+	padding:15px;
+	height:112px;
+}
+
+.lightbluebtn {
+  background-color: #6191E5;
+  *background-color: #6191E5;
+ 
+}
+
+.lightbluebtn:hover,
+.lightbluebtn:focus,
+.lightbluebtn:active,
+.lightbluebtn.active,
+.lightbluebtn.disabled,
+.lightbluebtn[disabled] {
+  background-color: #5384DA;
+  *background-color: #5384DA;
+}
+
+.rowheaders{
+	margin-top:13em;
+}
+
+.margintop20{
+	margin-top: 20px;
+}
+
+.paddingright20{
+	padding-right: 20px;
+
+}
+
+.paddingleftnone{
+	padding-left: 0px;
+
+}
+
+ul li {
+    list-style-type: none;
+}

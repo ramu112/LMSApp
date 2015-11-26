@@ -1,6 +1,8 @@
 (function(module) {
   mifosX.controllers = _.extend(module, {
     MainController: function(scope, location, sessionManager, translate,localStorageService) {
+    	
+    	scope.domReady = true;
         scope.activity = {};
         scope.activityQueue = [];
         if(localStorageService.get('Location')){
