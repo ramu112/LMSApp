@@ -179,8 +179,8 @@ define(['underscore', 'mifosX'], function() {
       'calculator/CalculatorController',
       'crm/prospects/ProspectsController',
       'crm/prospects/CreateProspectsController',
+      'crm/prospects/EditProspectsController',
       /*'crm/CreateProspectsController',
-      'crm/EditProspectsController',
       'crm/FollowProspectsController',
       'crm/ViewProspectsController',
       'crm/CancelProspectsController',*/

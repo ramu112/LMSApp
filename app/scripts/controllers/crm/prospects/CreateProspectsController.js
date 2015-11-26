@@ -21,7 +21,6 @@
 				for(var i in scope.productDatas) {
 					if(id == scope.productDatas[i].id) {
 						scope.formData.preferredLoanProduct = scope.productDatas[i].productName;
-						//webStorage.add("prospectData",{formData : scope.formData,file:""});
 						break;
 					}
 				}

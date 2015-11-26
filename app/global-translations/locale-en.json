@@ -2507,6 +2507,7 @@
 	"Note" : "Note",
 	"button.cancel" : "cancel",
 	"button.save" : "save",
+	"label.editprospect":"Edit Prospect",
 	
 	"validation.msg.client.prospect.loanProductId.cannot.be.blank" : "Product cann't be blank",
 	

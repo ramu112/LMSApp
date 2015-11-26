@@ -534,7 +534,7 @@
       .when('/createprospects',{
     	  templateUrl: 'views/crm/prospects/createprospects.html'
       })
-      .when('/editprospects',{
+      .when('/editprospects/:id',{
     	  templateUrl: 'views/crm/prospects/editprospects.html'
       })
       .when('/followprospects',{
