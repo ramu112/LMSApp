@@ -151,22 +151,22 @@
               <tr>
               	<td>{{'label.cof' | translate}}</td>
               	<td ng-repeat="cofForYear in cofForYear">
-              		<input type="text" class="input-small" style="width:60px;" ng-model="cofForYear.cofForYear" ng-on-blur="forYearChange(cofForYear.cofForYear,$index,'cof')"/></td>
+              		<input type="text" class="input-small" id="cofForYear{{$index}}" style="width:60px;" ng-model="cofForYear.cofForYear" ng-on-blur="forYearChange(cofForYear.cofForYear,$index,'cofForYear')"/></td>
               </tr>
               <tr>
               	<td>{{'label.maintenance' | translate}}</td>
               	<td ng-repeat="maintenanceForYear in maintenanceForYear">
-              	<input type="text" class="input-small" style="width:60px;" ng-model="maintenanceForYear.maintenanceForYear" ng-on-blur="forYearChange(maintenanceForYear.maintenanceForYear,$index,'maintenance')"/></td>
+              	<input type="text" class="input-small" id="maintenanceForYear{{$index}}" style="width:60px;" ng-model="maintenanceForYear.maintenanceForYear" ng-on-blur="forYearChange(maintenanceForYear.maintenanceForYear,$index,'maintenanceForYear')"/></td>
               </tr>
               <tr>
               	<td>{{'label.replacementTyres' | translate}}</td>
               	<td ng-repeat="replacementTyresForYear in replacementTyresForYear">
-              	<input type="text" class="input-small" style="width:60px;" ng-model="replacementTyresForYear.replacementTyresForYear" ng-on-blur="forYearChange(replacementTyresForYear.replacementTyresForYear,$index,'replacementTyres')"/></td>
+              	<input type="text" class="input-small" id="replacementTyresForYear{{$index}}" style="width:60px;" ng-model="replacementTyresForYear.replacementTyresForYear" ng-on-blur="forYearChange(replacementTyresForYear.replacementTyresForYear,$index,'replacementTyresForYear')"/></td>
               </tr>
               <tr>
               	<td>{{'label.comprehensiveInsurance' | translate}}</td>
               	<td ng-repeat="comprehensiveInsuranceForYear in comprehensiveInsuranceForYear">
-              	<input type="text" class="input-small" style="width:60px;" ng-model="comprehensiveInsuranceForYear.comprehensiveInsuranceForYear" ng-on-blur="forYearChange(comprehensiveInsuranceForYear.comprehensiveInsuranceForYear,$index,'comprehensive')"/></td>
+              	<input type="text" class="input-small" id="comprehensiveInsuranceForYear{{$index}}" style="width:60px;" ng-model="comprehensiveInsuranceForYear.comprehensiveInsuranceForYear" ng-on-blur="forYearChange(comprehensiveInsuranceForYear.comprehensiveInsuranceForYear,$index,'comprehensiveInsuranceForYear')"/></td>
               </tr>
               <tr>
               	<td>{{'label.deprecisation' | translate}}</td>
@@ -244,7 +244,7 @@
               	<td>{{'label.deprecisation' | translate}}</td>
               	<td ng-repeat="residualDeprecisation in residualDeprecisation">
               			 <!-- <span ng-hide="$last">{{residualDeprecisation.residualDeprecisation}}</span> -->
-              			 <input type="text" class="input-small" style="width:50px;" ng-model="residualDeprecisation.residualDeprecisation" ng-on-blur="forYearChange(residualDeprecisation.residualDeprecisation,$index,'deprecisation')"/>
+              			 <input type="text" class="input-small"  id="residualDeprecisation{{$index}}" style="width:50px;" ng-model="residualDeprecisation.residualDeprecisation" ng-on-blur="forYearChange(residualDeprecisation.residualDeprecisation,$index,'residualDeprecisation')"/>
               			<!-- <input type="text" ng-show="$last" class="input-small" ng-model="residualDeprecisation.residualDeprecisation" ng-change="residualChange(residualDeprecisation.residualDeprecisation)"/> -->%
               	</td>
               </tr>
@@ -254,7 +254,9 @@
               </tr>
               <tr>
               	<td>{{'label.residualAmount(VEP)' | translate}}</td>
-              	<td ng-repeat="residualAmountVEP in residualAmountVEP">{{residualAmountVEP.residualAmountVEP}}</td>
+              	<td ng-repeat="residualAmountVEP in residualAmountVEP">
+              	    <input type="text" id="residualAmountVEP{{$index}}" class="input-small" style="width:50px;" ng-model="residualAmountVEP.residualAmountVEP" ng-on-blur="forYearChange(residualAmountVEP.residualAmountVEP,$index,'residualAmountVEP')"/>
+              	</td>
               </tr>
               <tr>
               	<td>{{'label.residualAmount(VIP)' | translate}}</td>

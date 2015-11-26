@@ -5,7 +5,9 @@
       scope.authenticationFailed = false;
 
       scope.login = function() {
+    	  scope.authenticationFailed = false;
         authenticationService.authenticateWithUsernamePassword(scope.loginCredentials);
+        delete scope.loginCredentials.password;
       };
       $('#pwd').keypress(function(e) {
         if(e.which == 13) {

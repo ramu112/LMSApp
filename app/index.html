@@ -2,16 +2,21 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <link rel="icon" type="image/png" href="./images/favicon.ico" />
-    <title>{{ 'label.heading.mifosxclient' | translate }}</title>
+    <link rel="icon" type="image/png" href="./images/logo.gif" />
+    <title>{{ 'label.heading.lms' | translate }}</title>
     <style>[data-ng-cloak] { display: none !important; }</style>
 </head>
-<body  class="preview" id="top" data-spy="scroll" data-target=".subnav" data-offset="80" data-ng-cloak data-ng-controller="MainController">
+<body  class="preview" id="top" data-spy="scroll" data-target=".subnav" data-offset="80" data-ng-controller="MainController">
+<div data-ng-hide="domReady" style="position: absolute;margin-top:230px; top:0px;left:500px;">
+    <div>
+        <img src="./images/loader_pop.gif" alt="loading..." width="150px">
+    </div>    
+</div>
 <!-- Login Form  -->
-<div class="container well" data-ng-hide="currentSession.user != null" >
+<div class="container well" data-ng-cloak data-ng-hide="currentSession.user != null" >
 
     <div class="row form-search ng-pristine ng-valid paddedbottom" data-ng-form="loginForm" data-ng-controller="LoginFormController">
-        <div class="pull-right ">
+       <div class="pull-right ">
             <span class="dropdown" >
               {{ 'label.input.changelanguage' | translate }}
               <a class="dropdown-toggle btn btn-primary">
@@ -27,33 +32,66 @@
         </div>
         <br/><br/>
         <div class="pull-right">
-            <input ng-autofocus="true" type="text" data-ng-model="loginCredentials.username" placeholder="{{ 'label.input.username' | translate }}" class="input-small" required id="uid">
-            <input type="password" data-ng-model="loginCredentials.password" placeholder="{{ 'label.input.password' | translate }}" class="input-small"  required id="pwd">
+            <input ng-autofocus="true" type="text" data-ng-model="loginCredentials.username" placeholder="{{ 'label.input.username' | translate }}" class="input-medium" id="uid">
+            <input type="password" data-ng-model="loginCredentials.password" placeholder="{{ 'label.input.password' | translate }}" class="input-medium"  id="pwd">
             <button class="btn btn-success" type="submit" data-ng-click="login()" id="login-button">{{ 'label.button.signin' | translate }}</button>
         </div>
-        <div class="pull-right" data-ng-show="authenticationFailed">
+        <div class="required pull-right" data-ng-show="authenticationFailed">
             <p>{{ 'error.login.failed' | translate }}</p>
         </div>
     </div>
-    <div class="row span8 offset2 paddedbottom">
+   <div class="row span8 offset2 paddedbottom">
     <table width="%100">
         <tr>
-            <td width="30%">
-                <img src="" alt="" width="150">
-            </td>    
-            <td width="70%">
-                <h1>{{ 'label.heading.mifosx' | translate }}</h1>
+            <td width="30%" align="right" valign="top" style="padding-right: 20px;padding-top: 15px;">
+	                <img src="./images/logo.gif" alt="LMS" width="150">
+	         </td>     
+            <td width="70%" >
+                <h1 style="font-weight: 500;color: #6a6a6a;">{{ 'label.heading.lms' | translate }}</h1>
                 <span>{{ 'label.heading.version' | translate }}</span><br/>
                 <span>{{ 'label.heading.uptodate' | translate }}</span><br/>
+                <span>{{ 'label.heading.lms.desined.by.lms' | translate }}</span>
                
             </td>
         </tr>
     </table>        
     </div>
-  
+    <table class="rowheaders"><tr><td style="padding-left: 0;">
+      <div class="span4">
+            <div class="indexheaderbody">
+                <div class="indexheader">
+                    <strong>{{ 'label.heading.resources' | translate }}</strong>
+                </div>
+                <ul>
+                    <li><a href="" class="darkthick">{{ 'label.anchor.usermanual' | translate }}</a></li>
+                    <li><a href="" class="darkthick">{{ 'label.anchor.faq' | translate }}</a></li>
+                </ul>
+            </div>
+    </div></td><td>
+    <div class="span4" style="margin-left: 10px;">
+            <div class="indexheaderbody">
+                <div class="indexheader">
+                    <strong>{{ 'label.heading.community' | translate }}</strong>
+                </div>
+                <ul>
+                <li class="darkthick"><a href="" class="darkthick">support@lms.com</a></li>
+                </ul>
+            </div>
+    </div></td><td>
+    <div class="span4" style="margin-left: 10px;">
+            <div class="indexheaderbody">
+                <div class="indexheader">
+                    <strong>{{ 'label.heading.news' | translate }}</strong>
+                </div>
+                <ul>
+                    <li><a href=""  class="darkthick">For latest updated</a></li>
+                </ul>
+            </div>
+
+    </div></td></tr></table>
 </div>
 <!-- Navbar -->
-<div ng-class="{fullscreen:true ,blockui:blockUI==true}" id="main" data-ng-hide="currentSession.user == null">
+<div ng-class="{fullscreen:true ,blockui:blockUI==true}" id="main" data-ng-cloak data-ng-hide="currentSession.user == null">
     <div class="loading-widget-div" data-ng-show="blockUI">
         <div id="circularG">
             <div id="circularG_1" class="circularG">
@@ -99,11 +137,12 @@
     </nav>
     <div class="navbar navbar-fixed-top">
         <div class="navbar-inner">
-            <div class="container" style="width: 975px;">
-                <a class="brand" href="#/home"><img src="" alt="" height="20"></a>
+            <div class="container" style="width: 85%;">
+                <a class="brand" href="#/home" style="padding: 15px 5px 10px 20px;margin-left: 0;">
+                	<img src="./images/logo.gif" alt="LMS" width="80"></a>
                 <div class="nav-collapse collapse" id="main-menu">
                     <ul class="nav" id="main-menu-left">
-                        <li><a href="#/home" ng-class="{ activate: isActive('/home') }"><i class="icon-home icon-white"></i>{{ 'label.anchor.home' | translate }}</a></li>
+                        <!-- <li><a href="#/home" ng-class="{ activate: isActive('/home') }"><i class="icon-home icon-white"></i>{{ 'label.anchor.home' | translate }}</a></li> -->
                         <li><a href="#/prospects" ng-class="{ activate: isActive('/prospects') }"><i class="icon-filter icon-white"></i>{{ 'label.anchor.request.quotation' | translate }}</a></li>
                         <li><a href="#/inventory" data-ng-class="{ activate: isActive('/inventory')}"><i class="icon-list icon-white"></i>{{ 'link.inventory' | translate }}</a></li>
                         <li><a href="#/clients" ng-class="{ activate: isActive('/clients') }"> <i class="icon-group icon-white"></i>{{ 'label.anchor.clients' | translate }}</a></li>
@@ -149,7 +188,7 @@
             </div>
         </div>
     </div>
-    <div class="container whitebg fullscreen">
+    <div class="container whitebg fullscreen" style=" width: 80%;">
         <div>
             <div class="row-fluid whitebg">
                 <div class="span12 pull-right whitebg">
