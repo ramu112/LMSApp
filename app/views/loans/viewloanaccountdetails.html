@@ -346,7 +346,7 @@
                   <th colspan="5" scope="colgroup"></th>
                   <th colspan="5" scope="colgroup">{{'label.heading.loanamountandbalance' | translate}}</th>
                   <th colspan="3" scope="colgroup">{{'label.heading.totalcostofloan' | translate}}</th>
-                  <th colspan="5" scope="colgroup">{{'label.heading.installmenttotals' | translate}}</th>
+                  <th colspan="5" scope="colgroup" style="padding-right: 0px;">{{'label.heading.installmenttotals' | translate}}</th>
                 </tr>
                 <tr>
                   <th scope="col">#</th>  
@@ -369,7 +369,7 @@
                     <th scope="col">{{'label.heading.paid' | translate}}</th>
                     <th scope="col">{{'label.heading.inadvance' | translate}}</th>
                     <th scope="col">{{'label.heading.late' | translate}}</th>
-                    <th scope="col">{{'label.heading.totaldue' | translate}}</th>
+                    <th scope="col" style="padding-right: 0px;">{{'label.heading.totaldue' | translate}}</th>
                 </tr>
               </thead>
               <tbody>
@@ -394,7 +394,7 @@
                 <td>{{period.totalPaidForPeriod}}</td>
                 <td>{{period.totalPaidInAdvanceForPeriod}}</td>
                 <td>{{period.totalPaidLateForPeriod}}</td>
-                <td>{{period.totalOutstandingForPeriod}}</td>
+                <td style="padding-right: 0px;">{{period.totalOutstandingForPeriod}}</td>
               </tr>
               </tbody>
               <tfoot class="ui-widget-header">
@@ -417,7 +417,7 @@
                   <th>{{loandetails.repaymentSchedule.totalPaidInAdvance}}</th>
                   <th>{{loandetails.repaymentSchedule.totalPaidLate}}</th>
                   <th>{{loandetails.repaymentSchedule.totalOutstanding}}</th>
-                  <th>&nbsp;</th>
+                  <th style="padding-right: 0px;">&nbsp;</th>
                 </tr>
               </tfoot>
             </table>

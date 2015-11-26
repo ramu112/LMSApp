@@ -1,9 +1,8 @@
 (function(module) {
   mifosX.controllers = _.extend(module, {
-	  CalculatorController: function(scope, resourceFactory, location,$http,$rootScope,API_VERSION,webStorage) {
+	  CalculatorController: function(scope, resourceFactory, location,$http,$rootScope,API_VERSION,webStorage,$timeout) {
 		  
 		  scope.formData = {};
-		  scope.productformId = {};
 		  scope.leaseproducts = [];
 		  scope.leaseCalculator = false;
         resourceFactory.loanProductResource.getAllLoanProducts(function(data) {
@@ -35,10 +34,12 @@
         	});
         }
         
-        scope.isProspect  = false;
+        scope.isProspect  = false;var prospectFormData = {};
         if($rootScope.prospectFormData && $rootScope.prospectFormData.loanProductId){
         	scope.formData.productId = $rootScope.prospectFormData.loanProductId;
+        	prospectFormData = $rootScope.prospectFormData;
         	scope.isProspect  = true;
+        	delete $rootScope.prospectFormData;
         	scope.leaseProductChange(scope.formData.productId);
         }
         
@@ -63,6 +64,7 @@
         	}
         	
         	delete scope.formData.deprecisationArray;
+        	delete scope.formData.residualArray;
         	postRequestSend(scope.formData);
 
         };
@@ -133,7 +135,7 @@
             		scope.rateWithOutMaintenance.push({"rateWithOutMaintenance":(scope.calculationData[i].rateWithOutMaintenance).toFixed(2)});
             		scope.costWithOutMaintenance.push({"costWithOutMaintenance":(scope.calculationData[i].costWithOutMaintenance).toFixed(2)});
             		scope.rateWithMaintenance.push({"rateWithMaintenance":(scope.calculationData[i].rateWithMaintenance).toFixed(2)});
-            		scope.residualDeprecisation.push({"residualDeprecisation":Math.round(scope.calculationData[i].residualDeprecisation*100)});
+            		scope.residualDeprecisation.push({"residualDeprecisation":(scope.calculationData[i].residualDeprecisation*100).toFixed(2)});
             		scope.residualCost.push({"residualCost":Math.round(scope.calculationData[i].residualCost*100)});
             		scope.residualAmountVEP.push({"residualAmountVEP":Math.round(scope.calculationData[i].residualAmountVEP)});
             		scope.residualAmountVIP.push({"residualAmountVIP":Math.round(scope.calculationData[i].residualAmountVIP)});
@@ -145,12 +147,22 @@
             		scope.payoutAdminCharges.push({"payoutAdminCharges":(scope.calculationData[i].payoutAdminCharges).toFixed(2)});
             		scope.accountingWDV.push({"accountingWDV":Math.round(scope.calculationData[i].accountWDV)});
             		scope.taxWDV.push({"taxWDV":Math.round(scope.calculationData[i].taxWDV)});
+            		
             	}
+            	//if(selectedIndexBox.length > 0){
+            		
+            		$timeout(function() {
+            			for(var k in selectedIndexBox){
+            				
+            				$("#"+selectedIndexBox[k]).css({'color':'red'});
+            			}
+            		}, 300);
+            	//}
             	
             });
         }
         
-        scope.residualChange = function(val){
+        /*scope.residualChange = function(val){
         	if(val && val != ""){
         		var index  = scope.deprecisationForYear.length-1;
         		
@@ -163,21 +175,31 @@
         		scope.deprecisation[pos].deprecisation = ((scope.deprecisationForYear[index].deprecisationForYear)*
         														(scope.formData.payTerms[termPos]/12)).toFixed(2);
         	}
-        }
+        }*/
         
-        scope.jsonData = {};scope.deprecisationArray = []; scope.jsonData.deprecisationArray=[];
+        var forYearChangeJsonData = {};var deprecisationArray = []; forYearChangeJsonData.deprecisationArray=[];
+        var residualArray = []; forYearChangeJsonData.residualArray=[];var selectedIndexBox = [];
         scope.forYearChange = function(val,i,name){
-        	scope.deprecisationArray = scope.jsonData.deprecisationArray;
-        	scope.jsonData = scope.formData;
-        	scope.jsonData.deprecisationArray = scope.deprecisationArray || [];
+        	//appling text color when its modified
+        	selectedIndexBox.push(name+i+"");
         	
-        	scope.jsonData.deprecisationArray = _.filter(scope.jsonData.deprecisationArray, function(q){
+        	deprecisationArray = forYearChangeJsonData.deprecisationArray;
+        	var residualArray = forYearChangeJsonData.residualArray;
+        	forYearChangeJsonData = scope.formData;
+        	forYearChangeJsonData.deprecisationArray = deprecisationArray || [];
+        	forYearChangeJsonData.residualArray = residualArray || [];
+        	
+        	forYearChangeJsonData.deprecisationArray = _.filter(forYearChangeJsonData.deprecisationArray, function(q){
+        		return q.key != scope.keys[i];
+        	});
+        	forYearChangeJsonData.residualArray = _.filter(forYearChangeJsonData.residualArray, function(q){
         		return q.key != scope.keys[i];
         	});
         	
-        	function prepareJson (){
+        	
+        	function prepareDeprecisationArrayJson (){
         		
-	        	scope.jsonData.deprecisationArray.push({	"key" : scope.keys[i],
+        		forYearChangeJsonData.deprecisationArray.push({	"key" : scope.keys[i],
 	          										"costOfFund" : scope.cofForYear[i].cofForYear,
 	          										"maintenance" : scope.maintenanceForYear[i].maintenanceForYear,
 	          										"replacementTyres" : scope.replacementTyresForYear[i].replacementTyresForYear,
@@ -185,40 +207,22 @@
 	          										"deprecisation" : scope.residualDeprecisation[i].residualDeprecisation,
 	          										"locale":"en"});
 	        	
+        		forYearChangeJsonData.residualArray.push({ "key" : scope.keys[i],
+												"residualVep" : scope.residualAmountVEP[i].residualAmountVEP,
+												"locale":"en"
+				});
 	        	
 	        	
-	          	postRequestSend(scope.jsonData);
-        	 }prepareJson();
+	        	postRequestSend(forYearChangeJsonData);
+        	 }prepareDeprecisationArrayJson();
         	
-        	/*if(name == 'cof' && !angular.equals(scope.cofForYear[i].cofForYear, val)){
-        		prepareJson();
-        	}else if(name == 'maintenance' && !angular.equals(scope.maintenanceForYear[i].maintenanceForYear, val)){
-        		console.log(name);
-        		prepareJson();
-        	}else if(name == 'replacementTyres' && !angular.equals(scope.replacementTyresForYear[i].replacementTyresForYear, val)){
-        		prepareJson();
-        	}else if(name == 'comprehensive' && !angular.equals(scope.comprehensiveInsuranceForYear[i].comprehensiveInsuranceForYear, val)){
-        		prepareJson();
-        	}else if(name == 'deprecisation' && !angular.equals(scope.residualDeprecisation[i].residualDeprecisation, val)){
-        		prepareJson();
-        	}else{
-        		console.log("No One Change");
-        	}*/
-
            }
         
         scope.downloadFile = function (){
             
-           // window.open($rootScope.hostUrl+ API_VERSION +'/loans/printlsrdoc/'+routeParams.loanId+'?tenantIdentifier=default');
-          /*var jsonData = scope.formData;
-          jsonData.deprecisationArray = [];
-          for(var i in scope.residualDeprecisation){
-        	  jsonData.deprecisationArray.push({key : scope.keys[i],value : scope.residualDeprecisation[i].residualDeprecisation,locale:"en"});
-          }
-*/         
-          console.log(scope.jsonData);
+          console.log(forYearChangeJsonData);
           var json = {}; 
-           json = (scope.jsonData.deprecisationArray.length > 0) ? scope.jsonData : scope.formData;
+           json = (forYearChangeJsonData.deprecisationArray.length > 0 || forYearChangeJsonData.residualArray.length > 0) ? forYearChangeJsonData : scope.formData;
         	resourceFactory.calculationExportResource.save(json,function(data){
         		data = angular.fromJson(angular.toJson(data));
         		var fileName = data.fileName;
@@ -229,12 +233,12 @@
        scope.saveFile = function (){
     	   
     	   var json = {}; 
-    	    json = (scope.jsonData.deprecisationArray.length > 0) ? scope.jsonData : scope.formData; 
+    	   json = (forYearChangeJsonData.deprecisationArray.length > 0 || forYearChangeJsonData.residualArray.length > 0) ? forYearChangeJsonData : scope.formData; 
         	resourceFactory.calculationExportResource.save({command:"PROSPECT"},json,function(data){
         		data = angular.fromJson(angular.toJson(data));
         		
         		var formData = {};
-        		formData = $rootScope.prospectFormData;
+        		formData = prospectFormData;
         		formData.location = data.fileName;
         		formData.prospectLoanCalculatorId = data.prospectLoanCalculatorId;
         		console.log(formData);
@@ -247,7 +251,7 @@
        };
     }
   });
-  mifosX.ng.application.controller('CalculatorController', ['$scope', 'ResourceFactory', '$location','$http','$rootScope','API_VERSION','webStorage', mifosX.controllers.CalculatorController]).run(function($log) {
+  mifosX.ng.application.controller('CalculatorController', ['$scope', 'ResourceFactory', '$location','$http','$rootScope','API_VERSION','webStorage','$timeout', mifosX.controllers.CalculatorController]).run(function($log) {
     $log.info("CalculatorController initialized");
   });
 }(mifosX.controllers || {}));
