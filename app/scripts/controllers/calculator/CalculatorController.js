@@ -247,6 +247,8 @@
         			var id = formData.id; delete formData.id;
         			resourceFactory.prospectResource.update({id:id},formData, function(data) {
 						location.path('/prospects');										
+					},function(errorData){
+						formData.id = id;
 					});
         		}else{
 	        		resourceFactory.prospectResource.save(formData, function(data) {
