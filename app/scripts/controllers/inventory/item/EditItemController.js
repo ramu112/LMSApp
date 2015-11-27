@@ -13,7 +13,7 @@
         scope.itemmanufacturerData=[];
         scope.chargeCodeDatas=[];
          resourceFactory.itemResource.get({itemId: routeParams.id} , function(data) {
-        	var reqDate = dateFilter(data.warrantyExpiryDate,'dd MMMM yyyy');
+        	var reqDate = dateFilter(new Date(data.warrantyExpiryDate),'dd MMMM yyyy');
         	scope.formData.dateFormat = 'dd MMMM yyyy';
         	scope.first.date = reqDate;
         	scope.chargeCodeDatas=data.chargeCodeData;

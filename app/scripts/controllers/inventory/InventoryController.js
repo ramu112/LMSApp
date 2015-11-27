@@ -255,7 +255,7 @@
 						    	  resourceFactory.itemDetailsResource.getAlldetails({offset: offset, limit: limit,officeName : scope.officeName,manufacturer : scope.manufacturer,itemCode : scope.itemCode} , callback);
 					        	  else
 					        		  resourceFactory.itemDetailsResource.getAlldetails({offset: offset, limit: limit , 
-							    		  sqlSearch: scope.source ,officeName : scope.officeName,itemCode : scope.itemCode} , callback);
+							    		  sqlSearch: scope.source ,officeName : scope.officeName,itemCode : scope.itemCode,manufacturer : scope.manufacturer} , callback);
 						      };
 						  		
 						      scope.searchSource = function(source) {
