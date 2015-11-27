@@ -1,6 +1,6 @@
 (function(module) {
   mifosX.services = _.extend(module, {
-    SessionManager: function(webStorage, httpService, resourceFactory) {
+    SessionManager: function($rootScope,webStorage, httpService, resourceFactory) {
       var EMPTY_SESSION = {};
 
       this.get = function(data) {
@@ -20,6 +20,7 @@
         if (sessionData !== null) {
           httpService.setAuthorization(sessionData.authenticationKey);
           resourceFactory.userResource.get({userId: sessionData.userId}, function(userData) {
+        	$rootScope.isSaleUser = angular.lowercase(userData.username) == 'sale' ? true :false;
             handler({user: new mifosX.models.LoggedInUser(userData)});
           });
         } else {
@@ -29,6 +30,7 @@
     }
   });
   mifosX.ng.services.service('SessionManager', [
+    '$rootScope',
     'webStorage',
     'HttpService',
     'ResourceFactory',

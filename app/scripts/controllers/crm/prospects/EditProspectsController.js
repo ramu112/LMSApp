@@ -13,8 +13,7 @@
 			scope.sourceOfPublicityDatas = [];scope.productDatas = [];
 			resourceFactory.prospectResource.get({ id : routeParams.id },function(data) {
 				scope.sourceOfPublicityDatas = data.sourceOfPublicityData;
-				resourceFactory.prospectTemplateResource.getTemplate(function(templateData) {
-					scope.productDatas = templateData.productData;
+				scope.productDatas = data.productData;
 					scope.formData = data;
 					for(var k in scope.productDatas){
 						if(scope.productDatas[k].productName ==  data.preferredLoanProduct){
@@ -22,11 +21,12 @@
 							break;
 						}
 					}
+					delete scope.formData.location;
 					delete scope.formData.status;
 					delete scope.formData.isDeleted;
 					delete scope.formData.sourceOfPublicityData;
+					delete scope.formData.productData;
 					
-				});
 			});
 			
 			scope.productChange = function(id) {
@@ -44,7 +44,11 @@
 				scope.formData.preferredCallingTime = dateFilter(scope.first.date,'yyyy-MM-dd HH:mm:ss');
 				$rootScope.prospectFormData = {};
 				$rootScope.prospectFormData = scope.formData;
-				location.path("/calculator");
+				if(angular.lowercase($rootScope.currentSession.user.name) == 'sale'){
+					location.path("/salecalculator");
+				}else{
+					location.path("/calculator");
+				}
 				
 			};
 			

@@ -177,6 +177,7 @@ define(['underscore', 'mifosX'], function() {
       'main/ExpertSearchController',
       'main/ProfileController',
       'calculator/CalculatorController',
+      'calculator/SaleCalculatorController',
       'crm/prospects/ProspectsController',
       'crm/prospects/CreateProspectsController',
       'crm/prospects/EditProspectsController',

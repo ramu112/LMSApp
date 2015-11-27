@@ -19,6 +19,7 @@
         scope.leftnav = false;
         scope.$on("UserAuthenticationSuccessEvent", function(event, data) {
         scope.currentSession = sessionManager.get(data);
+        scope.isSaleUser = angular.lowercase(scope.currentSession.user.name) == 'sale' ? true :false;
         location.path('/home').replace();
       });
 

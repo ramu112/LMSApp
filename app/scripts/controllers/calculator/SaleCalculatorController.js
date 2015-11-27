@@ -1,12 +1,21 @@
 (function(module) {
   mifosX.controllers = _.extend(module, {
-	  CalculatorController: function(scope, resourceFactory, location,$http,$rootScope,API_VERSION,webStorage,$timeout) {
+	  SaleCalculatorController: function(scope, resourceFactory, location,$http,$rootScope,API_VERSION,dateFilter) {
 		  
 		  scope.formData = {};
 		  scope.leaseproducts = [];
+		  scope.previewRepayment = false;
 		  scope.leaseCalculator = false;
+		  scope.isProspect  = false;var prospectFormData = {};
         resourceFactory.loanProductResource.getAllLoanProducts(function(data) {
             scope.leaseproducts = data;
+            if($rootScope.prospectFormData && $rootScope.prospectFormData.loanProductId){
+            	scope.formData.productId = $rootScope.prospectFormData.loanProductId;
+            	prospectFormData = $rootScope.prospectFormData;
+            	scope.isProspect = true;
+            	delete $rootScope.prospectFormData;
+            	scope.leaseProductChange(scope.formData.productId);
+            }
         });
         
         scope.leaseProductChange = function(id){
@@ -22,25 +31,69 @@
         		scope.formData.excess = 0.39;
         		scope.formData.FLPForYear = 500;
         		scope.terms = data.numberOfRepayments;
-        		scope.charges = data.charges;
-        		for(var i in scope.charges){
-        			if(scope.charges[i].name == 'COF'){
-        				scope.formData.costOfFund = (scope.charges[i].amount*12).toFixed(2); 
+        		var charges = data.charges || [];
+        		for(var i in charges){
+        			if(charges[i].name == 'COF'){
+        				scope.formData.costOfFund = (charges[i].amount*12).toFixed(2); 
         			}
-        			if(scope.charges[i].name == 'Maintenance charge'){
-        				scope.formData.maintenance = (scope.charges[i].amount*12).toFixed(2); 
+        			if(charges[i].name == 'Maintenance charge'){
+        				scope.formData.maintenance = (charges[i].amount*12).toFixed(2); 
         			}
         		}
+        		
+        		scope.loanaccountinfo = data;
+                scope.previewLoanAccInfo();
         	});
         }
         
-        scope.isProspect  = false;var prospectFormData = {};
-        if($rootScope.prospectFormData && $rootScope.prospectFormData.loanProductId){
-        	scope.formData.productId = $rootScope.prospectFormData.loanProductId;
-        	prospectFormData = $rootScope.prospectFormData;
-        	scope.isProspect  = true;
-        	delete $rootScope.prospectFormData;
-        	scope.leaseProductChange(scope.formData.productId);
+
+        var repaymentInfoFormData = {};
+        scope.previewLoanAccInfo = function() {
+        	scope.previewRepayment = false;
+            scope.charges = scope.loanaccountinfo.charges || [];
+            scope.taxesArray = scope.loanaccountinfo.taxes || [];
+            scope.depositArray = scope.loanaccountinfo.feeMasterData || [];
+            scope.collaterals = [];
+
+
+            repaymentInfoFormData.syncDisbursementWithMeeting = false;
+            repaymentInfoFormData.loanTermFrequency = scope.terms;
+            repaymentInfoFormData.loanTermFrequencyType = 2;
+            repaymentInfoFormData.numberOfRepayments = scope.terms;
+            repaymentInfoFormData.repaymentEvery = 1;
+            repaymentInfoFormData.repaymentFrequencyType =   scope.loanaccountinfo.repaymentFrequencyType.id;
+            repaymentInfoFormData.interestRatePerPeriod = scope.loanaccountinfo.interestRatePerPeriod;
+            repaymentInfoFormData.interestRateFrequencyType = scope.loanaccountinfo.interestRateFrequencyType.id;
+            repaymentInfoFormData.amortizationType = scope.loanaccountinfo.amortizationType.id;
+            repaymentInfoFormData.interestType = scope.loanaccountinfo.interestType.id;
+            repaymentInfoFormData.interestCalculationPeriodType = scope.loanaccountinfo.interestCalculationPeriodType.id;
+            repaymentInfoFormData.transactionProcessingStrategyId = scope.loanaccountinfo.transactionProcessingStrategyId;
+            scope.taxAmountCal(function(returnData){
+            });	
+           
+          }
+        
+        scope.taxAmountCal = function(handerFun){
+        	var taxCalformData = {};
+        	if(scope.depositArray && scope.depositArray.length > 0){
+        		taxCalformData.principal = scope.subtract(scope.formData.principal,scope.depositArray[0].amount);
+        	}else{
+        		taxCalformData.principal = scope.formData.principal;
+        	}
+        	taxCalformData.locale = "en";
+        	taxCalformData.taxes = [];
+        	for(var i in scope.taxesArray){
+        		taxCalformData.taxes.push({"id":scope.taxesArray[i].id,"type":scope.taxesArray[i].taxType,
+        										"taxValue":scope.taxesArray[i].rate})
+        	}
+        	
+        	if(scope.taxesArray.length > 0){
+            	resourceFactory.taxCalculationResource.save(taxCalformData,function(data){
+            		var resultData = {};
+            		resultData  = angular.fromJson(data.resourceIdentifier);
+            		if(angular.isFunction(handerFun)) handerFun(resultData);
+            	});
+        	}
         }
         
         scope.submit = function() {  
@@ -63,16 +116,9 @@
         		scope.formData.payTerms.push(scope.terms);
         	}
         	
-        	delete scope.formData.deprecisationArray;
-        	delete scope.formData.residualArray;
-        	postRequestSend(scope.formData);
-
-        };
-        
-        function postRequestSend(formData){
-        	
-            resourceFactory.calculationResource.save(formData,function(data){
+        	resourceFactory.calculationResource.save(scope.formData,function(data){
             	scope.leaseCalculator = true;
+            	scope.previewRepayment = false;
             	scope.calculationData = data.payTerms || [];
             	scope.keys  = [];
             	scope.retailPrice = [];
@@ -149,92 +195,71 @@
             		scope.taxWDV.push({"taxWDV":Math.round(scope.calculationData[i].taxWDV)});
             		
             	}
-            	//if(selectedIndexBox.length > 0){
-            		
-            		$timeout(function() {
-            			for(var k in selectedIndexBox){
-            				
-            				$("#"+selectedIndexBox[k]).css({'color':'red'});
-            			}
-            		}, 300);
-            	//}
-            	
             });
+
+        };
+        
+        scope.previewRepayments = function() {
+        	
+            var reqFirstDate = dateFilter(new Date(),'dd MMMM yyyy');
+            var reqSecondDate = dateFilter(new Date(),'dd MMMM yyyy');
+            var reqThirdDate = dateFilter(new Date(),'dd MMMM yyyy');
+            var reqFourthDate = dateFilter(new Date(),'dd MMMM yyyy');
+            if (scope.charges.length > 0) {
+            	repaymentInfoFormData.charges = [];
+              for (var i in scope.charges) {
+            	  repaymentInfoFormData.charges.push({ chargeId:scope.charges[i].id, amount:scope.charges[i].amount, dueDate:dateFilter(scope.charges[i].dueDate,'dd MMMM yyyy') });
+              }
+            }
+            
+            if (scope.depositArray.length > 0) {
+            	repaymentInfoFormData.depositArray = [];
+            	for (var i in scope.depositArray) {
+            		repaymentInfoFormData.depositArray.push({depositId:scope.depositArray[i].id, amount:scope.depositArray[i].amount});
+            	}
+            }
+            
+            if (scope.collaterals.length > 0) {
+            	repaymentInfoFormData.collateral = [];
+              for (var i in scope.collaterals) {
+            	  repaymentInfoFormData.collateral.push({type:scope.collaterals[i].type,value:scope.collaterals[i].value, description:scope.collaterals[i].description});
+              };
+            }
+            
+            repaymentInfoFormData.productId = scope.formData.productId;
+            repaymentInfoFormData.principal = scope.formData.principal;
+            repaymentInfoFormData.interestChargedFromDate = reqThirdDate ;
+            repaymentInfoFormData.repaymentsStartingFromDate = reqFourthDate;
+            repaymentInfoFormData.locale = 'en';
+            repaymentInfoFormData.dateFormat = 'dd MMMM yyyy';
+            repaymentInfoFormData.loanType = 'individual';
+            repaymentInfoFormData.expectedDisbursementDate = reqSecondDate;
+            repaymentInfoFormData.submittedOnDate = reqFirstDate;
+            
+            if(scope.taxesArray.length > 0){
+                scope.taxAmountCal(function(returnData){
+                	
+                	repaymentInfoFormData.principal = returnData.finalAmount;
+                	resourceFactory.loanResource.save({command:'calculateLoanSchedule'}, repaymentInfoFormData,function(data){
+                		scope.previewRepayment = true;
+                		scope.repaymentscheduleinfo = data;
+                	});
+                });
+            }else{
+            	if(scope.depositArray && scope.depositArray.length > 0){
+            		repaymentInfoFormData.principal = scope.subtract(scope.formData.principal,scope.depositArray[0].amount);
+            	}
+            	resourceFactory.loanResource.save({command:'calculateLoanSchedule'}, repaymentInfoFormData,function(data){
+            		scope.previewRepayment = true;
+            		scope.repaymentscheduleinfo = data;
+            	});
+            }
+
         }
         
-        /*scope.residualChange = function(val){
-        	if(val && val != ""){
-        		var index  = scope.deprecisationForYear.length-1;
-        		
-        		scope.totalForYear[index].totalForYear -= scope.deprecisationForYear[index].deprecisationForYear;
-        		scope.deprecisationForYear[index].deprecisationForYear = Math.round((scope.purchasePrice[0].purchasePrice * val)/100);
-        		
-        		scope.totalForYear[index].totalForYear = (scope.totalForYear[index].totalForYear + scope.deprecisationForYear[index].deprecisationForYear).toFixed(2);
-        		
-        		var pos = scope.deprecisation.length-1;var termPos = scope.formData.payTerms.length-1;
-        		scope.deprecisation[pos].deprecisation = ((scope.deprecisationForYear[index].deprecisationForYear)*
-        														(scope.formData.payTerms[termPos]/12)).toFixed(2);
-        	}
-        }*/
-        
-        var forYearChangeJsonData = {};var deprecisationArray = []; forYearChangeJsonData.deprecisationArray=[];
-        var residualArray = []; forYearChangeJsonData.residualArray=[];var selectedIndexBox = [];
-        scope.forYearChange = function(val,i,name){
-        	//appling text color when its modified
-        	selectedIndexBox.push(name+i+"");
-        	
-        	deprecisationArray = forYearChangeJsonData.deprecisationArray;
-        	var residualArray = forYearChangeJsonData.residualArray;
-        	forYearChangeJsonData = scope.formData;
-        	forYearChangeJsonData.deprecisationArray = deprecisationArray || [];
-        	forYearChangeJsonData.residualArray = residualArray || [];
-        	
-        	forYearChangeJsonData.deprecisationArray = _.filter(forYearChangeJsonData.deprecisationArray, function(q){
-        		return q.key != scope.keys[i];
-        	});
-        	forYearChangeJsonData.residualArray = _.filter(forYearChangeJsonData.residualArray, function(q){
-        		return q.key != scope.keys[i];
-        	});
-        	
-        	
-        	function prepareDeprecisationArrayJson (){
-        		
-        		forYearChangeJsonData.deprecisationArray.push({	"key" : scope.keys[i],
-	          										"costOfFund" : scope.cofForYear[i].cofForYear,
-	          										"maintenance" : scope.maintenanceForYear[i].maintenanceForYear,
-	          										"replacementTyres" : scope.replacementTyresForYear[i].replacementTyresForYear,
-	          										"comprehensiveInsurance" : scope.comprehensiveInsuranceForYear[i].comprehensiveInsuranceForYear,
-	          										"deprecisation" : scope.residualDeprecisation[i].residualDeprecisation,
-	          										"locale":"en"});
-	        	
-        		forYearChangeJsonData.residualArray.push({ "key" : scope.keys[i],
-												"residualVep" : scope.residualAmountVEP[i].residualAmountVEP,
-												"locale":"en"
-				});
-	        	
-	        	
-	        	postRequestSend(forYearChangeJsonData);
-        	 }prepareDeprecisationArrayJson();
-        	
-           }
-        
-        scope.downloadFile = function (){
-            
-          console.log(forYearChangeJsonData);
-          var json = {}; 
-           json = (forYearChangeJsonData.deprecisationArray.length > 0 || forYearChangeJsonData.residualArray.length > 0) ? forYearChangeJsonData : scope.formData;
-        	resourceFactory.calculationExportResource.save(json,function(data){
-        		data = angular.fromJson(angular.toJson(data));
-        		var fileName = data.fileName;
-        		window.open($rootScope.hostUrl+ API_VERSION +'/loans/calculator/export?tenantIdentifier=default&file='+fileName);
-        	});
-       };
-       
        scope.saveFile = function (){
     	   
-    	   var json = {}; 
-    	   json = (forYearChangeJsonData.deprecisationArray.length > 0 || forYearChangeJsonData.residualArray.length > 0) ? forYearChangeJsonData : scope.formData; 
-        	resourceFactory.calculationExportResource.save({command:"PROSPECT"},json,function(data){
+        	resourceFactory.calculationExportResource.save({command:"PROSPECT"},scope.formData,function(data){
         		data = angular.fromJson(angular.toJson(data));
         		
         		var formData = {};
@@ -260,7 +285,7 @@
        };
     }
   });
-  mifosX.ng.application.controller('CalculatorController', ['$scope', 'ResourceFactory', '$location','$http','$rootScope','API_VERSION','webStorage','$timeout', mifosX.controllers.CalculatorController]).run(function($log) {
-    $log.info("CalculatorController initialized");
+  mifosX.ng.application.controller('SaleCalculatorController', ['$scope', 'ResourceFactory', '$location','$http','$rootScope','API_VERSION','dateFilter', mifosX.controllers.SaleCalculatorController]).run(function($log) {
+    $log.info("SaleCalculatorController initialized");
   });
 }(mifosX.controllers || {}));

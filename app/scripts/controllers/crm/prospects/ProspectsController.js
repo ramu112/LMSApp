@@ -1,7 +1,6 @@
 (function(module) {
 	mifosX.controllers = _.extend(module, {
-		ProspectsController : function(scope, resourceFactory,
-				paginatorService, location, webStorage) {
+		ProspectsController : function(scope, resourceFactory,paginatorService, location, webStorage,$rootScope,API_VERSION) {
 			
 			scope.prospects = [];
 
@@ -43,6 +42,10 @@
 					location.path('/viewclient/' + data.resourceId);
 				});
 			};
+			
+			scope.download = function(location){
+				window.open($rootScope.hostUrl+ API_VERSION +'/loans/calculator/export?tenantIdentifier=default&file='+location);
+			}
 		}
 	});
 	
@@ -52,6 +55,8 @@
 	'PaginatorService', 
 	'$location',				 
 	'webStorage',				
+	'$rootScope',				
+	'API_VERSION',				
 	mifosX.controllers.ProspectsController 
 	]).run(function($log) {			
 		$log.info("ProspectsController initialized");		

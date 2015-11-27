@@ -516,6 +516,9 @@
       .when('/calculator',{
     	  templateUrl: 'views/calculator/calculator.html'
       })
+      .when('/salecalculator',{
+    	  templateUrl: 'views/calculator/salecalculator.html'
+      })
       .when('/feemaster', {
     	  templateUrl: 'views/organization/feemaster.html'
       })
