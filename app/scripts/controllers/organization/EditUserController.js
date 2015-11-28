@@ -1,5 +1,5 @@
 (function(module) {
-  mifosX.controllers = _.extend(module, {
+  lms.controllers = _.extend(module, {
     EditUserController: function(scope, routeParams, resourceFactory, location) {
         scope.offices = [];
         scope.availableRoles = [];
@@ -38,7 +38,7 @@
         };
     }
   });
-  mifosX.ng.application.controller('EditUserController', ['$scope', '$routeParams', 'ResourceFactory', '$location', mifosX.controllers.EditUserController]).run(function($log) {
+  lms.ng.application.controller('EditUserController', ['$scope', '$routeParams', 'ResourceFactory', '$location', lms.controllers.EditUserController]).run(function($log) {
     $log.info("EditUserController initialized");
   });
-}(mifosX.controllers || {}));
+}(lms.controllers || {}));

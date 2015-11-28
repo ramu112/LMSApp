@@ -1,5 +1,5 @@
 (function(module) {
-  mifosX.controllers = _.extend(module, {
+  lms.controllers = _.extend(module, {
     DataTableEntryController: function(scope, location, routeParams, route, resourceFactory,$modal) {
 
       scope.tableName = routeParams.tableName;
@@ -114,7 +114,7 @@
 
     }
   });
-  mifosX.ng.application.controller('DataTableEntryController', ['$scope', '$location', '$routeParams', '$route', 'ResourceFactory','$modal', mifosX.controllers.DataTableEntryController]).run(function($log) {
+  lms.ng.application.controller('DataTableEntryController', ['$scope', '$location', '$routeParams', '$route', 'ResourceFactory','$modal', lms.controllers.DataTableEntryController]).run(function($log) {
     $log.info("DataTableEntryController initialized");
   });
-}(mifosX.controllers || {}));
+}(lms.controllers || {}));

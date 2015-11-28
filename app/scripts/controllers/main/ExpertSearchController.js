@@ -1,5 +1,5 @@
 (function(module) {
-    mifosX.controllers = _.extend(module, {
+    lms.controllers = _.extend(module, {
         ExpertSearchController: function(scope, resourceFactory , localStorageService,$rootScope,location) {
 
             scope.recent = [];
@@ -189,8 +189,8 @@
 
         }
     });
-    mifosX.ng.application.controller('ExpertSearchController', ['$scope', 'ResourceFactory', 'localStorageService','$rootScope','$location', mifosX.controllers.ExpertSearchController]).run(function($log) {
+    lms.ng.application.controller('ExpertSearchController', ['$scope', 'ResourceFactory', 'localStorageService','$rootScope','$location', lms.controllers.ExpertSearchController]).run(function($log) {
         $log.info("ExpertSearchController initialized");
     });
-}(mifosX.controllers || {}));
+}(lms.controllers || {}));
 

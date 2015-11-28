@@ -33,10 +33,11 @@
        	<tr>
        	<td colspan="2">
           <div class="control-group">
-            <label class="control-label" for="terms">{{ 'label.calculator.terms' | translate }}</label>
+            <label class="control-label" for="terms">{{ 'label.calculator.terms' | translate }}<span class="required">*</span></label>
             <div class="controls">
-              <input type="text" id="terms" name="terms" ng-model="terms" class="input-small"/>
-            <button type="submit" class="btn btn-primary">{{'label.button.calculate'| translate}}</button>
+              <input type="text" id="terms" name="terms" ng-model="terms" class="input-small" required/>
+            <button type="submit" class="btn btn-primary">{{'label.button.calculate'| translate}}</button><br/>
+              <form-validate valattributeform="createcalculatorform" valattribute="terms"/>
             </div>
           </div>
        	</td>
@@ -47,7 +48,7 @@
         <td>
           	<div ng-show="leaseCalculator && isProspect">
         		<span><a ng-hide="previewRepayment" ng-click="previewRepayments()">{{'label.anchor.repaymentinfo' | translate}}<i class="icon-circle-arrow-right"></i></a></span>
-        		<span><a ng-show="previewRepayment" ng-click="previewRepayment=!previewRepayment"><i class="icon-circle-arrow-left">{{'label.anchor.backtoloaninfo' | translate}}</i></a><br><br></span>
+        		<span><a ng-show="previewRepayment" ng-click="previewRepayment=!previewRepayment"><i class="icon-circle-arrow-left">{{'label.anchor.backtoinfo' | translate}}</i></a><br><br></span>
       		</div>
         </td>
         <td>

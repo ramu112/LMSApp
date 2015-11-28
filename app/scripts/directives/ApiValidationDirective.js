@@ -1,5 +1,5 @@
 (function(module) {
-    mifosX.directives = _.extend(module, {
+    lms.directives = _.extend(module, {
         ApiValidationDirective: function($compile) {
             return {
                 restrict: 'E',
@@ -19,8 +19,8 @@
             };
         }
     });
-}(mifosX.directives || {}));
+}(lms.directives || {}));
 
-mifosX.ng.application.directive("apiValidate", ['$compile', mifosX.directives.ApiValidationDirective]).run(function($log) {
+lms.ng.application.directive("apiValidate", ['$compile', lms.directives.ApiValidationDirective]).run(function($log) {
     $log.info("ApiValidationDirective initialized");
 });

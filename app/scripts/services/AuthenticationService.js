@@ -1,5 +1,5 @@
 (function(module) {
-  mifosX.services = _.extend(module, {
+  lms.services = _.extend(module, {
     AuthenticationService: function(scope, httpService,localStorageService) {
       var onSuccess = function(data) {
         scope.$broadcast("UserAuthenticationSuccessEvent", data);
@@ -20,7 +20,7 @@
       };
     }
   });
-  mifosX.ng.services.service('AuthenticationService', ['$rootScope', 'HttpService','localStorageService', mifosX.services.AuthenticationService]).run(function($log) {
+  lms.ng.services.service('AuthenticationService', ['$rootScope', 'HttpService','localStorageService', lms.services.AuthenticationService]).run(function($log) {
     $log.info("AuthenticationService initialized");
   });
-}(mifosX.services || {}));
+}(lms.services || {}));

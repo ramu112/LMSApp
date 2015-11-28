@@ -1,5 +1,5 @@
 (function(module) {
-    mifosX.filters = _.extend(module, {
+    lms.filters = _.extend(module, {
         DayMonthFormat: function () {
             return function(input) {
                 if(input){
@@ -38,7 +38,7 @@
             }
         }
     });
-    mifosX.ng.application.filter('DayMonthFormat', ['dateFilter',mifosX.filters.DayMonthFormat]).run(function($log) {
+    lms.ng.application.filter('DayMonthFormat', ['dateFilter',lms.filters.DayMonthFormat]).run(function($log) {
         $log.info("DayMonthFormat filter initialized");
     });
-}(mifosX.filters || {}));
+}(lms.filters || {}));

@@ -1,5 +1,5 @@
 (function(module) {
-  mifosX.controllers = _.extend(module, {
+  lms.controllers = _.extend(module, {
 	  ViewTaxMappingController: function(scope, routeParams, resourceFactory ) {
         scope.taxmapping = {};
         scope.id = routeParams.id;
@@ -14,12 +14,12 @@
         });
     }
   });
-  mifosX.ng.application.controller('ViewTaxMappingController', [
+  lms.ng.application.controller('ViewTaxMappingController', [
        '$scope', 
        '$routeParams',
        'ResourceFactory',
-       mifosX.controllers.ViewTaxMappingController
+       lms.controllers.ViewTaxMappingController
        ]).run(function($log) {
     	   $log.info("ViewTaxMappingController initialized");
        });
-}(mifosX.controllers || {}));
+}(lms.controllers || {}));

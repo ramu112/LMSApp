@@ -1,5 +1,5 @@
 (function(module) {
-  mifosX.controllers = _.extend(module, {
+  lms.controllers = _.extend(module, {
 
     ViewTransactionController: function(scope, routeParams, resourceFactory, location) {
 
@@ -17,7 +17,7 @@
 
     }
   });
-  mifosX.ng.application.controller('ViewTransactionController', ['$scope', '$routeParams', 'ResourceFactory', '$location', mifosX.controllers.ViewTransactionController]).run(function($log) {
+  lms.ng.application.controller('ViewTransactionController', ['$scope', '$routeParams', 'ResourceFactory', '$location', lms.controllers.ViewTransactionController]).run(function($log) {
     $log.info("ViewTransactionController initialized");
   });
-}(mifosX.controllers || {}));
+}(lms.controllers || {}));

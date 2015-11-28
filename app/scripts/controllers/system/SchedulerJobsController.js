@@ -1,5 +1,5 @@
 (function(module) {
-  mifosX.controllers = _.extend(module, {
+  lms.controllers = _.extend(module, {
     SchedulerJobsController: function(scope, resourceFactory, route,location,$modal) {
       var jobIdArray = [];
       resourceFactory.jobsResource.get(function(data) {
@@ -88,7 +88,7 @@
       };
     }
   });
-  mifosX.ng.application.controller('SchedulerJobsController', ['$scope', 'ResourceFactory', '$route','$location','$modal', mifosX.controllers.SchedulerJobsController]).run(function($log) {
+  lms.ng.application.controller('SchedulerJobsController', ['$scope', 'ResourceFactory', '$route','$location','$modal', lms.controllers.SchedulerJobsController]).run(function($log) {
     $log.info("SchedulerJobsController initialized");
   });
-}(mifosX.controllers || {}));
+}(lms.controllers || {}));

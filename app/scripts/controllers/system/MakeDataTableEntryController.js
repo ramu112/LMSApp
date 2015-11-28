@@ -1,5 +1,5 @@
 (function(module) {
-  mifosX.controllers = _.extend(module, {
+  lms.controllers = _.extend(module, {
     MakeDataTableEntryController: function(scope, location, routeParams, resourceFactory, dateFilter) {
       scope.tableName = routeParams.tableName;
       scope.entityId = routeParams.entityId;
@@ -70,7 +70,7 @@
 
     }
   });
-  mifosX.ng.application.controller('MakeDataTableEntryController', ['$scope', '$location', '$routeParams', 'ResourceFactory', 'dateFilter', mifosX.controllers.MakeDataTableEntryController]).run(function($log) {
+  lms.ng.application.controller('MakeDataTableEntryController', ['$scope', '$location', '$routeParams', 'ResourceFactory', 'dateFilter', lms.controllers.MakeDataTableEntryController]).run(function($log) {
     $log.info("MakeDataTableEntryController initialized");
   });
-}(mifosX.controllers || {}));
+}(lms.controllers || {}));

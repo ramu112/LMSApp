@@ -1,5 +1,5 @@
 (function(module) {
-  mifosX.controllers = _.extend(module, {
+  lms.controllers = _.extend(module, {
 	  EditSupplierController: function(scope,webStorage,resourceFactory, location,routeParams) {
       
     	scope.formData = {};
@@ -17,7 +17,7 @@
         };
     }
   });
-  mifosX.ng.application.controller('EditSupplierController', ['$scope','webStorage','ResourceFactory', '$location','$routeParams', mifosX.controllers.EditSupplierController]).run(function($log) {
+  lms.ng.application.controller('EditSupplierController', ['$scope','webStorage','ResourceFactory', '$location','$routeParams', lms.controllers.EditSupplierController]).run(function($log) {
     $log.info("EditSupplierController initialized");
   });
-}(mifosX.controllers || {}));
+}(lms.controllers || {}));

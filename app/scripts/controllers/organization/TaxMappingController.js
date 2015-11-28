@@ -1,5 +1,5 @@
 (function(module) {
-  mifosX.controllers = _.extend(module, {
+  lms.controllers = _.extend(module, {
 	  TaxMappingController: function(scope,resourceFactory,location) {
         scope.taxmappings = [];
         
@@ -16,12 +16,12 @@
         });
     }
   });
-  mifosX.ng.application.controller('TaxMappingController', [
+  lms.ng.application.controller('TaxMappingController', [
        '$scope', 
        'ResourceFactory',
        '$location',
-       mifosX.controllers.TaxMappingController
+       lms.controllers.TaxMappingController
        ]).run(function($log) {
     	   $log.info("TaxMappingController initialized");
        });
-}(mifosX.controllers || {}));
+}(lms.controllers || {}));

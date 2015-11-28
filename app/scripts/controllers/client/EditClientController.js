@@ -1,5 +1,5 @@
 (function(module) {
-  mifosX.controllers = _.extend(module, {
+  lms.controllers = _.extend(module, {
     EditClientController: function(scope, routeParams, resourceFactory, location, http, dateFilter, API_VERSION,$upload) {
         scope.offices = [];
         scope.date = {};
@@ -59,7 +59,7 @@
         };
     }
   });
-  mifosX.ng.application.controller('EditClientController', ['$scope', '$routeParams', 'ResourceFactory', '$location', '$http','dateFilter', 'API_VERSION','$upload', mifosX.controllers.EditClientController]).run(function($log) {
+  lms.ng.application.controller('EditClientController', ['$scope', '$routeParams', 'ResourceFactory', '$location', '$http','dateFilter', 'API_VERSION','$upload', lms.controllers.EditClientController]).run(function($log) {
     $log.info("EditClientController initialized");
   });
-}(mifosX.controllers || {}));
+}(lms.controllers || {}));

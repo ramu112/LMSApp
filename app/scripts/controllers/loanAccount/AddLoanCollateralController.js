@@ -1,5 +1,5 @@
 (function(module) {
-  mifosX.controllers = _.extend(module, {
+  lms.controllers = _.extend(module, {
     AddLoanCollateralController: function(scope, resourceFactory, routeParams, location) {
 
         scope.collateralTypes = [];
@@ -23,7 +23,7 @@
 
     }
   });
-  mifosX.ng.application.controller('AddLoanCollateralController', ['$scope', 'ResourceFactory', '$routeParams', '$location', mifosX.controllers.AddLoanCollateralController]).run(function($log) {
+  lms.ng.application.controller('AddLoanCollateralController', ['$scope', 'ResourceFactory', '$routeParams', '$location', lms.controllers.AddLoanCollateralController]).run(function($log) {
     $log.info("AddLoanCollateralController initialized");
   });
-}(mifosX.controllers || {}));
+}(lms.controllers || {}));

@@ -1,5 +1,5 @@
 (function(module) {
-  mifosX.controllers = _.extend(module, {
+  lms.controllers = _.extend(module, {
 	  SaleCalculatorController: function(scope, resourceFactory, location,$http,$rootScope,API_VERSION,dateFilter) {
 		  
 		  scope.formData = {};
@@ -58,9 +58,9 @@
 
             repaymentInfoFormData.syncDisbursementWithMeeting = false;
             repaymentInfoFormData.loanTermFrequency = scope.terms;
-            repaymentInfoFormData.loanTermFrequencyType = 2;
+            repaymentInfoFormData.loanTermFrequencyType = scope.loanaccountinfo.repaymentFrequencyType.id;
             repaymentInfoFormData.numberOfRepayments = scope.terms;
-            repaymentInfoFormData.repaymentEvery = 1;
+            repaymentInfoFormData.repaymentEvery = scope.loanaccountinfo.repaymentEvery;
             repaymentInfoFormData.repaymentFrequencyType =   scope.loanaccountinfo.repaymentFrequencyType.id;
             repaymentInfoFormData.interestRatePerPeriod = scope.loanaccountinfo.interestRatePerPeriod;
             repaymentInfoFormData.interestRateFrequencyType = scope.loanaccountinfo.interestRateFrequencyType.id;
@@ -234,7 +234,7 @@
             repaymentInfoFormData.dateFormat = 'dd MMMM yyyy';
             repaymentInfoFormData.loanType = 'individual';
             repaymentInfoFormData.expectedDisbursementDate = reqSecondDate;
-            repaymentInfoFormData.submittedOnDate = reqFirstDate;
+            //repaymentInfoFormData.submittedOnDate = reqFirstDate;
             
             if(scope.taxesArray.length > 0){
                 scope.taxAmountCal(function(returnData){
@@ -285,7 +285,7 @@
        };
     }
   });
-  mifosX.ng.application.controller('SaleCalculatorController', ['$scope', 'ResourceFactory', '$location','$http','$rootScope','API_VERSION','dateFilter', mifosX.controllers.SaleCalculatorController]).run(function($log) {
+  lms.ng.application.controller('SaleCalculatorController', ['$scope', 'ResourceFactory', '$location','$http','$rootScope','API_VERSION','dateFilter', lms.controllers.SaleCalculatorController]).run(function($log) {
     $log.info("SaleCalculatorController initialized");
   });
-}(mifosX.controllers || {}));
+}(lms.controllers || {}));

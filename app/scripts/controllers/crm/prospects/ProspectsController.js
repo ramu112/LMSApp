@@ -1,5 +1,5 @@
 (function(module) {
-	mifosX.controllers = _.extend(module, {
+	lms.controllers = _.extend(module, {
 		ProspectsController : function(scope, resourceFactory,paginatorService, location, webStorage,$rootScope,API_VERSION) {
 			
 			scope.prospects = [];
@@ -49,7 +49,7 @@
 		}
 	});
 	
-	mifosX.ng.application.controller('ProspectsController', [ 
+	lms.ng.application.controller('ProspectsController', [ 
 	'$scope', 
 	'ResourceFactory', 
 	'PaginatorService', 
@@ -57,9 +57,9 @@
 	'webStorage',				
 	'$rootScope',				
 	'API_VERSION',				
-	mifosX.controllers.ProspectsController 
+	lms.controllers.ProspectsController 
 	]).run(function($log) {			
 		$log.info("ProspectsController initialized");		
 	});
 	
-}(mifosX.controllers || {}));
+}(lms.controllers || {}));

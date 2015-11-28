@@ -1,5 +1,5 @@
 (function(module) {
-  mifosX.controllers = _.extend(module, {
+  lms.controllers = _.extend(module, {
     ViewAccRuleController: function(scope, resourceFactory, routeParams, location,$modal) {
 
     resourceFactory.accountingRulesResource.getById({accountingRuleId:routeParams.id}, function(data){
@@ -25,7 +25,7 @@
 
     }
   });
-  mifosX.ng.application.controller('ViewAccRuleController', ['$scope', 'ResourceFactory', '$routeParams', '$location','$modal', mifosX.controllers.ViewAccRuleController]).run(function($log) {
+  lms.ng.application.controller('ViewAccRuleController', ['$scope', 'ResourceFactory', '$routeParams', '$location','$modal', lms.controllers.ViewAccRuleController]).run(function($log) {
     $log.info("ViewAccRuleController initialized");
   });
-}(mifosX.controllers || {}));
+}(lms.controllers || {}));

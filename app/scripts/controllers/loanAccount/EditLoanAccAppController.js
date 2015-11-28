@@ -1,5 +1,5 @@
 (function(module) {
-    mifosX.controllers = _.extend(module, {
+    lms.controllers = _.extend(module, {
         EditLoanAccAppController: function(scope, routeParams, resourceFactory, location, dateFilter,rootScope) {
 
             scope.previewRepayment = false;
@@ -402,7 +402,7 @@
             }
         }
     });
-    mifosX.ng.application.controller('EditLoanAccAppController', ['$scope', '$routeParams', 'ResourceFactory', '$location', 'dateFilter','$rootScope', mifosX.controllers.EditLoanAccAppController]).run(function($log) {
+    lms.ng.application.controller('EditLoanAccAppController', ['$scope', '$routeParams', 'ResourceFactory', '$location', 'dateFilter','$rootScope', lms.controllers.EditLoanAccAppController]).run(function($log) {
         $log.info("EditLoanAccAppController initialized");
     });
-}(mifosX.controllers || {}));
+}(lms.controllers || {}));

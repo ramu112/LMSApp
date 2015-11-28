@@ -1,5 +1,5 @@
 (function(module) {
-    mifosX.directives = _.extend(module, {
+    lms.directives = _.extend(module, {
         SummaryDirective: function() {
             return {
                 restrict: "E",
@@ -17,8 +17,8 @@
 
         }
     });
-}(mifosX.directives || {}));
+}(lms.directives || {}));
 
-mifosX.ng.application.directive("ngSummary", [mifosX.directives.SummaryDirective]).run(function($log) {
+lms.ng.application.directive("ngSummary", [lms.directives.SummaryDirective]).run(function($log) {
     $log.info("SummaryDirective initialized");
 });

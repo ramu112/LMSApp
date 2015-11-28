@@ -1,5 +1,5 @@
 (function(module) {
-	mifosX.controllers = _.extend(module, {
+	lms.controllers = _.extend(module, {
 		EditProspectsController : function(scope, routeParams, route,location, resourceFactory, http, dateFilter, $rootScope) {
 			
 			scope.first = {};
@@ -54,7 +54,7 @@
 			
 		}				
 	});
-	mifosX.ng.application.controller('EditProspectsController', [ 
+	lms.ng.application.controller('EditProspectsController', [ 
 	'$scope', 
 	'$routeParams', 
 	'$route', 
@@ -63,8 +63,8 @@
 	'$http', 
 	'dateFilter', 
 	'$rootScope',
-	mifosX.controllers.EditProspectsController 
+	lms.controllers.EditProspectsController 
 	]).run(function($log) {		
 		$log.info("EditProspectsController initialized");
 	});
-}(mifosX.controllers || {}));
+}(lms.controllers || {}));

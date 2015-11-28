@@ -1,5 +1,5 @@
 (function(module) {
-  mifosX.controllers = _.extend(module, {
+  lms.controllers = _.extend(module, {
     AddLoanChargeController: function(scope, resourceFactory, routeParams, location, dateFilter) {
 
         scope.charges = [];
@@ -35,7 +35,7 @@
 
     }
   });
-  mifosX.ng.application.controller('AddLoanChargeController', ['$scope', 'ResourceFactory', '$routeParams', '$location', 'dateFilter', mifosX.controllers.AddLoanChargeController]).run(function($log) {
+  lms.ng.application.controller('AddLoanChargeController', ['$scope', 'ResourceFactory', '$routeParams', '$location', 'dateFilter', lms.controllers.AddLoanChargeController]).run(function($log) {
     $log.info("AddLoanChargeController initialized");
   });
-}(mifosX.controllers || {}));
+}(lms.controllers || {}));

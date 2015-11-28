@@ -1,5 +1,5 @@
 (function(module) {
-  mifosX.controllers = _.extend(module, {
+  lms.controllers = _.extend(module, {
 	  CalculatorController: function(scope, resourceFactory, location,$http,$rootScope,API_VERSION,webStorage,$timeout) {
 		  
 		  scope.formData = {};
@@ -260,7 +260,7 @@
        };
     }
   });
-  mifosX.ng.application.controller('CalculatorController', ['$scope', 'ResourceFactory', '$location','$http','$rootScope','API_VERSION','webStorage','$timeout', mifosX.controllers.CalculatorController]).run(function($log) {
+  lms.ng.application.controller('CalculatorController', ['$scope', 'ResourceFactory', '$location','$http','$rootScope','API_VERSION','webStorage','$timeout', lms.controllers.CalculatorController]).run(function($log) {
     $log.info("CalculatorController initialized");
   });
-}(mifosX.controllers || {}));
+}(lms.controllers || {}));

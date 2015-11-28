@@ -1,5 +1,5 @@
 (function(module) {
-    mifosX.controllers = _.extend(module, {
+    lms.controllers = _.extend(module, {
         BulkLoanReassignmentController: function(scope, resourceFactory,route,dateFilter) {
             scope.offices = [];
             scope.accounts = {};
@@ -54,7 +54,7 @@
             };
         }
     });
-    mifosX.ng.application.controller('BulkLoanReassignmentController', ['$scope', 'ResourceFactory', '$route','dateFilter', mifosX.controllers.BulkLoanReassignmentController]).run(function($log) {
+    lms.ng.application.controller('BulkLoanReassignmentController', ['$scope', 'ResourceFactory', '$route','dateFilter', lms.controllers.BulkLoanReassignmentController]).run(function($log) {
         $log.info("BulkLoanReassignmentController initialized");
     });
-}(mifosX.controllers || {}));
+}(lms.controllers || {}));

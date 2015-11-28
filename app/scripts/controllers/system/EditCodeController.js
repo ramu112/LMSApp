@@ -1,5 +1,5 @@
 (function(module) {
-    mifosX.controllers = _.extend(module, {
+    lms.controllers = _.extend(module, {
         EditCodeController: function(scope, routeParams , resourceFactory, location ) {
             scope.codevalues = [];
             scope.newcodevalues = [];
@@ -39,7 +39,7 @@
                           };
                 }
     });
-    mifosX.ng.application.controller('EditCodeController', ['$scope', '$routeParams','ResourceFactory','$location', mifosX.controllers.EditCodeController]).run(function($log) {
+    lms.ng.application.controller('EditCodeController', ['$scope', '$routeParams','ResourceFactory','$location', lms.controllers.EditCodeController]).run(function($log) {
         $log.info("EditCodeController initialized");
     });
-}(mifosX.controllers || {}));
+}(lms.controllers || {}));

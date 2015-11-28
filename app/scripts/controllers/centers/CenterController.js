@@ -1,5 +1,5 @@
 (function(module) {
-    mifosX.controllers = _.extend(module, {
+    lms.controllers = _.extend(module, {
         CenterController: function(scope, resourceFactory , paginatorService) {
 
             scope.centers = [];
@@ -11,9 +11,9 @@
             scope.centers = paginatorService.paginate(fetchFunction, 14);
         }
     });
-    mifosX.ng.application.controller('CenterController', ['$scope', 'ResourceFactory', 'PaginatorService', mifosX.controllers.CenterController]).run(function($log) {
+    lms.ng.application.controller('CenterController', ['$scope', 'ResourceFactory', 'PaginatorService', lms.controllers.CenterController]).run(function($log) {
         $log.info("CenterController initialized");
     });
-}(mifosX.controllers || {}));
+}(lms.controllers || {}));
 
 

@@ -1,5 +1,5 @@
 (function(module) {
-    mifosX.controllers = _.extend(module, {
+    lms.controllers = _.extend(module, {
     ManageFundsController: function(scope, location, resourceFactory) {
         scope.funderror = false;
         scope.formData = [];
@@ -30,7 +30,7 @@
 
      }
   });
-  mifosX.ng.application.controller('ManageFundsController', ['$scope', '$location', 'ResourceFactory', mifosX.controllers.ManageFundsController]).run(function($log) {
+  lms.ng.application.controller('ManageFundsController', ['$scope', '$location', 'ResourceFactory', lms.controllers.ManageFundsController]).run(function($log) {
     $log.info("ManageFundsController initialized");
   });
-}(mifosX.controllers || {}));
+}(lms.controllers || {}));

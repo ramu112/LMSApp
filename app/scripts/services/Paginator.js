@@ -1,5 +1,5 @@
 (function(module) {
-  mifosX.services = _.extend(module, {
+  lms.services = _.extend(module, {
     PaginatorService: function(scope, httpService) {
       
       this.paginate = function(fetchFunction, pageSize) {
@@ -40,7 +40,7 @@
 
     }
   });
-  mifosX.ng.services.service('PaginatorService', ['$rootScope', 'HttpService', mifosX.services.PaginatorService]).run(function($log) {
+  lms.ng.services.service('PaginatorService', ['$rootScope', 'HttpService', lms.services.PaginatorService]).run(function($log) {
     $log.info("PaginatorService initialized");
   });
-}(mifosX.services || {}));
+}(lms.services || {}));

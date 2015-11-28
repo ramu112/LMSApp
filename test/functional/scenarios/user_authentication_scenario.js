@@ -1,6 +1,6 @@
 define([], function() {
   var users = {
-    mifos: {userId: 1, roles: [{id: 1, name: "Super User"}]},
+    lms: {userId: 1, roles: [{id: 1, name: "Super User"}]},
     joe: {userId: 2, roles: [{id: 2, name: "Branch Manager"}]},
     jack: {userId: 3, roles: [{id: 3, name: "Funder"}]}
   };
@@ -28,7 +28,7 @@ define([], function() {
   var authenticationFailure = function() {
     return { 
       developerMessage: "Invalid authentication details were passed in api request.",
-      developerDocLink: "https://github.com/openMF/mifosx/wiki/HTTP-API-Error-codes",
+      developerDocLink: "https://github.com/openMF/lms/wiki/HTTP-API-Error-codes",
       httpStatusCode: "401",
       defaultUserMessage: "Unauthenticated. Please login.",
       userMessageGlobalisationCode: "error.msg.not.authenticated",
@@ -51,12 +51,12 @@ define([], function() {
         return {
           content: {
             id: match[1],
-            username: "mifos",
+            username: "lms",
             officeId: 1,
             officeName: "Head Office",
             firstname: "App",
             lastname: "Administrator",
-            email: "demomfi@mifos.org",
+            email: "demomfi@lms.org",
             availableRoles: [],
             roles: [{
               id: 1,

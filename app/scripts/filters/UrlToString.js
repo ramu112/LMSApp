@@ -1,5 +1,5 @@
 (function(module) {
-    mifosX.filters = _.extend(module, {
+    lms.filters = _.extend(module, {
         UrlToString: function () {
             return function(input) {
                 var exp = input;
@@ -13,7 +13,7 @@
             }
         }
     });
-    mifosX.ng.application.filter('UrlToString', ['dateFilter',mifosX.filters.UrlToString]).run(function($log) {
+    lms.ng.application.filter('UrlToString', ['dateFilter',lms.filters.UrlToString]).run(function($log) {
         $log.info("UrlToString filter initialized");
     });
-}(mifosX.filters || {}));
+}(lms.filters || {}));

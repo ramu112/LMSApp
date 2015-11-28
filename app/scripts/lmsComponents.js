@@ -1,4 +1,4 @@
-define(['underscore', 'mifosX'], function() {
+define(['underscore', 'LMS'], function() {
   var components = {
     models: [
       'LoggedInUser',

@@ -1,5 +1,5 @@
 (function(module) {
-  mifosX.controllers = _.extend(module, {
+  lms.controllers = _.extend(module, {
     UploadClientIdentifierDocumentController: function(scope, location, http, routeParams, API_VERSION,$upload,$rootScope) {
       scope.clientId = routeParams.clientId;
       scope.resourceId = routeParams.resourceId;
@@ -22,7 +22,7 @@
       };
     }
   });
-  mifosX.ng.application.controller('UploadClientIdentifierDocumentController', ['$scope', '$location', '$http', '$routeParams', 'API_VERSION','$upload','$rootScope', mifosX.controllers.UploadClientIdentifierDocumentController]).run(function($log) {
+  lms.ng.application.controller('UploadClientIdentifierDocumentController', ['$scope', '$location', '$http', '$routeParams', 'API_VERSION','$upload','$rootScope', lms.controllers.UploadClientIdentifierDocumentController]).run(function($log) {
     $log.info("UploadClientIdentifierDocumentController initialized"); 
   });
-}(mifosX.controllers || {}));
+}(lms.controllers || {}));

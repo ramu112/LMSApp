@@ -1,5 +1,5 @@
 (function(module) {
-  mifosX.controllers = _.extend(module, {
+  lms.controllers = _.extend(module, {
     EnterCollectionSheetController: function(scope, resourceFactory, location, routeParams, dateFilter, localStorageService, route, $timeout) {
         scope.offices = [];
         scope.centers = [];
@@ -326,8 +326,8 @@
         };
     }
   });
-  mifosX.ng.application.controller('EnterCollectionSheetController', ['$scope', 'ResourceFactory', '$location', '$routeParams', 'dateFilter', 'localStorageService',
-   '$route', '$timeout', mifosX.controllers.EnterCollectionSheetController]).run(function($log) {
+  lms.ng.application.controller('EnterCollectionSheetController', ['$scope', 'ResourceFactory', '$location', '$routeParams', 'dateFilter', 'localStorageService',
+   '$route', '$timeout', lms.controllers.EnterCollectionSheetController]).run(function($log) {
     $log.info("EnterCollectionSheetController initialized");
   });
-}(mifosX.controllers || {}));
+}(lms.controllers || {}));

@@ -1,5 +1,5 @@
 (function(module) {
-  mifosX.controllers = _.extend(module, {
+  lms.controllers = _.extend(module, {
 
     RunReportsController: function(scope, routeParams, resourceFactory, location, API_VERSION) {
 
@@ -191,7 +191,7 @@
       };
     }
   });
-  mifosX.ng.application.controller('RunReportsController', ['$scope', '$routeParams', 'ResourceFactory', '$location', 'API_VERSION', mifosX.controllers.RunReportsController]).run(function($log) {
+  lms.ng.application.controller('RunReportsController', ['$scope', '$routeParams', 'ResourceFactory', '$location', 'API_VERSION', lms.controllers.RunReportsController]).run(function($log) {
     $log.info("RunReportsController initialized");
   });
-}(mifosX.controllers || {}));
+}(lms.controllers || {}));

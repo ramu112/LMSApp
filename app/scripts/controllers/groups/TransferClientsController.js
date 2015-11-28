@@ -1,5 +1,5 @@
 (function(module) {
-    mifosX.controllers = _.extend(module, {
+    lms.controllers = _.extend(module, {
         TransferClientsController: function(scope, routeParams , route, location, resourceFactory) {
             scope.group = [];
             scope.tempData = [];
@@ -35,7 +35,7 @@
 
         }
     });
-    mifosX.ng.application.controller('TransferClientsController', ['$scope', '$routeParams', '$route', '$location', 'ResourceFactory', mifosX.controllers.TransferClientsController]).run(function($log) {
+    lms.ng.application.controller('TransferClientsController', ['$scope', '$routeParams', '$route', '$location', 'ResourceFactory', lms.controllers.TransferClientsController]).run(function($log) {
         $log.info("TransferClientsController initialized");
     });
-}(mifosX.controllers || {}));
+}(lms.controllers || {}));

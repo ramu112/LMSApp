@@ -1,5 +1,5 @@
 (function(module) {
-  mifosX.controllers = _.extend(module, {
+  lms.controllers = _.extend(module, {
 	  EditGRNController: function(scope,webStorage, resourceFactory, location,dateFilter,routeParams,$rootScope) {
         scope.itemDatas = [];
         scope.officeDatas = [];
@@ -46,7 +46,7 @@
         };
     }
   });
-  mifosX.ng.application.controller('EditGRNController', ['$scope','webStorage', 'ResourceFactory', '$location','dateFilter','$routeParams','$rootScope', mifosX.controllers.EditGRNController]).run(function($log) {
+  lms.ng.application.controller('EditGRNController', ['$scope','webStorage', 'ResourceFactory', '$location','dateFilter','$routeParams','$rootScope', lms.controllers.EditGRNController]).run(function($log) {
     $log.info("EditGRNController initialized");
   });
-}(mifosX.controllers || {}));
+}(lms.controllers || {}));

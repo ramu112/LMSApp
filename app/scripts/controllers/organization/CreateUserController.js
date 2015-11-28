@@ -1,5 +1,5 @@
 (function(module) {
-  mifosX.controllers = _.extend(module, {
+  lms.controllers = _.extend(module, {
     CreateUserController: function(scope, resourceFactory, location) {
         scope.offices = [];
         scope.availableRoles = [];
@@ -19,7 +19,7 @@
         };
     }
   });
-  mifosX.ng.application.controller('CreateUserController', ['$scope', 'ResourceFactory', '$location', mifosX.controllers.CreateUserController]).run(function($log) {
+  lms.ng.application.controller('CreateUserController', ['$scope', 'ResourceFactory', '$location', lms.controllers.CreateUserController]).run(function($log) {
     $log.info("CreateUserController initialized");
   });
-}(mifosX.controllers || {}));
+}(lms.controllers || {}));

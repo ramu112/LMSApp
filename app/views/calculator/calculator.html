@@ -74,9 +74,10 @@
        	  <tr>
        	  <td>
           <div class="control-group">
-            <label class="control-label" for="terms">{{ 'label.calculator.terms' | translate }}</label>
+            <label class="control-label" for="terms">{{ 'label.calculator.terms' | translate }}<span class="required">*</span></label>
             <div class="controls">
-              <input type="text" id="terms" name="terms" ng-model="terms" class="input-small"/>
+              <input type="text" id="terms" name="terms" ng-model="terms" class="input-small" required/>
+              <form-validate valattributeform="createcalculatorform" valattribute="terms"/>
               <!-- <select id="terms" data-ng-model="terms" name="terms" 
               	data-ng-options="termsData.value as termsData.value for termsData in termsData">
               </select> -->

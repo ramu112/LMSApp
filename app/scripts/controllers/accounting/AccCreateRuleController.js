@@ -1,5 +1,5 @@
 (function(module) {
-  mifosX.controllers = _.extend(module, {
+  lms.controllers = _.extend(module, {
     AccCreateRuleController: function(scope, resourceFactory, location) {
 
       scope.formData = {};
@@ -83,7 +83,7 @@
 
     }
   });
-  mifosX.ng.application.controller('AccCreateRuleController', ['$scope', 'ResourceFactory', '$location', mifosX.controllers.AccCreateRuleController]).run(function($log) {
+  lms.ng.application.controller('AccCreateRuleController', ['$scope', 'ResourceFactory', '$location', lms.controllers.AccCreateRuleController]).run(function($log) {
     $log.info("AccCreateRuleController initialized");
   });
-}(mifosX.controllers || {}));
+}(lms.controllers || {}));

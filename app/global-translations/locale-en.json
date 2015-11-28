@@ -2434,6 +2434,7 @@
     "label.totalMaintenanceCharges":"Total Maintenance Charges",
     "label.rate.costMaintenanceChargesperMonth":"Rate & Cost Maintenance Charges per Month",
     "label.residualCostPerAnnum":"Residual Cost Per Annum",
+    "label.anchor.backtoinfo":"Back",
     
     "----------------------": "------------",
     
@@ -2508,7 +2509,7 @@
 	"Note" : "Note",
 	"button.cancel" : "cancel",
 	"button.save" : "save",
-	"label.editprospect":"Edit Prospect",
+	"label.editprospect":"Edit Quotation",
 	
 	"validation.msg.client.prospect.loanProductId.cannot.be.blank" : "Product cann't be blank",
 	

@@ -1,5 +1,5 @@
 (function(module) {
-  mifosX.controllers = _.extend(module, {
+  lms.controllers = _.extend(module, {
       ViewLoanDetailsController: function(scope, routeParams, resourceFactory, location, route, http,$modal,dateFilter,API_VERSION) {
       scope.loandocuments = [];
       scope.date = {};
@@ -387,7 +387,7 @@
 
     }
   });
- mifosX.ng.application.controller('ViewLoanDetailsController', ['$scope', '$routeParams', 'ResourceFactory', '$location', '$route', '$http','$modal','dateFilter','API_VERSION', mifosX.controllers.ViewLoanDetailsController]).run(function($log) {
+ lms.ng.application.controller('ViewLoanDetailsController', ['$scope', '$routeParams', 'ResourceFactory', '$location', '$route', '$http','$modal','dateFilter','API_VERSION', lms.controllers.ViewLoanDetailsController]).run(function($log) {
     $log.info("ViewLoanDetailsController initialized");
   });
-}(mifosX.controllers || {}));
+}(lms.controllers || {}));

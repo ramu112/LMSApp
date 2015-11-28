@@ -1,5 +1,5 @@
 (function(module) {
-  mifosX.controllers = _.extend(module, {
+  lms.controllers = _.extend(module, {
     MainController: function(scope, location, sessionManager, translate,localStorageService) {
     	
     	scope.domReady = true;
@@ -35,12 +35,12 @@
         location.path('/').replace();
       };
 
-      scope.langs = mifosX.models.Langs;
+      scope.langs = lms.models.Langs;
         if(localStorageService.get('Language')){
             var temp=localStorageService.get('Language');
-            for(var i in mifosX.models.Langs){
-                if(mifosX.models.Langs[i].code == temp.code){
-                    scope.optlang = mifosX.models.Langs[i];
+            for(var i in lms.models.Langs){
+                if(lms.models.Langs[i].code == temp.code){
+                    scope.optlang = lms.models.Langs[i];
                 }
             }
         } else{
@@ -106,14 +106,14 @@
       }
     }
   });
-  mifosX.ng.application.controller('MainController', [
+  lms.ng.application.controller('MainController', [
     '$rootScope',
     '$location',
     'SessionManager',
     '$translate',
     'localStorageService',
-    mifosX.controllers.MainController
+    lms.controllers.MainController
   ]).run(function($log) {
     $log.info("MainController initialized");
   });
-}(mifosX.controllers || {}));
+}(lms.controllers || {}));

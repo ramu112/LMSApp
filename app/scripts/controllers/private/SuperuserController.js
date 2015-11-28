@@ -1,5 +1,5 @@
 (function(module) {
-    mifosX.controllers = _.extend(module, {
+    lms.controllers = _.extend(module, {
         SuperuserController: function(scope, resourceFactory) {
             scope.client = [];
             scope.offices = [];
@@ -377,10 +377,10 @@
 
         }
     });
-    mifosX.ng.application.controller('SuperuserController', ['$scope', 'ResourceFactory', mifosX.controllers.SuperuserController]).run(function($log) {
+    lms.ng.application.controller('SuperuserController', ['$scope', 'ResourceFactory', lms.controllers.SuperuserController]).run(function($log) {
         $log.info("SuperuserController initialized");
     });
-}(mifosX.controllers || {}));
+}(lms.controllers || {}));
 
 
 

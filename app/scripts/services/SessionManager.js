@@ -1,12 +1,12 @@
 (function(module) {
-  mifosX.services = _.extend(module, {
+  lms.services = _.extend(module, {
     SessionManager: function($rootScope,webStorage, httpService, resourceFactory) {
       var EMPTY_SESSION = {};
 
       this.get = function(data) {
         webStorage.add("sessionData", {userId: data.userId, authenticationKey: data.base64EncodedAuthenticationKey});
         httpService.setAuthorization(data.base64EncodedAuthenticationKey);
-        return {user: new mifosX.models.LoggedInUser(data)};
+        return {user: new lms.models.LoggedInUser(data)};
       }
 
       this.clear = function() {
@@ -21,7 +21,7 @@
           httpService.setAuthorization(sessionData.authenticationKey);
           resourceFactory.userResource.get({userId: sessionData.userId}, function(userData) {
         	$rootScope.isSaleUser = angular.lowercase(userData.username) == 'sale' ? true :false;
-            handler({user: new mifosX.models.LoggedInUser(userData)});
+            handler({user: new lms.models.LoggedInUser(userData)});
           });
         } else {
           handler(EMPTY_SESSION);
@@ -29,13 +29,13 @@
       };
     }
   });
-  mifosX.ng.services.service('SessionManager', [
+  lms.ng.services.service('SessionManager', [
     '$rootScope',
     'webStorage',
     'HttpService',
     'ResourceFactory',
-    mifosX.services.SessionManager
+    lms.services.SessionManager
   ]).run(function($log) {
     $log.info("SessionManager initialized");
   });
-}(mifosX.services || {}));
+}(lms.services || {}));

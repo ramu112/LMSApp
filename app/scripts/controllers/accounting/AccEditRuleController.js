@@ -1,5 +1,5 @@
 (function(module) {
-  mifosX.controllers = _.extend(module, {
+  lms.controllers = _.extend(module, {
     AccEditRuleController: function(scope, resourceFactory, location, routeParams) {
 
       scope.formData = {};
@@ -124,7 +124,7 @@
 
     }
   });
-  mifosX.ng.application.controller('AccEditRuleController', ['$scope', 'ResourceFactory', '$location', '$routeParams', mifosX.controllers.AccEditRuleController]).run(function($log) {
+  lms.ng.application.controller('AccEditRuleController', ['$scope', 'ResourceFactory', '$location', '$routeParams', lms.controllers.AccEditRuleController]).run(function($log) {
     $log.info("AccEditRuleController initialized");
   });
-}(mifosX.controllers || {}));
+}(lms.controllers || {}));

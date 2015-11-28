@@ -1,5 +1,5 @@
 (function(module) {
-    mifosX.directives = _.extend(module, {
+    lms.directives = _.extend(module, {
         BigPanelDirective: function() {
             return {
                 restrict: "E",
@@ -17,8 +17,8 @@
 
         }
     });
-}(mifosX.directives || {}));
+}(lms.directives || {}));
 
-mifosX.ng.application.directive("panelbig", [mifosX.directives.BigPanelDirective]).run(function($log) {
+lms.ng.application.directive("panelbig", [lms.directives.BigPanelDirective]).run(function($log) {
     $log.info("BigPanelDirective initialized");
 });

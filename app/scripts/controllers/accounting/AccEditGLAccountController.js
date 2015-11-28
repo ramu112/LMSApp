@@ -1,5 +1,5 @@
 (function(module) {
-  mifosX.controllers = _.extend(module, {
+  lms.controllers = _.extend(module, {
     AccEditGLAccountController: function(scope, routeParams, resourceFactory, location) {
         scope.coadata = [];
         scope.accountTypes = [];
@@ -71,7 +71,7 @@
         };
     }
   });
-  mifosX.ng.application.controller('AccEditGLAccountController', ['$scope', '$routeParams', 'ResourceFactory', '$location', mifosX.controllers.AccEditGLAccountController]).run(function($log) {
+  lms.ng.application.controller('AccEditGLAccountController', ['$scope', '$routeParams', 'ResourceFactory', '$location', lms.controllers.AccEditGLAccountController]).run(function($log) {
     $log.info("AccEditGLAccountController initialized");
   });
-}(mifosX.controllers || {}));
+}(lms.controllers || {}));

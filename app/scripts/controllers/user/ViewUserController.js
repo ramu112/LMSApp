@@ -1,5 +1,5 @@
 (function(module) {
-  mifosX.controllers = _.extend(module, {
+  lms.controllers = _.extend(module, {
     ViewUserController: function(scope, routeParams, route, location, resourceFactory, $modal ) {
         scope.user = [];
         resourceFactory.userListResource.get({userId: routeParams.id} , function(data) {
@@ -45,7 +45,7 @@
 
     }
   });
-  mifosX.ng.application.controller('ViewUserController', ['$scope', '$routeParams','$route', '$location', 'ResourceFactory','$modal', mifosX.controllers.ViewUserController]).run(function($log) {
+  lms.ng.application.controller('ViewUserController', ['$scope', '$routeParams','$route', '$location', 'ResourceFactory','$modal', lms.controllers.ViewUserController]).run(function($log) {
     $log.info("ViewUserController initialized");
   });
-}(mifosX.controllers || {}));
+}(lms.controllers || {}));
