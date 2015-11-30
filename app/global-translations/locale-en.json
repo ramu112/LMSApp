@@ -2612,6 +2612,7 @@
   "error.msg.grn.duplicate.purchaseNo":"Purchase No already exist with given value",
   "validation.msg.item.grnId.cannot.be.blank":"GRN Id cannot be blank",
   "validation.msg.item.itemMasterId.cannot.be.blank":"Item Description cannot be blank",
+  "error.not.numeric.validation":"Enter Numeric Value",
   
   "table.mrn.id":"Id",
   "table.mrn.requestedDate":"Requested Date",

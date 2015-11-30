@@ -251,11 +251,14 @@
 					          };
 					          
 					          scope.searchStatusDetails = function(offset, limit, callback) {
-					        	  if(scope.source == 'ALL')
-						    	  resourceFactory.itemDetailsResource.getAlldetails({offset: offset, limit: limit,officeName : scope.officeName,manufacturer : scope.manufacturer,itemCode : scope.itemCode} , callback);
-					        	  else
-					        		  resourceFactory.itemDetailsResource.getAlldetails({offset: offset, limit: limit , 
-							    		  sqlSearch: scope.source ,officeName : scope.officeName,itemCode : scope.itemCode,manufacturer : scope.manufacturer} , callback);
+					        	  var inputParams = {}
+					        	  inputParams.offset = offset;
+					        	  inputParams.limit = limit;
+					        	  if(scope.source != 'ALL')inputParams.sqlSearch = scope.source;
+					        	  if(scope.officeName)inputParams.officeName = scope.officeName;
+					        	  if(scope.itemCode)inputParams.itemCode = scope.itemCode;
+					        	  if(scope.manufacturer)inputParams.manufacturer = scope.manufacturer;
+					        		  resourceFactory.itemDetailsResource.getAlldetails(inputParams , callback);
 						      };
 						  		
 						      scope.searchSource = function(source) {
