@@ -5,20 +5,56 @@
     	scope.domReady = true;
         scope.activity = {};
         scope.activityQueue = [];
-        if(localStorageService.get('Location')){
-            scope.activityQueue = localStorageService.get('Location');
+        if(localStorageService.getFromLocalStorage('Location')){
+            scope.activityQueue = localStorageService.getFromLocalStorage('Location');
         }
+        
+        scope.setPermissions = function (permissions) {
+            scope.permissionList = permissions;
+            localStorageService.addToLocalStorage('userPermissions', permissions);
+            scope.$broadcast('permissionsChanged')
+        };
+
+        scope.hasPermission = function (permission) {
+            permission = permission.trim();
+            //FYI: getting all permissions from localstorage, because if scope changes permissions array will become undefined
+            scope.permissionList = localStorageService.getFromLocalStorage('userPermissions');
+            //If user is a Super user return true
+            if (scope.permissionList && _.contains(scope.permissionList, "ALL_FUNCTIONS")) {
+                return true;
+            } else if (scope.permissionList && permission && permission != "") {
+                //If user have all read permission return true
+                if (permission.substring(0, 5) == "READ_" && _.contains(scope.permissionList, "ALL_FUNCTIONS_READ")) {
+                    return true;
+                } else if (_.contains(scope.permissionList, permission)) {
+                    //check for the permission if user doesn't have any special permissions
+                    return true;
+                } else {
+                    //return false if user doesn't have permission
+                    return false;
+                }
+            } else {
+                //return false if no value assigned to has-permission directive
+                return false;
+            }
+            ;
+        };
+        
+        
         scope.$watch(function() {
             return location.path();
         }, function() {
             scope.activity= location.path();
             scope.activityQueue.push(scope.activity);
-            localStorageService.add('Location',scope.activityQueue);
+            localStorageService.addToLocalStorage('Location',scope.activityQueue);
         });
 
         scope.leftnav = false;
         scope.$on("UserAuthenticationSuccessEvent", function(event, data) {
         scope.currentSession = sessionManager.get(data);
+        if (scope.currentSession.user && scope.currentSession.user.userPermissions) {
+            scope.setPermissions(scope.currentSession.user.userPermissions);
+        } 
         scope.isSaleUser = angular.lowercase(scope.currentSession.user.name) == 'sale' ? true :false;
         location.path('/home').replace();
       });
@@ -36,8 +72,8 @@
       };
 
       scope.langs = lms.models.Langs;
-        if(localStorageService.get('Language')){
-            var temp=localStorageService.get('Language');
+        if(localStorageService.getFromLocalStorage('Language')){
+            var temp=localStorageService.getFromLocalStorage('Language');
             for(var i in lms.models.Langs){
                 if(lms.models.Langs[i].code == temp.code){
                     scope.optlang = lms.models.Langs[i];
@@ -47,7 +83,6 @@
             scope.optlang = scope.langs[0];
         }
         translate.uses(scope.optlang.code);
-
 
       scope.isActive = function (route) {
           if(route == 'clients'){
@@ -91,11 +126,15 @@
 
       scope.changeLang = function (lang) {
           translate.uses(lang.code);
-          localStorageService.add('Language',lang);
+          localStorageService.addToLocalStorage('Language',lang);
       };
 
       sessionManager.restore(function(session) {
         scope.currentSession = session;
+        if (session.user != null && session.user.userPermissions) {
+            scope.setPermissions(session.user.userPermissions);
+            localStorageService.addToLocalStorage('userPermissions', session.user.userPermissions);
+        }
       });
       
       scope.addition = function(a,b){

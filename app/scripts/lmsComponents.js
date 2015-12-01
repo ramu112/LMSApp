@@ -223,7 +223,8 @@ define(['underscore', 'LMS'], function() {
       'FormSubmitValidateDirective',
       'ApiValidationDirective',
       'ActivitiesDisplayPanelDirective',
-      'ScrollbarTopDirective'
+      'ScrollbarTopDirective',
+      'HasPermissionDirective'
     ]
   };
 

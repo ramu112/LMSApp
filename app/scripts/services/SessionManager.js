@@ -21,6 +21,7 @@
           httpService.setAuthorization(sessionData.authenticationKey);
           resourceFactory.userResource.get({userId: sessionData.userId}, function(userData) {
         	$rootScope.isSaleUser = angular.lowercase(userData.username) == 'sale' ? true :false;
+        	userData.userPermissions = sessionData.userPermissions;
             handler({user: new lms.models.LoggedInUser(userData)});
           });
         } else {

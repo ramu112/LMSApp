@@ -157,7 +157,7 @@
                                 <li><a href="#/reports/accounting">{{ 'label.anchor.accounting' | translate }}</a></li>
                             </ul>
                         </li>
-                        <li ng-hide="isSaleUser"><a href="#/calculator" ng-class="{ activate: isActive('/calculator') }"><i class="icon-table icon-white"></i>{{ 'label.anchor.calculator' | translate }}</a></li>
+                        <li has-permission='CREATE_LOANCALCULATOR'><a href="#/calculator" ng-class="{ activate: isActive('/calculator') }"><i class="icon-table icon-white"></i>{{ 'label.anchor.calculator' | translate }}</a></li>
                         <li class="dropdown" id="preview-menu">
                             <a class="dropdown-toggle" data-toggle="dropdown" ng-class="{ activate: isActive('admin') }" href="#"><i class="icon-wrench"></i>{{ 'label.anchor.admin' | translate }}<b class="caret"></b></a>
                             <ul class="dropdown-menu">

@@ -1,8 +1,8 @@
 (function(module) {
   lms.controllers = _.extend(module, {
     UserSettingController: function(scope, translate,localStorageService) {
-        if(localStorageService.get('Language')){
-            var temp=localStorageService.get('Language');
+        if(localStorageService.getFromLocalStorage('Language')){
+            var temp=localStorageService.getFromLocalStorage('Language');
             for(var i in lms.models.Langs){
                 if(lms.models.Langs[i].code == temp.code){
                     scope.optlang = lms.models.Langs[i];
@@ -16,7 +16,7 @@
       scope.langs = lms.models.Langs;
       scope.changeLang = function (lang) {
           translate.uses(lang.code);
-          localStorageService.add('Language',scope.optlang);
+          localStorageService.addToLocalStorage('Language',scope.optlang);
       };
 
     }

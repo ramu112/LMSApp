@@ -192,6 +192,19 @@
               scope.showDateField = false;
           break;
         }
+        
+        scope.paymentTypeSelection = function(id){
+        	for(var i in scope.paymentTypes){
+        		if(scope.paymentTypes[i].id == id){
+        			if(angular.lowercase(scope.paymentTypes[i].name) == "cash"){
+        				scope.isCashPayment = true;
+        			}else{
+        				scope.isCashPayment = false;
+        			}
+        			break;
+        		}
+        	}
+        }
 
         scope.cancel = function() {
           location.path('/viewloanaccount/' + routeParams.id);
