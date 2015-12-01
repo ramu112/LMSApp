@@ -132,7 +132,7 @@
           scope.status = data.status.value;
           scope.chargeAction = data.status.value == "Submitted and pending approval" ? true : false;
           
-          if(scope.loandetails.repaymentSchedule.periods){
+          if(scope.loandetails.repaymentSchedule.periods && scope.loandetails.repaymentSchedule.periods[0].residualAmount){
         	  scope.loandetails.repaymentSchedule.periods[0].residualAmount = Math.round(scope.loandetails.repaymentSchedule.periods[0].residualAmount);
           }
 

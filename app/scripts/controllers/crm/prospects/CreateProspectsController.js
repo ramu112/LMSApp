@@ -31,10 +31,10 @@
 				scope.formData.preferredCallingTime = dateFilter(scope.first.date,'yyyy-MM-dd HH:mm:ss');
 				$rootScope.prospectFormData = {};
 				$rootScope.prospectFormData = scope.formData;
-				if(angular.lowercase($rootScope.currentSession.user.name) == 'sale'){
-					location.path("/salecalculator");
-				}else{
+				if($rootScope.hasPermission("CREATE_LOANCALCULATOR")){
 					location.path("/calculator");
+				}else{
+					location.path("/salecalculator");
 				}
 				
 			};						

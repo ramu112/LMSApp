@@ -110,7 +110,7 @@
        	  </tr>
        	  </table>
        	  <div class="offset9">
-            <button type="submit" class=" btn btn-primary" ng-show="isProspect">{{'label.button.save' | translate}}</button>
+            <a ng-click="save()" class=" btn btn-primary" ng-show="isProspect">{{'label.button.save' | translate}}</a>
           </div>
 
     <table style="width: 100%;">
@@ -123,6 +123,16 @@
         </td>
       </tr>
     </table>
+    <div class="span3" ng-show="previewRepayment">
+	 <table class="table view-table table-bordered">
+	     <tr>
+	       <th class="table-bold">{{'label.heading.taxamount' | translate}}</th>
+	     </tr>
+	     <tr ng-repeat="taxAmount in taxAmounts">
+	       <td><span class="padded-td">{{taxAmount.taxAmount}}</span></td>
+	     </tr>
+	    </table>
+	</div>
     <div class="control-group">
         <table class="table" ng-show="previewRepayment">
           <thead>

@@ -135,6 +135,11 @@
             
             if(scope.taxesArray.length > 0){
                 scope.taxAmountCal(function(returnData){
+                	scope.taxAmounts = [];
+                	scope.taxAmounts = returnData.taxArray;
+                	for(var i in scope.taxAmounts){
+                		scope.taxAmounts[i].taxAmount = scope.taxAmounts[i].taxAmount.toFixed(2);
+                	}
                 	
                 	repaymentInfoFormData.principal = returnData.finalAmount;
                 	resourceFactory.loanResource.save({command:'calculateLoanSchedule'}, repaymentInfoFormData,function(data){
@@ -159,7 +164,7 @@
 
         }
         
-        scope.submit = function (){
+        scope.save = function (){
     	   
     	   	scope.formData.locale='en'; 
     	   	scope.formData.payTerms = [];
