@@ -252,6 +252,7 @@
 					          
 					          scope.searchStatusDetails = function(offset, limit, callback) {
 					        	  var inputParams = {}
+					        	  console.log(scope.source);
 					        	  inputParams.offset = offset;
 					        	  inputParams.limit = limit;
 					        	  if(scope.source != 'ALL')inputParams.sqlSearch = scope.source;
