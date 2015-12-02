@@ -29,7 +29,7 @@
             <div class="row-fluid primarydiv">
                 <div class="btn-group pull-right">
                   <span ng-repeat="button in buttonsArray.singlebuttons">
-                    <a  href="{{button.href}}/{{client.id}}/{{button.subhref}}" class="btn btn-primary" ><i class="{{button.icon}} icon-white" ></i>{{button.name | translate}}</a>
+                    <a  href="{{button.href}}/{{client.id}}/{{button.subhref}}" class="btn btn-primary" ng-show="button.taskPermissionName"><i class="{{button.icon}} icon-white" ></i>{{button.name | translate}}</a>
                   </span>
                   <button type="button" class="btn btn-primary" data-ng-click="deleteClient()" data-ng-show="client.status.value=='Pending'"><i class="icon-trash icon-white"></i>{{"label.button.delete" | translate}}</button>
                   <button type="button" class="btn btn-primary" data-ng-click="unassignStaffCenter()" data-ng-show="client.staffId"><i class="icon-user icon-white"></i>{{"label.button.unassignstaff" | translate}}</button>
@@ -40,7 +40,7 @@
                       </a>
                       <ul style='margin-left:-98px;' class="dropdown dropdown-menu">
                         <li class="{{button.icon}}" ng-repeat="button in buttonsArray.options">
-                            <a href="#/clientscreenreport/{{client.id}}">{{'label.'+ button.name | translate}}</a>
+                            <a href="#/clientscreenreport/{{client.id}}" ng-show="button.taskPermissionName">{{'label.'+ button.name | translate}}</a>
                         </li>
                       </ul>
                   </span>
@@ -167,9 +167,11 @@
             </div>
           </div>
       </tab>
-      <tab heading="{{'label.heading.identities' | translate}}" select="getClientIdentityDocuments()">
+      <tab heading="{{'label.heading.identities' | translate}}" select="getClientIdentityDocuments()"
+      has-permission='READ_CLIENTIDENTIFIER'>
         <div class="pull-right btn-group">
-          <a href="#/addclientidentifier/{{client.id}}" class="btn btn-primary"><i class="icon-plus icon-white"></i>{{ 'label.button.add' | translate }}</a>
+          <a href="#/addclientidentifier/{{client.id}}" class="btn btn-primary" has-permission='CREATE_CLIENTIDENTIFIER'
+          ><i class="icon-plus icon-white"></i>{{ 'label.button.add' | translate }}</a>
         </div>
         <br>
         <table class="table" ng-show="identitydocuments.length > 0">
@@ -195,17 +197,20 @@
                 </td>
                 <td>
                   <span>
-                      <a href="#/addclientidentifierdocument/{{client.id}}/{{document.id}}"><i class="icon-cloud-upload"></i></a>&nbsp;
-                      <a ng-click="deleteClientIdentifierDocument(client.id,document.id,$index)"><i class="icon-remove"></i></a>
+                      <a href="#/addclientidentifierdocument/{{client.id}}/{{document.id}}"
+                      has-permission='CREATE_DOCUMENT'><i class="icon-cloud-upload"></i></a>&nbsp;
+                      <a ng-click="deleteClientIdentifierDocument(client.id,document.id,$index)"
+                      has-permission='DELETE_CLIENTIDENTIFIER'><i class="icon-remove"></i></a>
                   </span>
                 </td>
               </tr>
             </tbody>
           </table>
       </tab>
-      <tab heading="{{'label.heading.documents' | translate}}" select="getClientDocuments()">
+      <tab heading="{{'label.heading.documents' | translate}}" select="getClientDocuments()" has-permission='READ_DOCUMENT'>
         <div class="pull-right">
-          <a href="#/addclientdocument/{{client.id}}" class="btn btn-primary"><i class="icon-plus icon-white"></i>{{'label.button.upload' | translate}}</a>
+          <a href="#/addclientdocument/{{client.id}}" class="btn btn-primary" has-permission='CREATE_DOCUMENT'>
+          	<i class="icon-plus icon-white"></i>{{'label.button.upload' | translate}}</a>
         </div>
         <br>
         <table class="table" ng-show="clientdocuments.length > 0">
@@ -254,7 +259,7 @@
           </table>
         </div>
       </tab>
-      <tab heading="{{ 'label.heading.notes' | translate }}">
+      <tab heading="{{ 'label.heading.notes' | translate }}" has-permission='READ_CLIENTNOTE'>
         <br/>
         <form>
             <div class="control-group">
@@ -262,7 +267,8 @@
                      <textarea rows="1" class="field span marginbottom0px" id="textarea" placeholder="{{'label.input.enternote' | translate}}" ng-model="formData.note"></textarea>
                      <div class="notewrapper row-fluid">
                         <span class="pull-right noteaddbuttonwrapper">
-                            <button class="btn btn-primary" type="submit" ng-click="saveNote()">{{'label.button.add' | translate}}</button>
+                            <button class="btn btn-primary" type="submit" ng-click="saveNote()"
+                            has-permission='CREATE_CLIENTNOTE'>{{'label.button.add' | translate}}</button>
                         </span>
                      </div>
               </div>

@@ -6,7 +6,7 @@
         <li class="active">{{'label.anchor.request.quotation' | translate}}&nbsp;&nbsp;{{employee.lastname}}</li>
     </ul>
     <div class="pull-right">
-        <a href="#/createprospects" class="btn btn-primary"><i class="icon-plus icon-white"></i> {{ 'link.create.new.prospect' | translate }}</a>
+        <a href="#/createprospects" has-permission='CREATE_PROSPECT' class="btn btn-primary"><i class="icon-plus icon-white"></i> {{ 'link.create.new.prospect' | translate }}</a>
     </div>
 </div>
 
@@ -35,10 +35,14 @@
                 <td>{{prospect.address}}</td>        
                 <td>{{prospect.status}}</td>
                 <td>
-				<a data-ng-click="convertProspect(prospect.id)" ng-hide="prospect.status == 'Closed'"
-					style='color:#000000' data-popover="convert to client" data-popover-trigger="mouseenter" ><i class="icon-user"></i></a> 
-				<a href="#/editprospects/{{prospect.id}}" ng-hide="prospect.status == 'Closed'"
-					style='color:#000000' data-popover="Edit" data-popover-trigger="mouseenter" ><i class="icon-edit icon-white"></i></a> 
+				<span has-permission='CONVERTTOCLIENT_PROSPECT'>
+					<a data-ng-click="convertProspect(prospect.id)" ng-hide="prospect.status == 'Closed'"
+					style='color:#000000' data-popover="convert to client" data-popover-trigger="mouseenter">
+					<i class="icon-user"></i></a> </span>
+				<span has-permission='UPDATE_PROSPECT'>
+				<a  href="#/editprospects/{{prospect.id}}" ng-hide="prospect.status == 'Closed'"
+					style='color:#000000' data-popover="Edit" data-popover-trigger="mouseenter" 
+					><i class="icon-edit icon-white"></i></a> </span>
 				<a href="" ng-click="download(prospect.location)"
 					style='color:#000000' data-popover="Download" data-popover-trigger="mouseenter" ><i class="icon-download-alt icon-white"></i></a> 
                 </td>                     
