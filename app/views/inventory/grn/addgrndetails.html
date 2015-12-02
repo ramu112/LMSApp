@@ -71,7 +71,7 @@
 						<div class="control-group">
             			<label class="control-label" for="orderdQuantity">{{'label.grn.orderedQuantity' | translate }}&nbsp;<span class="required">*</span></label>
             			<div class="controls">
-              			<input type="text" id="orderdQuantity" name="orderdQuantity" ng-model="formData.orderdQuantity"></br><!-- data-ng-pattern="{{'integergtzero' | CodeValidate}}" -->
+              			<input type="text" id="orderdQuantity" name="orderdQuantity" ng-model="formData.orderdQuantity" data-ng-pattern="/^[0-9][0-9\s]+$/"></br><!-- data-ng-pattern="{{'integergtzero' | CodeValidate}}" -->
               			<span data-ng-show="addgrndetails.orderdQuantity.$dirty && addgrndetails.orderdQuantity.$invalid">
               				<small class="error-row">{{'error.not.numeric.validation' | translate}}</small>
               			</span>

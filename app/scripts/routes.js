@@ -576,7 +576,7 @@
     .when('/createitem', {
         templateUrl: 'views/inventory/item/createitem.html'
     })
-    .when('/createsupplier',{
+    .when('/createvendor',{
   	  templateUrl: 'views/inventory/createvendor.html'
     })
     .when('/editgrn/:id',{

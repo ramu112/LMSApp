@@ -85,7 +85,7 @@
 						<div class="control-group">
             			<label class="control-label" for="reorderLevel">{{'label.item.reorderlevel' | translate }}&nbsp;</label>
             			<div class="controls">
-              			<input type="text" id="reorderLevel" name="reorderLevel" data-ng-model="formData.reorderLevel"/><br/><!--data-ng-pattern="{{'integergtzero' | CodeValidate}}"  -->
+              			<input type="text" id="reorderLevel" name="reorderLevel" data-ng-model="formData.reorderLevel" data-ng-pattern="/^[0-9][0-9\s]+$/"/><br/><!--data-ng-pattern="{{'integergtzero' | CodeValidate}}"  -->
               				<span data-ng-show="edititemform.reorderLevel.$dirty && edititemform.reorderLevel.$invalid">
 				        		<small class="error-row">{{'error.not.numeric.validation'|translate}}</small>
 				    		</span>
@@ -99,7 +99,7 @@
 						<div class="control-group">
             			<label class="control-label" for="warranty">{{'label.item.warranty' | translate }}&nbsp;<span class="required">*</span></label>
             			<div class="controls">
-              			<input type="text" id="warranty" name="warranty" class="input-medium" data-ng-model="formData.warranty"><!--data-ng-pattern="{{'integer' | CodeValidate}}"  -->
+              			<input type="text" id="warranty" name="warranty" class="input-medium" data-ng-model="formData.warranty" data-ng-pattern="/^[0-9]+$/"><!--data-ng-pattern="{{'integer' | CodeValidate}}"  -->
               			<span style="font-size:15px;"><img src="../app/images/slash.jpg" width="20">Month(s)</span><br/>
               			<span data-ng-show="edititemform.warranty.$dirty && edititemform.warranty.$invalid">
              				<small class="error-row">{{'error.not.numeric.validation'| translate}}</small>
