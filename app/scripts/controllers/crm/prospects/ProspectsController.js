@@ -1,7 +1,6 @@
 (function(module) {
-	mifosX.controllers = _.extend(module, {
-		ProspectsController : function(scope, resourceFactory,
-				paginatorService, location, webStorage) {
+	lms.controllers = _.extend(module, {
+		ProspectsController : function(scope, resourceFactory,paginatorService, location, webStorage,$rootScope,API_VERSION) {
 			
 			scope.prospects = [];
 
@@ -43,18 +42,24 @@
 					location.path('/viewclient/' + data.resourceId);
 				});
 			};
+			
+			scope.download = function(location){
+				window.open($rootScope.hostUrl+ API_VERSION +'/loans/calculator/export?tenantIdentifier=default&file='+location);
+			}
 		}
 	});
 	
-	mifosX.ng.application.controller('ProspectsController', [ 
+	lms.ng.application.controller('ProspectsController', [ 
 	'$scope', 
 	'ResourceFactory', 
 	'PaginatorService', 
 	'$location',				 
 	'webStorage',				
-	mifosX.controllers.ProspectsController 
+	'$rootScope',				
+	'API_VERSION',				
+	lms.controllers.ProspectsController 
 	]).run(function($log) {			
 		$log.info("ProspectsController initialized");		
 	});
 	
-}(mifosX.controllers || {}));
+}(lms.controllers || {}));

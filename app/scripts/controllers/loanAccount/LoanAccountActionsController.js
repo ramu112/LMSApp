@@ -1,5 +1,5 @@
 (function(module) {
-  mifosX.controllers = _.extend(module, {
+  lms.controllers = _.extend(module, {
     LoanAccountActionsController: function(scope, resourceFactory, location, routeParams, dateFilter) {
 
         scope.action = routeParams.action || "";
@@ -192,6 +192,19 @@
               scope.showDateField = false;
           break;
         }
+        
+        scope.paymentTypeSelection = function(id){
+        	for(var i in scope.paymentTypes){
+        		if(scope.paymentTypes[i].id == id){
+        			if(angular.lowercase(scope.paymentTypes[i].name) == "cash"){
+        				scope.isCashPayment = true;
+        			}else{
+        				scope.isCashPayment = false;
+        			}
+        			break;
+        		}
+        	}
+        }
 
         scope.cancel = function() {
           location.path('/viewloanaccount/' + routeParams.id);
@@ -242,7 +255,7 @@
         };
     }
   });
-  mifosX.ng.application.controller('LoanAccountActionsController', ['$scope', 'ResourceFactory', '$location', '$routeParams', 'dateFilter', mifosX.controllers.LoanAccountActionsController]).run(function($log) {
+  lms.ng.application.controller('LoanAccountActionsController', ['$scope', 'ResourceFactory', '$location', '$routeParams', 'dateFilter', lms.controllers.LoanAccountActionsController]).run(function($log) {
     $log.info("LoanAccountActionsController initialized");
   });
-}(mifosX.controllers || {}));
+}(lms.controllers || {}));

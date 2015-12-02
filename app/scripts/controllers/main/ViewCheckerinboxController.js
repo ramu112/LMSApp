@@ -1,5 +1,5 @@
 (function(module) {
-    mifosX.controllers = _.extend(module, {
+    lms.controllers = _.extend(module, {
         ViewCheckerinboxController: function(scope, resourceFactory, routeParams,location,$modal) {
             scope.details = {};
             resourceFactory.auditResource.get({templateResource: routeParams.id} , function(data) {
@@ -49,9 +49,9 @@
             };
         }
     });
-    mifosX.ng.application.controller('ViewCheckerinboxController', ['$scope', 'ResourceFactory', '$routeParams','$location','$modal', mifosX.controllers.ViewCheckerinboxController]).run(function($log) {
+    lms.ng.application.controller('ViewCheckerinboxController', ['$scope', 'ResourceFactory', '$routeParams','$location','$modal', lms.controllers.ViewCheckerinboxController]).run(function($log) {
         $log.info("ViewCheckerinboxController initialized");
     });
-}(mifosX.controllers || {}));
+}(lms.controllers || {}));
 
 

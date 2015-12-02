@@ -1,5 +1,5 @@
 (function(module) {
-  mifosX.controllers = _.extend(module, {
+  lms.controllers = _.extend(module, {
     ViewAssetController: function(scope, routeParams, route, location, resourceFactory, $modal ) {
         scope.asset = [];
         resourceFactory.assetResource.get({assetId: routeParams.id} , function(data) {
@@ -29,7 +29,7 @@
 
     }
   });
-  mifosX.ng.application.controller('ViewAssetController', ['$scope', '$routeParams','$route', '$location', 'ResourceFactory','$modal', mifosX.controllers.ViewAssetController]).run(function($log) {
+  lms.ng.application.controller('ViewAssetController', ['$scope', '$routeParams','$route', '$location', 'ResourceFactory','$modal', lms.controllers.ViewAssetController]).run(function($log) {
     $log.info("ViewAssetController initialized");
   });
-}(mifosX.controllers || {}));
+}(lms.controllers || {}));

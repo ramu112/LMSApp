@@ -1,5 +1,5 @@
 (function(module) {
-  mifosX.controllers = _.extend(module, {
+  lms.controllers = _.extend(module, {
 	  ItemSaleController: function(scope, resourceFactory, location,dateFilter,routeParams,webStorage,$rootScope) {
 		  
 		   scope.officeId = routeParams.officeId;
@@ -81,7 +81,7 @@
         };
     }
   });
-  mifosX.ng.application.controller('ItemSaleController', [
+  lms.ng.application.controller('ItemSaleController', [
     '$scope', 
     'ResourceFactory', 
     '$location',
@@ -89,7 +89,7 @@
     '$routeParams',
     'webStorage',
     '$rootScope', 
-    mifosX.controllers.ItemSaleController]).run(function($log) {
+    lms.controllers.ItemSaleController]).run(function($log) {
     $log.info("ItemSaleController initialized");
   });
-}(mifosX.controllers || {}));
+}(lms.controllers || {}));

@@ -1,5 +1,5 @@
 (function(module) {
-    mifosX.controllers = _.extend(module, {
+    lms.controllers = _.extend(module, {
         CloseGroupController: function(scope, routeParams, route, location, resourceFactory,dateFilter) {
             scope.group = [];
             scope.template = [];
@@ -26,8 +26,8 @@
             };
         }
     });
-    mifosX.ng.application.controller('CloseGroupController', ['$scope', '$routeParams','$route', '$location', 'ResourceFactory','dateFilter', mifosX.controllers.CloseGroupController]).run(function($log) {
+    lms.ng.application.controller('CloseGroupController', ['$scope', '$routeParams','$route', '$location', 'ResourceFactory','dateFilter', lms.controllers.CloseGroupController]).run(function($log) {
         $log.info("CloseGroupController initialized");
     });
-}(mifosX.controllers || {}));
+}(lms.controllers || {}));
 

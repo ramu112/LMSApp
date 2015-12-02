@@ -1,5 +1,5 @@
 (function(module) {
-    mifosX.controllers = _.extend(module, {
+    lms.controllers = _.extend(module, {
         EditGuarantorController: function(scope, resourceFactory, routeParams, location,dateFilter) {
             scope.template = {};
             scope.clientview = false;
@@ -46,7 +46,7 @@
             };
         }
     });
-    mifosX.ng.application.controller('EditGuarantorController', ['$scope', 'ResourceFactory', '$routeParams', '$location','dateFilter', mifosX.controllers.EditGuarantorController]).run(function($log) {
+    lms.ng.application.controller('EditGuarantorController', ['$scope', 'ResourceFactory', '$routeParams', '$location','dateFilter', lms.controllers.EditGuarantorController]).run(function($log) {
         $log.info("EditGuarantorController initialized");
     });
-}(mifosX.controllers || {}));
+}(lms.controllers || {}));

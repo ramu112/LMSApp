@@ -1,5 +1,5 @@
 (function(module) {
-    mifosX.directives = _.extend(module, {
+    lms.directives = _.extend(module, {
         TreeviewDirective: function($compile) {
             return {
                 restrict: 'A',
@@ -46,8 +46,8 @@
 
         }
     });
-}(mifosX.directives || {}));
+}(lms.directives || {}));
 
-mifosX.ng.application.directive("treeModel", ['$compile',mifosX.directives.TreeviewDirective]).run(function($log) {
+lms.ng.application.directive("treeModel", ['$compile',lms.directives.TreeviewDirective]).run(function($log) {
     $log.info("TreeviewDirective initialized");
 });

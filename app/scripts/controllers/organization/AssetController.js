@@ -1,5 +1,5 @@
 (function(module) {
-  mifosX.controllers = _.extend(module, {
+  lms.controllers = _.extend(module, {
     AssetController: function(scope, resourceFactory) {
         scope.assets = [];
         resourceFactory.assetResource.getAllAssets(function(data) {
@@ -7,7 +7,7 @@
         });
     }
   });
-  mifosX.ng.application.controller('AssetController', ['$scope', 'ResourceFactory', mifosX.controllers.AssetController]).run(function($log) {
+  lms.ng.application.controller('AssetController', ['$scope', 'ResourceFactory', lms.controllers.AssetController]).run(function($log) {
     $log.info("AssetController initialized");
   });
-}(mifosX.controllers || {}));
+}(lms.controllers || {}));

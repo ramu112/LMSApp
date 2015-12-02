@@ -1,5 +1,5 @@
 (function(module) {
-  mifosX.controllers = _.extend(module, {
+  lms.controllers = _.extend(module, {
     InventoryController: function(scope,webStorage, routeParams, location,$modal, resourceFactory, paginatorService,route) {
         scope.items = [];
         scope.grn = [];
@@ -385,10 +385,10 @@
 						        
        }
   });
-  mifosX.ng.application.controller('InventoryController', ['$scope','webStorage', '$routeParams', '$location','$modal', 'ResourceFactory','PaginatorService','$route', mifosX.controllers.InventoryController]).run(function($log) {
+  lms.ng.application.controller('InventoryController', ['$scope','webStorage', '$routeParams', '$location','$modal', 'ResourceFactory','PaginatorService','$route', lms.controllers.InventoryController]).run(function($log) {
     $log.info("InventoryController initialized");
   });
-}(mifosX.controllers || {}));
+}(lms.controllers || {}));
 
 
 	

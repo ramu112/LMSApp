@@ -1,5 +1,5 @@
 (function(module) {
-    mifosX.controllers = _.extend(module, {
+    lms.controllers = _.extend(module, {
         AddProductMixController: function(scope,resourceFactory,routeParams,location) {
             scope.allowed = [];
             scope.restricted = [];
@@ -63,8 +63,8 @@
         }
 
     });
-    mifosX.ng.application.controller('AddProductMixController', ['$scope','ResourceFactory','$routeParams','$location', mifosX.controllers.AddProductMixController]).run(function($log) {
+    lms.ng.application.controller('AddProductMixController', ['$scope','ResourceFactory','$routeParams','$location', lms.controllers.AddProductMixController]).run(function($log) {
         $log.info("AddProductMixController initialized");
     });
-}(mifosX.controllers || {}));
+}(lms.controllers || {}));
 

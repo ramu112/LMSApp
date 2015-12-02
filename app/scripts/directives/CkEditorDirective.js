@@ -1,5 +1,5 @@
 (function(module) {
-    mifosX.directives = _.extend(module, {
+    lms.directives = _.extend(module, {
         CkEditorDirective: function() {
             return {
 		        restrict: 'A',
@@ -26,8 +26,8 @@
 		    };
         }
     });
-}(mifosX.directives || {}));
+}(lms.directives || {}));
 
-mifosX.ng.application.directive("ckEditor", [mifosX.directives.CkEditorDirective]).run(function($log) {
+lms.ng.application.directive("ckEditor", [lms.directives.CkEditorDirective]).run(function($log) {
     $log.info("CkEditorDirective initialized");
 });

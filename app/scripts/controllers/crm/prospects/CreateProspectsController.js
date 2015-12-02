@@ -1,5 +1,5 @@
 (function(module) {
-	mifosX.controllers = _.extend(module, {				
+	lms.controllers = _.extend(module, {				
 		CreateProspectsController : function(scope,resourceFactory,location, dateFilter,$rootScope) {
 			
 			scope.first = {};
@@ -31,19 +31,23 @@
 				scope.formData.preferredCallingTime = dateFilter(scope.first.date,'yyyy-MM-dd HH:mm:ss');
 				$rootScope.prospectFormData = {};
 				$rootScope.prospectFormData = scope.formData;
-				location.path("/calculator");
+				if($rootScope.hasPermission("CREATE_LOANCALCULATOR")){
+					location.path("/calculator");
+				}else{
+					location.path("/salecalculator");
+				}
 				
 			};						
 		}			
 	});
-	mifosX.ng.application.controller('CreateProspectsController', [ 
+	lms.ng.application.controller('CreateProspectsController', [ 
 	'$scope', 
 	'ResourceFactory', 
 	'$location', 
 	'dateFilter',
 	'$rootScope',
-	mifosX.controllers.CreateProspectsController 
+	lms.controllers.CreateProspectsController 
 	]).run(function($log) {
 		$log.info("CreateProspectsController initialized");	
 	});
-}(mifosX.controllers || {}));
+}(lms.controllers || {}));

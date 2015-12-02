@@ -1,5 +1,5 @@
 (function(module) {
-  mifosX.controllers = _.extend(module, {
+  lms.controllers = _.extend(module, {
     EditTemplateController: function(scope, resourceFactory, location, routeParams) {
       scope.mappers = [];
       scope.formData = {};
@@ -142,7 +142,7 @@
       
     }
   });
-  mifosX.ng.application.controller('EditTemplateController', ['$scope', 'ResourceFactory', '$location', '$routeParams', mifosX.controllers.EditTemplateController]).run(function($log) {
+  lms.ng.application.controller('EditTemplateController', ['$scope', 'ResourceFactory', '$location', '$routeParams', lms.controllers.EditTemplateController]).run(function($log) {
     $log.info("EditTemplateController initialized");
   });
-}(mifosX.controllers || {}));
+}(lms.controllers || {}));

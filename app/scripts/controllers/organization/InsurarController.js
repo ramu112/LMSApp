@@ -1,5 +1,5 @@
 (function(module) {
-  mifosX.controllers = _.extend(module, {
+  lms.controllers = _.extend(module, {
 InsurarController: function(scope, resourceFactory, routeParams, location,dateFilter) {
         scope.assetDropdowns = [];
         scope.insurarDropdowns = [];
@@ -25,7 +25,7 @@ InsurarController: function(scope, resourceFactory, routeParams, location,dateFi
         };
     }
   });
-  mifosX.ng.application.controller('InsurarController', ['$scope', 'ResourceFactory','$routeParams', '$location','dateFilter', mifosX.controllers.InsurarController]).run(function($log) {
+  lms.ng.application.controller('InsurarController', ['$scope', 'ResourceFactory','$routeParams', '$location','dateFilter', lms.controllers.InsurarController]).run(function($log) {
     $log.info("InsurarController initialized");
   });
-}(mifosX.controllers || {}));
+}(lms.controllers || {}));

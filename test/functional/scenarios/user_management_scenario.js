@@ -9,7 +9,7 @@ define(["test/scenarios/user_authentication_scenario"], function(authenticationS
         officeName: "officename_" + i,
         firstname: "firstname_" + i,
         lastname: "lastname_" + i,
-        email: "testuser_" + i + "@mifos.org" 
+        email: "testuser_" + i + "@lms.org" 
       });
     };
     return users;

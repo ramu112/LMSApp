@@ -1,5 +1,5 @@
 (function(module) {
-    mifosX.controllers = _.extend(module, {
+    lms.controllers = _.extend(module, {
         AddMemberController: function(scope, resourceFactory, location, routeParams,dateFilter) {
             scope.first = {};
             scope.restrictDate = new Date();
@@ -37,7 +37,7 @@
             
         }
     });
-    mifosX.ng.application.controller('AddMemberController', ['$scope', 'ResourceFactory', '$location','$routeParams','dateFilter', mifosX.controllers.AddMemberController]).run(function($log) {
+    lms.ng.application.controller('AddMemberController', ['$scope', 'ResourceFactory', '$location','$routeParams','dateFilter', lms.controllers.AddMemberController]).run(function($log) {
         $log.info("AddMemberController initialized");
     });
-}(mifosX.controllers || {}));
+}(lms.controllers || {}));

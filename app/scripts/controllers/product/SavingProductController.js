@@ -1,5 +1,5 @@
  (function(module) {
-  mifosX.controllers = _.extend(module, {
+  lms.controllers = _.extend(module, {
     SavingProductController: function(scope, resourceFactory) {
 
         scope.products = [];
@@ -9,7 +9,7 @@
 
     }
   });
-  mifosX.ng.application.controller('SavingProductController', ['$scope', 'ResourceFactory', mifosX.controllers.SavingProductController]).run(function($log) {
+  lms.ng.application.controller('SavingProductController', ['$scope', 'ResourceFactory', lms.controllers.SavingProductController]).run(function($log) {
     $log.info("SavingProductController initialized");
   });
-}(mifosX.controllers || {}));
+}(lms.controllers || {}));

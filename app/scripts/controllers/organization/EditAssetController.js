@@ -1,5 +1,5 @@
 (function(module) {
-  mifosX.controllers = _.extend(module, {
+  lms.controllers = _.extend(module, {
  EditAssetController: function(scope, routeParams, resourceFactory, location) {
         scope.assetTypeDropdowns = [];
         scope.modelDropdowns = [];
@@ -29,7 +29,7 @@
         };
     }
   });
-  mifosX.ng.application.controller('EditAssetController', ['$scope', '$routeParams', 'ResourceFactory', '$location', mifosX.controllers.EditAssetController]).run(function($log) {
+  lms.ng.application.controller('EditAssetController', ['$scope', '$routeParams', 'ResourceFactory', '$location', lms.controllers.EditAssetController]).run(function($log) {
     $log.info("EditAssetController initialized");
   });
-}(mifosX.controllers || {}));
+}(lms.controllers || {}));

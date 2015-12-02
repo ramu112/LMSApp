@@ -1,5 +1,5 @@
 (function(module) {
-  mifosX.controllers = _.extend(module, {
+  lms.controllers = _.extend(module, {
     ViewLoanProductController: function(scope, routeParams , location , anchorScroll , resourceFactory ) {
         scope.loanproduct = [];
         scope.hasAccounting = undefined;
@@ -22,7 +22,7 @@
         };
     }
   });
-  mifosX.ng.application.controller('ViewLoanProductController', ['$scope', '$routeParams', '$location', '$anchorScroll' , 'ResourceFactory', mifosX.controllers.ViewLoanProductController]).run(function($log) {
+  lms.ng.application.controller('ViewLoanProductController', ['$scope', '$routeParams', '$location', '$anchorScroll' , 'ResourceFactory', lms.controllers.ViewLoanProductController]).run(function($log) {
     $log.info("ViewLoanProductController initialized");
   });
-}(mifosX.controllers || {}));
+}(lms.controllers || {}));

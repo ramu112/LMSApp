@@ -1,5 +1,5 @@
 (function(module) {
-  mifosX.controllers = _.extend(module, {
+  lms.controllers = _.extend(module, {
 	  ViewMrnController: function(scope, routeParams , resourceFactory ,location,webStorage) {
         scope.mrn = [];
         
@@ -18,7 +18,7 @@
         }*/
     }
   });
-  mifosX.ng.application.controller('ViewMrnController', ['$scope', '$routeParams','ResourceFactory', '$location','webStorage',mifosX.controllers.ViewMrnController]).run(function($log) {
+  lms.ng.application.controller('ViewMrnController', ['$scope', '$routeParams','ResourceFactory', '$location','webStorage',lms.controllers.ViewMrnController]).run(function($log) {
     $log.info("ViewMrnController initialized");
   });
-}(mifosX.controllers || {}));
+}(lms.controllers || {}));

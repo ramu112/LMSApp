@@ -1,5 +1,5 @@
 (function(module) {
-    mifosX.controllers = _.extend(module, {
+    lms.controllers = _.extend(module, {
         ViewAuditController: function(scope, resourceFactory, routeParams) {
             scope.details = {};
             resourceFactory.auditResource.get({templateResource: routeParams.id} , function(data) {
@@ -13,9 +13,9 @@
             });
         }
     });
-    mifosX.ng.application.controller('ViewAuditController', ['$scope', 'ResourceFactory', '$routeParams', mifosX.controllers.ViewAuditController]).run(function($log) {
+    lms.ng.application.controller('ViewAuditController', ['$scope', 'ResourceFactory', '$routeParams', lms.controllers.ViewAuditController]).run(function($log) {
         $log.info("ViewAuditController initialized");
     });
-}(mifosX.controllers || {}));
+}(lms.controllers || {}));
 
 

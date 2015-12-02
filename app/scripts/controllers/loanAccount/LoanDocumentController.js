@@ -1,5 +1,5 @@
 (function(module) {
-  mifosX.controllers = _.extend(module, {
+  lms.controllers = _.extend(module, {
     LoanDocumentController: function(scope, location, http, routeParams, API_VERSION,$upload) {
       scope.loanId = routeParams.loanId;
       scope.onFileSelect = function($files) {
@@ -21,7 +21,7 @@
       };
     }
   });
-  mifosX.ng.application.controller('LoanDocumentController', ['$scope', '$location', '$http', '$routeParams', 'API_VERSION','$upload', mifosX.controllers.LoanDocumentController]).run(function($log) {
+  lms.ng.application.controller('LoanDocumentController', ['$scope', '$location', '$http', '$routeParams', 'API_VERSION','$upload', lms.controllers.LoanDocumentController]).run(function($log) {
     $log.info("LoanDocumentController initialized"); 
   });
-}(mifosX.controllers || {}));
+}(lms.controllers || {}));

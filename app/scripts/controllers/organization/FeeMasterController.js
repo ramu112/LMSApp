@@ -1,5 +1,5 @@
 (function(module) {
-  mifosX.controllers = _.extend(module, {
+  lms.controllers = _.extend(module, {
 	  FeeMasterController: function(scope,webStorage, resourceFactory, location,$rootScope,$modal,route) {
 		  
 		  scope.feeMasterDatas = [];
@@ -32,7 +32,7 @@
 	        }
 	  }
   });
-  mifosX.ng.application.controller('FeeMasterController', ['$scope','webStorage', 'ResourceFactory', '$location','$rootScope','$modal','$route', mifosX.controllers.FeeMasterController]).run(function($log) {
+  lms.ng.application.controller('FeeMasterController', ['$scope','webStorage', 'ResourceFactory', '$location','$rootScope','$modal','$route', lms.controllers.FeeMasterController]).run(function($log) {
     $log.info("FeeMasterController initialized");
   });
-}(mifosX.controllers || {}));
+}(lms.controllers || {}));

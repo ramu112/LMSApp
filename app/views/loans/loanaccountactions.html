@@ -29,10 +29,10 @@
         <div class="control-group">
           <label class="control-label" for="paymentTypeId">{{ 'label.input.paymenttype' | translate}}<span class="required">*</span></label>
           <div class="controls">
-            <select id="paymentTypeId" ng-model="formData.paymentTypeId" ng-options="paymentType.id as paymentType.name for paymentType in paymentTypes" value="{{paymentType.id}}"></select>
+            <select id="paymentTypeId" ng-model="formData.paymentTypeId" ng-options="paymentType.id as paymentType.name for paymentType in paymentTypes" ng-click="paymentTypeSelection(formData.paymentTypeId)" value="{{paymentType.id}}"></select>
           </div>
         </div>
-        <div class="control-group">
+        <div class="control-group" ng-hide="isCashPayment">
           <label class="control-label">{{ 'label.anchor.showpaymentdetails' | translate}}</label>
           <div class="controls">
             <a class="btn btn-primary" ng-click="showPaymentDetails=!showPaymentDetails">
@@ -41,7 +41,7 @@
             </a>
           </div>
         </div>
-        <div collapse="!showPaymentDetails">
+        <div collapse="!showPaymentDetails" ng-hide="isCashPayment">
           <div class="control-group">
             <label class="control-label" for="accountNumber">{{ 'label.input.accnum' | translate}}</label>
             <div class="controls">

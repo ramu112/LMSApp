@@ -1,5 +1,5 @@
 (function(module) {
-    mifosX.controllers = _.extend(module, {
+    lms.controllers = _.extend(module, {
         MemberManageController: function(scope, routeParams , route, location, resourceFactory) {
             scope.group = [];
             scope.managecode = routeParams.managecode;
@@ -28,7 +28,7 @@
             };
         }
     });
-    mifosX.ng.application.controller('MemberManageController', ['$scope', '$routeParams', '$route', '$location', 'ResourceFactory', mifosX.controllers.MemberManageController]).run(function($log) {
+    lms.ng.application.controller('MemberManageController', ['$scope', '$routeParams', '$route', '$location', 'ResourceFactory', lms.controllers.MemberManageController]).run(function($log) {
         $log.info("MemberManageController initialized");
     });
-}(mifosX.controllers || {}));
+}(lms.controllers || {}));

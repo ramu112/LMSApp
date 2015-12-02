@@ -1,5 +1,5 @@
 (function(module) {
-  mifosX.controllers = _.extend(module, {
+  lms.controllers = _.extend(module, {
     ViewSavingsTransactionController: function(scope, resourceFactory, location, routeParams, dateFilter) {
       scope.flag = false;
       resourceFactory.savingsTrxnsResource.get({savingsId:routeParams.accountId, transactionId:routeParams.id}, function(data){
@@ -19,7 +19,7 @@
       };
     }
   });
-  mifosX.ng.application.controller('ViewSavingsTransactionController', ['$scope', 'ResourceFactory', '$location', '$routeParams', 'dateFilter', mifosX.controllers.ViewSavingsTransactionController]).run(function($log) {
+  lms.ng.application.controller('ViewSavingsTransactionController', ['$scope', 'ResourceFactory', '$location', '$routeParams', 'dateFilter', lms.controllers.ViewSavingsTransactionController]).run(function($log) {
     $log.info("ViewSavingsTransactionController initialized");
   });
-}(mifosX.controllers || {}));
+}(lms.controllers || {}));

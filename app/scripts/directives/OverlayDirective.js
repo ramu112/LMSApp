@@ -1,5 +1,5 @@
 (function(module) {
-  mifosX.directives = _.extend(module, {
+  lms.directives = _.extend(module, {
     overlayDirective: function() {
       return function(scope, element, attrs) {
         var options = scope.$eval(attrs.mfOverlayOptions) || {};
@@ -37,8 +37,8 @@
       };
     }
   });
-}(mifosX.directives || {}));
+}(lms.directives || {}));
 
-mifosX.ng.application.directive("mfOverlay", [mifosX.directives.overlayDirective]).run(function($log) {
+lms.ng.application.directive("mfOverlay", [lms.directives.overlayDirective]).run(function($log) {
   $log.info("overlayDirective initialized");
 });

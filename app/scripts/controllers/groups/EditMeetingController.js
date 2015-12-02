@@ -1,5 +1,5 @@
 (function(module) {
-    mifosX.controllers = _.extend(module, {
+    lms.controllers = _.extend(module, {
         EditMeetingController: function(scope, resourceFactory, location, routeParams,dateFilter) {
             scope.formData = {};
             resourceFactory.attachMeetingResource.get({groupOrCenter : routeParams.entityType, groupOrCenterId : routeParams.groupOrCenterId, 
@@ -81,8 +81,8 @@
             };
         }
     });
-    mifosX.ng.application.controller('EditMeetingController', ['$scope', 'ResourceFactory', '$location', '$routeParams','dateFilter', mifosX.controllers.EditMeetingController]).run(function($log) {
+    lms.ng.application.controller('EditMeetingController', ['$scope', 'ResourceFactory', '$location', '$routeParams','dateFilter', lms.controllers.EditMeetingController]).run(function($log) {
         $log.info("EditMeetingController initialized");
     });
-}(mifosX.controllers || {}));
+}(lms.controllers || {}));
 

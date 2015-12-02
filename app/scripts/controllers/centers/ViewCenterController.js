@@ -1,5 +1,5 @@
 (function(module) {
-    mifosX.controllers = _.extend(module, {
+    lms.controllers = _.extend(module, {
         ViewCenterController: function(scope, routeParams , route, location, resourceFactory,$modal) {
             scope.center = [];
             scope.staffData = {};
@@ -93,8 +93,8 @@
             };
         }
     });
-    mifosX.ng.application.controller('ViewCenterController', ['$scope', '$routeParams', '$route', '$location', 'ResourceFactory','$modal', mifosX.controllers.ViewCenterController]).run(function($log) {
+    lms.ng.application.controller('ViewCenterController', ['$scope', '$routeParams', '$route', '$location', 'ResourceFactory','$modal', lms.controllers.ViewCenterController]).run(function($log) {
         $log.info("ViewCenterController initialized");
     });
-}(mifosX.controllers || {}));
+}(lms.controllers || {}));
 

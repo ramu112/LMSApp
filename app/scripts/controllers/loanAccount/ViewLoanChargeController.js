@@ -1,5 +1,5 @@
 (function(module) {
-  mifosX.controllers = _.extend(module, {
+  lms.controllers = _.extend(module, {
     ViewLoanChargeController: function(scope, resourceFactory, routeParams, location,$modal) {
 
         scope.loanId =routeParams.loanId;
@@ -38,7 +38,7 @@
 
     }
   });
-  mifosX.ng.application.controller('ViewLoanChargeController', ['$scope', 'ResourceFactory', '$routeParams', '$location','$modal', mifosX.controllers.ViewLoanChargeController]).run(function($log) {
+  lms.ng.application.controller('ViewLoanChargeController', ['$scope', 'ResourceFactory', '$routeParams', '$location','$modal', lms.controllers.ViewLoanChargeController]).run(function($log) {
     $log.info("ViewLoanChargeController initialized");
   });
-}(mifosX.controllers || {}));
+}(lms.controllers || {}));

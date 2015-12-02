@@ -1,5 +1,5 @@
 (function(module) {
-    mifosX.controllers = _.extend(module, {
+    lms.controllers = _.extend(module, {
         CodeController: function(scope, resourceFactory,location) {
             scope.codes = [];
             resourceFactory.codeResources.getAllCodes(function(data){
@@ -10,7 +10,7 @@
             }
        }
      });
-    mifosX.ng.application.controller('CodeController', ['$scope', 'ResourceFactory','$location', mifosX.controllers.CodeController]).run(function($log) {
+    lms.ng.application.controller('CodeController', ['$scope', 'ResourceFactory','$location', lms.controllers.CodeController]).run(function($log) {
         $log.info("CodeController initialized");
     });
-}(mifosX.controllers || {}));
+}(lms.controllers || {}));

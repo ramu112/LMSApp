@@ -1,5 +1,5 @@
 (function(module) {
-    mifosX.controllers = _.extend(module, {
+    lms.controllers = _.extend(module, {
         NewJLGLoanAccAppController: function(scope, routeParams, resourceFactory, location, dateFilter) {
 
             scope.previewRepayment = false;
@@ -227,7 +227,7 @@
             };
         }
     });
-    mifosX.ng.application.controller('NewJLGLoanAccAppController', ['$scope', '$routeParams', 'ResourceFactory', '$location', 'dateFilter', mifosX.controllers.NewJLGLoanAccAppController]).run(function($log) {
+    lms.ng.application.controller('NewJLGLoanAccAppController', ['$scope', '$routeParams', 'ResourceFactory', '$location', 'dateFilter', lms.controllers.NewJLGLoanAccAppController]).run(function($log) {
         $log.info("NewJLGLoanAccAppController initialized");
     });
-}(mifosX.controllers || {}));
+}(lms.controllers || {}));

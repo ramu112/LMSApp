@@ -1,5 +1,5 @@
 (function(module) {
-  mifosX.models = _.extend(module, {
+  lms.models = _.extend(module, {
     Langs: [{"name" : "English" , "code" : "en"},
             {"name" : "Français", "code":"fr"},
             {"name" : "Español", "code":"es"},
@@ -8,4 +8,4 @@
             {"name" : "हिंदी", "code":"hi"},
            ]
   });
-}(mifosX.models || {}));
+}(lms.models || {}));
