@@ -14,6 +14,7 @@
         	
         	resourceFactory.loanProductResource.get({loanProductId : id, template:'true'}, function(data) {
         		scope.formData.principal = data.principal;
+        		scope.formData.productName = data.name;
         		scope.formData.interestRatePerPeriod = data.interestRatePerPeriod;
         		if(data.feeMasterData){
         			scope.formData.deposit = data.feeMasterData[0].amount;
@@ -223,7 +224,7 @@
           console.log(forYearChangeJsonData);
           var json = {}; 
            json = (forYearChangeJsonData.deprecisationArray.length > 0 || forYearChangeJsonData.residualArray.length > 0) ? forYearChangeJsonData : scope.formData;
-        	resourceFactory.calculationExportResource.save(json,function(data){
+        	resourceFactory.calculationExportResource.save({type:"pdf"}, json,function(data){
         		data = angular.fromJson(angular.toJson(data));
         		var fileName = data.fileName;
         		window.open($rootScope.hostUrl+ API_VERSION +'/loans/calculator/export?tenantIdentifier=default&file='+fileName);
@@ -234,7 +235,7 @@
     	   
     	   var json = {}; 
     	   json = (forYearChangeJsonData.deprecisationArray.length > 0 || forYearChangeJsonData.residualArray.length > 0) ? forYearChangeJsonData : scope.formData; 
-        	resourceFactory.calculationExportResource.save({command:"PROSPECT"},json,function(data){
+        	resourceFactory.calculationExportResource.save( {command:"PROSPECT",type:"pdf"},json,function(data){
         		data = angular.fromJson(angular.toJson(data));
         		
         		var formData = {};
