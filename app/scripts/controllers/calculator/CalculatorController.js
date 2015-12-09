@@ -1,6 +1,6 @@
 (function(module) {
   lms.controllers = _.extend(module, {
-	  CalculatorController: function(scope, resourceFactory, location,$http,$rootScope,API_VERSION,webStorage,$timeout) {
+	  CalculatorController: function(scope, resourceFactory, location,$http,$rootScope,API_VERSION,webStorage,$timeout,$modal) {
 		  
 		  scope.formData = {};
 		  scope.leaseproducts = [];
@@ -14,6 +14,7 @@
         	
         	resourceFactory.loanProductResource.get({loanProductId : id, template:'true'}, function(data) {
         		scope.formData.principal = data.principal;
+        		scope.formData.productName = data.name;
         		scope.formData.interestRatePerPeriod = data.interestRatePerPeriod;
         		if(data.feeMasterData){
         			scope.formData.deposit = data.feeMasterData[0].amount;
@@ -219,22 +220,48 @@
            }
         
         scope.downloadFile = function (){
-            
-          console.log(forYearChangeJsonData);
-          var json = {}; 
-           json = (forYearChangeJsonData.deprecisationArray.length > 0 || forYearChangeJsonData.residualArray.length > 0) ? forYearChangeJsonData : scope.formData;
-        	resourceFactory.calculationExportResource.save(json,function(data){
-        		data = angular.fromJson(angular.toJson(data));
-        		var fileName = data.fileName;
-        		window.open($rootScope.hostUrl+ API_VERSION +'/loans/calculator/export?tenantIdentifier=default&file='+fileName);
-        	});
+        	
+        	 $modal.open({
+                 templateUrl: 'download.html',
+                 controller: downloadController,
+                 resolve:{}
+             });
        };
+       
+       function downloadController($scope, $modalInstance) {
+    	   
+    	   $scope.fileType = 'pdf';
+    	   
+           $scope.confirm = function (fileType) {
+               var json = {}; 
+                json = (forYearChangeJsonData.deprecisationArray.length > 0 || forYearChangeJsonData.residualArray.length > 0) ? forYearChangeJsonData : scope.formData;
+                if(scope.isProspect){
+     	           json.customerName = prospectFormData.firstName+" "+prospectFormData.lastName;
+     	           json.address = prospectFormData.address;
+     	           json.phone = prospectFormData.mobileNumber;
+                }
+             	resourceFactory.calculationExportResource.save({downloadType:fileType,isProspect : false}, json,function(data){
+             		data = angular.fromJson(angular.toJson(data));
+             		var fileName = data.fileName;
+             		window.open($rootScope.hostUrl+ API_VERSION +'/loans/calculator/export?tenantIdentifier=default&file='+fileName);
+             		$modalInstance.close('delete');
+             	});
+           };
+           $scope.cancel = function () {
+               $modalInstance.dismiss('cancel');
+           };
+       }
        
        scope.saveFile = function (){
     	   
     	   var json = {}; 
-    	   json = (forYearChangeJsonData.deprecisationArray.length > 0 || forYearChangeJsonData.residualArray.length > 0) ? forYearChangeJsonData : scope.formData; 
-        	resourceFactory.calculationExportResource.save({command:"PROSPECT"},json,function(data){
+    	   json = (forYearChangeJsonData.deprecisationArray.length > 0 || forYearChangeJsonData.residualArray.length > 0) ? forYearChangeJsonData : scope.formData;
+    	   if(scope.isProspect){
+	           json.customerName = prospectFormData.firstName+" "+prospectFormData.lastName;
+	           json.address = prospectFormData.address;
+	           json.phone = prospectFormData.mobileNumber;
+           }
+        	resourceFactory.calculationExportResource.save( {downloadType:"excel",isProspect : true},json,function(data){
         		data = angular.fromJson(angular.toJson(data));
         		
         		var formData = {};
@@ -260,7 +287,7 @@
        };
     }
   });
-  lms.ng.application.controller('CalculatorController', ['$scope', 'ResourceFactory', '$location','$http','$rootScope','API_VERSION','webStorage','$timeout', lms.controllers.CalculatorController]).run(function($log) {
+  lms.ng.application.controller('CalculatorController', ['$scope', 'ResourceFactory', '$location','$http','$rootScope','API_VERSION','webStorage','$timeout','$modal', lms.controllers.CalculatorController]).run(function($log) {
     $log.info("CalculatorController initialized");
   });
 }(lms.controllers || {}));

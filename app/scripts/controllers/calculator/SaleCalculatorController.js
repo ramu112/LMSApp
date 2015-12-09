@@ -34,10 +34,10 @@
         		var charges = data.charges || [];
         		for(var i in charges){
         			if(charges[i].name == 'COF'){
-        				scope.formData.costOfFund = (charges[i].amount*12).toFixed(2); 
+        				scope.formData.costOfFund = charges[i].amount; 
         			}
         			if(charges[i].name == 'Maintenance charge'){
-        				scope.formData.maintenance = (charges[i].amount*12).toFixed(2); 
+        				scope.formData.maintenance = charges[i].amount; 
         			}
         		}
         		
@@ -58,9 +58,7 @@
 
 
             repaymentInfoFormData.syncDisbursementWithMeeting = false;
-            repaymentInfoFormData.loanTermFrequency = scope.terms;
             repaymentInfoFormData.loanTermFrequencyType = scope.loanaccountinfo.repaymentFrequencyType.id;
-            repaymentInfoFormData.numberOfRepayments = scope.terms;
             repaymentInfoFormData.repaymentEvery = scope.loanaccountinfo.repaymentEvery;
             repaymentInfoFormData.repaymentFrequencyType =   scope.loanaccountinfo.repaymentFrequencyType.id;
             repaymentInfoFormData.interestRatePerPeriod = scope.loanaccountinfo.interestRatePerPeriod;
@@ -106,15 +104,21 @@
             if (scope.charges.length > 0) {
             	repaymentInfoFormData.charges = [];
               for (var i in scope.charges) {
+            	  
+            	if(scope.charges[i].name == 'COF'){
+            		scope.charges[i].amount = scope.formData.costOfFund; 
+      			}
+      			if(scope.charges[i].name == 'Maintenance charge'){
+      				scope.charges[i].amount = scope.formData.maintenance; 
+      			}
             	  repaymentInfoFormData.charges.push({ chargeId:scope.charges[i].id, amount:scope.charges[i].amount, dueDate:dateFilter(scope.charges[i].dueDate,'dd MMMM yyyy') });
               }
             }
             
             if (scope.depositArray.length > 0) {
             	repaymentInfoFormData.depositArray = [];
-            	for (var i in scope.depositArray) {
-            		repaymentInfoFormData.depositArray.push({depositId:scope.depositArray[i].id, amount:scope.depositArray[i].amount});
-            	}
+        		scope.depositArray[0].amount = scope.formData.deposit;
+        		repaymentInfoFormData.depositArray.push({depositId:scope.depositArray[0].id, amount:scope.depositArray[0].amount});
             }
             
             if (scope.collaterals.length > 0) {
@@ -127,6 +131,8 @@
             repaymentInfoFormData.productId = scope.formData.productId;
             repaymentInfoFormData.interestChargedFromDate = reqThirdDate ;
             repaymentInfoFormData.repaymentsStartingFromDate = reqFourthDate;
+            repaymentInfoFormData.loanTermFrequency = scope.terms;
+            repaymentInfoFormData.numberOfRepayments = scope.terms;
             repaymentInfoFormData.locale = 'en';
             repaymentInfoFormData.dateFormat = 'dd MMMM yyyy';
             repaymentInfoFormData.loanType = 'individual';
@@ -164,6 +170,21 @@
 
         }
         
+        scope.download = function(){
+        	
+                var json = {}; 
+                 json = repaymentInfoFormData;
+                 json.customerName = prospectFormData.firstName+" "+prospectFormData.lastName;
+	   	         json.phone = prospectFormData.mobileNumber;
+	   	         json.emailId = prospectFormData.emailId;
+              	resourceFactory.calculationExportResource.save({command:"repaymentSchedule",isProspect : false}, json,function(data){
+              		data = angular.fromJson(angular.toJson(data));
+              		var fileName = data.fileName;
+              		window.open($rootScope.hostUrl+ API_VERSION +'/loans/calculator/export?tenantIdentifier=default&file='+fileName);
+              	});
+        	
+        }
+        
         scope.save = function (){
     	   
     	   	scope.formData.locale='en'; 
@@ -183,31 +204,118 @@
 	       		}
 	       		scope.formData.payTerms.push(scope.terms);
 	       	}
-       	
-        	resourceFactory.calculationExportResource.save({command:"PROSPECT"},scope.formData,function(data){
-        		data = angular.fromJson(angular.toJson(data));
-        		
-        		var formData = {};
-        		formData = prospectFormData;
-        		formData.location = data.fileName;
-        		formData.prospectLoanCalculatorId = data.prospectLoanCalculatorId;
-        		console.log(formData);
-        		
-        		if(formData.id){
-        			var id = formData.id; delete formData.id;
-        			resourceFactory.prospectResource.update({id:id},formData, function(data) {
-						location.path('/prospects');										
-					},function(errorData){
-						formData.id = id;
-					});
-        		}else{
-	        		resourceFactory.prospectResource.save(formData, function(data) {
-						location.path('/prospects');										
-					});
-        		}
-        		
-        	});
+	       	
+	       	var exportingData = {};
+	       	exportingData = scope.formData;
+	       	exportingData.customerName = prospectFormData.firstName+" "+prospectFormData.lastName;
+	       	exportingData.phone = prospectFormData.mobileNumber;
+	       	exportingData.emailId = prospectFormData.emailId;
+	       	
+	       	function exportPost(){
+	        	resourceFactory.calculationExportResource.save({command:"repaymentSchedule",isProspect : true},exportingData,function(data){
+	        		data = angular.fromJson(angular.toJson(data));
+	        		
+	        		var formData = {};
+	        		formData = prospectFormData;
+	        		formData.location = data.fileName;
+	        		formData.prospectLoanCalculatorId = data.prospectLoanCalculatorId;
+	        		console.log(formData);
+	        		
+	        		if(formData.id){
+	        			var id = formData.id; delete formData.id;
+	        			resourceFactory.prospectResource.update({id:id},formData, function(data) {
+							location.path('/prospects');										
+						},function(errorData){
+							formData.id = id;
+						});
+	        		}else{
+		        		resourceFactory.prospectResource.save(formData, function(data) {
+							location.path('/prospects');										
+						});
+	        		}
+	        		
+	        	});
+	       	 }
+	       	
+	       	if(scope.previewRepayment == false){
+	       		preparingRepaymentFormData(function(repaymentInfoFormData){
+	       			exportingData.repaymentSchedule = angular.toJson(repaymentInfoFormData);
+	       			exportPost();
+	       		});
+	       	}else{
+	       		exportingData.repaymentSchedule = angular.toJson(repaymentInfoFormData);
+	       		exportPost();
+	       	}
+       	   
        };
+       
+
+       function preparingRepaymentFormData(innerFun){
+       	var reqFirstDate = dateFilter(new Date(),'dd MMMM yyyy');
+           var reqSecondDate = dateFilter(new Date(),'dd MMMM yyyy');
+           var reqThirdDate = dateFilter(new Date(),'dd MMMM yyyy');
+           var reqFourthDate = dateFilter(new Date(),'dd MMMM yyyy');
+           if (scope.charges.length > 0) {
+           	repaymentInfoFormData.charges = [];
+             for (var i in scope.charges) {
+           	  
+           	if(scope.charges[i].name == 'COF'){
+           		scope.charges[i].amount = scope.formData.costOfFund; 
+     			}
+     			if(scope.charges[i].name == 'Maintenance charge'){
+     				scope.charges[i].amount = scope.formData.maintenance; 
+     			}
+           	  repaymentInfoFormData.charges.push({ chargeId:scope.charges[i].id, amount:scope.charges[i].amount, dueDate:dateFilter(scope.charges[i].dueDate,'dd MMMM yyyy') });
+             }
+           }
+           
+           if (scope.depositArray.length > 0) {
+           	repaymentInfoFormData.depositArray = [];
+       		scope.depositArray[0].amount = scope.formData.deposit;
+       		repaymentInfoFormData.depositArray.push({depositId:scope.depositArray[0].id, amount:scope.depositArray[0].amount});
+           }
+           
+           if (scope.collaterals.length > 0) {
+           	repaymentInfoFormData.collateral = [];
+             for (var i in scope.collaterals) {
+           	  repaymentInfoFormData.collateral.push({type:scope.collaterals[i].type,value:scope.collaterals[i].value, description:scope.collaterals[i].description});
+             };
+           }
+           
+           repaymentInfoFormData.productId = scope.formData.productId;
+           repaymentInfoFormData.interestChargedFromDate = reqThirdDate ;
+           repaymentInfoFormData.repaymentsStartingFromDate = reqFourthDate;
+           repaymentInfoFormData.loanTermFrequency = scope.terms;
+           repaymentInfoFormData.numberOfRepayments = scope.terms;
+           repaymentInfoFormData.locale = 'en';
+           repaymentInfoFormData.dateFormat = 'dd MMMM yyyy';
+           repaymentInfoFormData.loanType = 'individual';
+           repaymentInfoFormData.expectedDisbursementDate = reqSecondDate;
+           //repaymentInfoFormData.submittedOnDate = reqFirstDate;
+           
+           if(scope.taxesArray.length > 0){
+               scope.taxAmountCal(function(returnData){
+               	scope.taxAmounts = [];
+               	scope.taxAmounts = returnData.taxArray;
+               	for(var i in scope.taxAmounts){
+               		scope.taxAmounts[i].taxAmount = scope.taxAmounts[i].taxAmount.toFixed(2);
+               	}
+               	
+               	repaymentInfoFormData.principal = returnData.finalAmount;
+               	innerFun(repaymentInfoFormData);
+               });
+           }else{
+           	if(scope.formData.deposit > 0){
+               	repaymentInfoFormData.principal = scope.subtract(scope.formData.principal,scope.formData.deposit);
+               }else{
+               	repaymentInfoFormData.principal = scope.formData.principal;
+               }
+           	if(scope.depositArray && scope.depositArray.length > 0){
+           		repaymentInfoFormData.principal = scope.subtract(scope.formData.principal,scope.depositArray[0].amount);
+           	}
+           	innerFun(repaymentInfoFormData);
+           }
+       }
     }
   });
   lms.ng.application.controller('SaleCalculatorController', ['$scope', 'ResourceFactory', '$location','$http','$rootScope','API_VERSION','dateFilter', lms.controllers.SaleCalculatorController]).run(function($log) {

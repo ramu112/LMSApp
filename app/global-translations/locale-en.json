@@ -2437,6 +2437,9 @@
     "label.residualCostPerAnnum":"Residual Cost Per Annum",
     "label.anchor.backtoinfo":"Back",
     
+    "validation.msg.loan.calculator.costOfFund.not.greater.than.zero":"COF must be greater than zero",
+    "validation.msg.loan.calculator.maintenance.not.greater.than.zero":"Maintenance must be greater than zero",
+    
     "----------------------": "------------",
     
     "#Fee Master  ":".......",
