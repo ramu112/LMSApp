@@ -36,7 +36,7 @@
             <label class="control-label" for="costOfFund">{{ 'label.calculator.costOfFund' | translate }}<span class="required">*</span></label>
             <div class="controls">
               <input type="text" id="costOfFund" name="costOfFund" ng-model="formData.costOfFund" class="input-small" required late-Validate/>
-              <span><img alt="" src="./images/slash.jpg" width="18px">Year</span>
+              <span><img alt="" src="./images/slash.jpg" width="18px">Term</span>
               <form-validate valattributeform="createcalculatorform" valattribute="costOfFund"/>
             </div>
           </div>
@@ -46,7 +46,7 @@
             <label class="control-label" for="maintenance">{{ 'label.calculator.maintenance' | translate }}<span class="required">*</span></label>
             <div class="controls">
               <input type="text" id="maintenance" name="maintenance" ng-model="formData.maintenance" class="input-small" required late-Validate/>
-              <span><img alt="" src="./images/slash.jpg" width="18px">Year</span>
+              <span><img alt="" src="./images/slash.jpg" width="18px">Term</span>
               <form-validate valattributeform="createcalculatorform" valattribute="maintenance"/>
             </div>
           </div>
@@ -133,8 +133,10 @@
 	     </tr>
 	    </table>
 	</div>
-    <div class="control-group">
-        <table class="table" ng-show="previewRepayment">
+    <div class="control-group" ng-show="previewRepayment">
+         <br/>
+    	<div><a ng-click="download()" class=" btn btn-primary pull-right">{{'label.button.download' | translate}}</a></div>
+        <table class="table" >
           <thead>
             <th colspan="3" scope="col"></th>
             <th colspan="3" scope="col">{{'label.heading.loanamountandbalance' | translate}}</th>
