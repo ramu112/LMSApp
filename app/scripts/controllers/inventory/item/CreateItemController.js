@@ -6,6 +6,7 @@
          //scope.chargesDatas = [];
          scope.formData = [];
          scope.itemPrices = [];
+         scope.itemPrice=[];
          scope.manufacturerDatas=[];
          scope.itemmanufacturerData=[];
          scope.itemPricesFormData={};
@@ -46,22 +47,22 @@
 	                scope.itemPrices.splice(index,1);
 	              };
 	            
-	            
         scope.submit = function() {
         	this.formData.unitPrice=0;
         	delete this.formData.unitData;
         	delete this.formData.chargesData;
         	delete this.formData.itemClassData;
+        	scope.formData.itemPrice;
         	//this.formData.unitPrice = "0";
-        	 scope.formData.itemPrices =new Array();
-        	 if (scope.itemPrices.length > 0) {
+        	 //scope.formData.itemPrices =new Array();
+        	 /*if (scope.itemPrices.length > 0) {
                  
                  for (var i in scope.itemPrices) {
                 	
                    scope.formData.itemPrices.push({regionId:scope.itemPrices[i].regionId, 
                 	   price:scope.itemPrices[i].price,locale:$rootScope.locale.code});
                  };
-               }
+               }*/
         	 
         	this.formData.locale = "en";
         	var reqDate = dateFilter(scope.first.date,'dd MMMM yyyy');

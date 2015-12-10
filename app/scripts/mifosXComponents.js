@@ -47,6 +47,7 @@ define(['underscore', 'mifosX'], function() {
       'client/ClientScreenReportController',
       'client/ClientClosedLoansAccountController',
       'client/ClientClosedSavingsAccountController',
+      'client/AddDeviceController',
       'product/LoanProductController',
       'product/CreateLoanProductController',
       'product/CreateSavingProductController',

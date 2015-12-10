@@ -66,8 +66,9 @@
         	 delete this.formData.regionDatas;
         	 delete this.formData.itemPricesDatas;
         	 delete this.formData.manufacturerDatas;
+        	 scope.formData.itemPrice;
         	 //this.formData.unitPrice = "0";
-        	 scope.formData.itemPrices =new Array();
+        	 /*scope.formData.itemPrices =new Array();
         	 scope.formData.removeItemPrices = new Array();
         	 if(scope.removeItemPrices.length > 0){
         		 scope.formData.removeItemPrices = scope.removeItemPrices;
@@ -80,7 +81,7 @@
                    scope.formData.itemPrices.push({regionId:scope.itemPrices[i].regionId, 
                 	   price:scope.itemPrices[i].price,locale:"en",id:scope.itemPrices[i].id});
                  };
-              }
+              }*/
         	 //this.formData.locale = $rootScope.locale.code;
         	 this.formData.locale = "en";
         	 var reqDate = dateFilter(scope.first.date,'dd MMMM yyyy');

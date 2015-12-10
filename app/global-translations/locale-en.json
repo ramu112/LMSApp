@@ -2535,6 +2535,7 @@
   "button.addmrn":"Add Mrn",
   "button.addsupplier":"Add Supplier",
   "table.actions":"Actions",
+  "label.item.itemprice":"Item Price",
   
     "#Inventory":"......",
   "link.inventory":"Inventory",
@@ -2732,6 +2733,7 @@
 	"label.item.manufacturer":"Manufacturer",
 	"error.msg.edit.items.assign.to.customer":"Item is assigned to customer, unable to edit it",
 	"validation.msg.item.manufacturer.cannot.be.blank":"Manufacturer Cannot be blank",
+	"validation.msg.item.itemPrices.cannot.be.blank":"Item Prices Cannot be blank",
 	
 	"vendor":"....",
 	"label.vendor.name":"Name",
@@ -2748,6 +2750,25 @@
 	"label.vendor.comments":"Comments",
 	"label.vendor.vendortype":"Vendor Type",
 	"button.addvendor":"Add Vendor",
+	
+	"Device":"....",
+	"tab.devicesale":"Device Sale",
+	"tab.mydevice":"Own Device",
+	"label.add.device" : "Add Device",
+	"label.serialNumber":"Part Number",
+	"label.saleDate":"Sale Date",
+	"link.view.client":"View Client",
+	"link.clients" : "Clients",
+	"label.device.newsale": "New Sale",
+	"label.discountCode":"Discount Code",
+	"label.totalPrice":"Total Price",
+	
+	"#onetimesale":"...",
+	"validation.msg.onetimesale.itemId.cannot.be.blank":"Item Code cannot be blank",
+	"validation.msg.onetimesale.chargeCode.cannot.be.blank":"Charge Code cannot be blank",
+	"validation.msg.onetimesale.unitPrice.cannot.be.blank":"Unit Price cannot be blank",
+	"validation.msg.onetimesale.totalPrice.cannot.be.blank":"Total Price cannot be blank",
+	"validation.msg.onetimesale.quantity.cannot.be.blank":"Quantity cannot be blank",
 	
 	"----------------------": "------------"
 }

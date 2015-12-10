@@ -19,11 +19,7 @@
               });
             }
             if (data.status.value == "Pending") {
-              scope.buttons = [{
-                                name:"label.button.edit",
-                                href:"#/editclient",
-                                icon :"icon-edit"
-                              },
+              scope.buttons = [
                               {
                                 name:"label.button.activate",
                                 href:"#/client",
@@ -41,6 +37,12 @@
 
             if (data.status.value == "Active") {
               scope.buttons = [{
+	                  			name:"label.add.device",
+	                  			href:"#/adddevice",
+	                  			icon:"icon-tag",
+	                  			//ngShow : bookOrder
+              				  },
+                               {
                                 name:"label.button.edit",
                                 href:"#/editclient",
                                 icon :"icon-edit"
@@ -278,6 +280,23 @@
         scope.downloadClientIdentifierDocument=function (identifierId, documentId){
           console.log(identifierId,documentId);
         };
+        
+     /*// device tab
+        resourceFactory.propertydeviceMappingResource.update({'clientId': routeParams.id},this.formData,function(data){
+			  if(scope.saleType == 'sale'){
+				resourceFactory.oneTimeSaleResource.getOneTimeSale({clientId: routeParams.id}, function(data) {
+              	scope.onetimesales = data.oneTimeSaleData;
+                  scope.eventOrders = data.eventOrdersData;
+                  
+              });
+			  }else if(scope.saleType == 'own'){
+				 resourceFactory.HardwareResource.getAllOwnHardware({clientId: routeParams.id}, function(data) {
+	            	scope.ownhardwares = data;
+	            }); 
+			  }
+			  
+	            $modalInstance.close('delete');
+	        });*/
 
 		// *********************** InVenture controller ***********************
         scope.fetchInventureScore = function(){

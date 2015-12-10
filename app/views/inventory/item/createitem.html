@@ -137,6 +137,17 @@
             				</div>
           				</div>
 					</td>
+					<td>
+						<div class="control-group">
+            			<label class="control-label" for="itemPrice">{{'label.item.itemprice' | translate }}&nbsp;<span class="required">*</span></label>
+            			<div class="controls">
+              			<input type="text" id="itemPrice" name="itemPrice"  data-ng-model="formData.itemPrice" data-ng-pattern="/^[0-9]+$/"/><br/><!-- data-ng-pattern="{{'integer' | CodeValidate}}" -->
+              				<span data-ng-show="createitemform.itemPrice.$dirty && createitemform.itemPrice.$invalid">
+				        		<small class="error-row">{{'error.not.numeric.validation' | translate}}</small>
+				    		</span>
+           				</div>
+          				</div>
+					</td>
 				</tr>
 			</table>
           	

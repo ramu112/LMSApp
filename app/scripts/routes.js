@@ -596,7 +596,10 @@
     })
     .when('/viewitemdetails/:id', {
       templateUrl: 'views/inventory/viewitemdetails.html'
-    });
+    })
+    .when('/adddevice/:clientId/:officeId', {
+        templateUrl: 'views/clients/adddevice.html'
+      });
     $locationProvider.html5Mode(false);
   };
   mifosX.ng.application.config(defineRoutes).run(function($log) {

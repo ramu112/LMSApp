@@ -412,7 +412,20 @@
          oneTimeSaleQuantityResource: defineResource(apiVer + "/onetimesales/:itemId/totalprice", {itemId:'@itemId'}, {
              get: {method: 'POST', params: {}}
                 // get: {method: 'GET', params: {}}
-               })
+               }),
+         /*propertydeviceMappingResource: defineResource(apiVer + "/property/allocatedevice/:clientId", {clientId:'@clientId'}, {
+             update: { method: 'PUT' }
+               })*/
+          oneTimeSaleTemplateResource: defineResource(apiVer + "/onetimesales/template", {}, {
+             getOnetimes: {method: 'GET', params: {}}
+               }),
+          itemMasterDetailTemplateResource: defineResource(apiVer + "/itemdetails/serialnum", {}, {}),
+              clientConfigurationResource:defineResource(apiVer + "/configurations/config",{}, {
+                update: {method: 'PUT', params: {}}
+               }),
+          oneTimeSaleResource: defineResource(apiVer + "/onetimesales/:clientId", {clientId:'@clientId'}, {
+              	getOneTimeSale: {method: 'GET', params: {clientId:'@clientId'}}
+               }),
           
         };
       }];
