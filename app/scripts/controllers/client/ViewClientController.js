@@ -1,5 +1,5 @@
 (function(module) {
-  mifosX.controllers = _.extend(module, {
+  lms.controllers = _.extend(module, {
     ViewClientController: function(scope, routeParams , route, location, resourceFactory, http, $modal, API_VERSION,$rootScope) {
         scope.client = [];
         scope.identitydocuments = [];
@@ -18,19 +18,39 @@
                 scope.image = imageData.data;
               });
             }
+            
+            var UPDATE_CLIENT = $rootScope.hasPermission("UPDATE_CLIENT");
+            var ACTIVATE_CLIENT = $rootScope.hasPermission("ACTIVATE_CLIENT");
+            var CLOSE_CLIENT = $rootScope.hasPermission("CLOSE_CLIENT");
+            var CREATE_LOAN = $rootScope.hasPermission("CREATE_LOAN");
+            var PROPOSETRANSFER_CLIENT = $rootScope.hasPermission("PROPOSETRANSFER_CLIENT");
+            var ACCEPTTRANSFER_CLIENT = $rootScope.hasPermission("ACCEPTTRANSFER_CLIENT");
+            var REJECTTRANSFER_CLIENT = $rootScope.hasPermission("REJECTTRANSFER_CLIENT");
+            var WITHDRAWTRANSFER_CLIENT = $rootScope.hasPermission("WITHDRAWTRANSFER_CLIENT");
+            var ASSIGNSTAFF_CLIENT = $rootScope.hasPermission("ASSIGNSTAFF_CLIENT");
+            var READ_TEMPLATE = $rootScope.hasPermission("READ_TEMPLATE");
+            
             if (data.status.value == "Pending") {
-              scope.buttons = [
+
+              scope.buttons = [{
+                                name:"label.button.edit",
+                                href:"#/editclient",
+                                icon :"icon-edit",
+                                taskPermissionName: UPDATE_CLIENT
+                              },
                               {
                                 name:"label.button.activate",
                                 href:"#/client",
                                 subhref:"activate",
-                                icon :"icon-ok-sign"
+                                icon :"icon-ok-sign",
+                                taskPermissionName: ACTIVATE_CLIENT
                               },
                               {
                                 name:"label.button.close",
                                 href:"#/client",
                                 subhref:"close",
-                                icon :"icon-remove-circle"
+                                icon :"icon-remove-circle",
+                                taskPermissionName: CLOSE_CLIENT
                               }]
                             
               }
@@ -45,24 +65,28 @@
                                {
                                 name:"label.button.edit",
                                 href:"#/editclient",
-                                icon :"icon-edit"
+                                icon :"icon-edit",
+                                taskPermissionName: UPDATE_CLIENT
                               },
                               {
                                 name:"label.button.newloan",
                                 href:"#/newclientloanaccount",
-                                icon :"icon-plus"
+                                icon :"icon-plus",
+                                taskPermissionName: CREATE_LOAN
                               },
                              
                               {
                                 name:"label.button.transferclient",
                                 href:"#/transferclient",
-                                icon :"icon-arrow-right"
+                                icon :"icon-arrow-right",
+                                taskPermissionName: PROPOSETRANSFER_CLIENT
                               },
                               {
                                 name:"label.button.close",
                                 href:"#/client",
                                 subhref:"close",
-                                icon :"icon-remove-circle"
+                                icon :"icon-remove-circle",
+                                taskPermissionName: CLOSE_CLIENT
                               }]
             }
 
@@ -71,19 +95,22 @@
                                 name:"label.button.accepttransfer",
                                 href:"#/client",
                                 subhref:"acceptclienttransfer",
-                                icon :"icon-check-sign"
+                                icon :"icon-check-sign",
+                                taskPermissionName: ACCEPTTRANSFER_CLIENT
                               },
                               {
                                 name:"label.button.rejecttransfer",
                                 href:"#/client",
                                 subhref:"rejecttransfer",
-                                icon :"icon-remove"
+                                icon :"icon-remove",
+                                taskPermissionName: REJECTTRANSFER_CLIENT
                               },
                               {
                                 name:"label.button.undotransfer",
                                 href:"#/client",
                                 subhref:"undotransfer",
-                                icon :"icon-undo"
+                                icon :"icon-undo",
+                                taskPermissionName: WITHDRAWTRANSFER_CLIENT
                               }]
             }
 
@@ -92,7 +119,8 @@
                                 name:"label.button.undotransfer",
                                 href:"#/client",
                                 subhref:"undotransfer",
-                                icon :"icon-undo"
+                                icon :"icon-undo",
+                                taskPermissionName: WITHDRAWTRANSFER_CLIENT
                               }]
             }
 
@@ -105,14 +133,16 @@
                   name:"label.button.assignstaff",
                   href:"#/client",
                   subhref:"assignstaff",
-                  icon :"icon-user"
+                  icon :"icon-user",
+                  taskPermissionName: ASSIGNSTAFF_CLIENT
                 });
               }
             }
 
             scope.buttonsArray = {
               options: [{
-                          name:"button.clientscreenreports"
+                          name:"button.clientscreenreports",
+                          taskPermissionName: READ_TEMPLATE
                         }]
             };
             scope.buttonsArray.singlebuttons = scope.buttons;
@@ -389,7 +419,7 @@
         };
     }
   });
-  mifosX.ng.application.controller('ViewClientController', ['$scope', '$routeParams', '$route', '$location', 'ResourceFactory', '$http','$modal', 'API_VERSION','$rootScope', mifosX.controllers.ViewClientController]).run(function($log) {
+  lms.ng.application.controller('ViewClientController', ['$scope', '$routeParams', '$route', '$location', 'ResourceFactory', '$http','$modal', 'API_VERSION','$rootScope', lms.controllers.ViewClientController]).run(function($log) {
     $log.info("ViewClientController initialized");
   });
-}(mifosX.controllers || {}));
+}(lms.controllers || {}));

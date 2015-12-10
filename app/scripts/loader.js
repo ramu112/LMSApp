@@ -14,7 +14,6 @@
             'underscore':       '../bower_components/underscore/underscore',
             'webstorage':       '../bower_components/angular-webstorage/angular-webstorage',
             'require-css':      '../bower_components/require-css/css',
-            'require-less':     '../bower_components/require-less/less',
             'd3':               '../bower_components/d3/d3',
             'nvd3':             '../bower_components/nvd3/nv.d3',
             'nvd3ChartDirectives':'../scripts/modules/angularjs-nvd3-directives',
@@ -50,7 +49,7 @@
             'ckEditor':{deps:['jquery']},
             'LocalStorageModule':{deps:['angular']},
             'ngCsv':{deps:['angular']},
-            'mifosX': {
+            'LMS': {
                 deps: [
                     'angular',
                     'jquery',
@@ -71,7 +70,7 @@
                     'angularFileUploadShim',
                     'ngCsv'
                 ],
-                exports: 'mifosX'
+                exports: 'LMS'
             }
         },
         packages: [
@@ -79,19 +78,14 @@
                 name: 'css',
                 location: '../bower_components/require-css',
                 main: 'css'
-            },
-            {
-                name: 'less',
-                location: '../bower_components/require-less',
-                main: 'less'
             }
         ]
     });
 
-    require(['mifosXComponents', 'mifosXStyles'], function() {
+    require(['lmsComponents', 'lmsStyles'], function() {
         require(['test/testInitializer'], function(testMode) {
             if (!testMode) {
-                angular.bootstrap(document, ['MifosX_Application']);
+                angular.bootstrap(document, ['LMS_Application']);
             }
         });
     });

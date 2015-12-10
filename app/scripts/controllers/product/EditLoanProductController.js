@@ -1,5 +1,5 @@
 (function(module) {
-  mifosX.controllers = _.extend(module, {
+  lms.controllers = _.extend(module, {
     EditLoanProductController: function(scope, resourceFactory, location, routeParams,dateFilter) {
         scope.formData = {};
         scope.charges = [];
@@ -391,7 +391,7 @@
         }
     }
   });
-  mifosX.ng.application.controller('EditLoanProductController', ['$scope', 'ResourceFactory', '$location', '$routeParams','dateFilter', mifosX.controllers.EditLoanProductController]).run(function($log) {
+  lms.ng.application.controller('EditLoanProductController', ['$scope', 'ResourceFactory', '$location', '$routeParams','dateFilter', lms.controllers.EditLoanProductController]).run(function($log) {
     $log.info("EditLoanProductController initialized");
   });
-}(mifosX.controllers || {}));
+}(lms.controllers || {}));

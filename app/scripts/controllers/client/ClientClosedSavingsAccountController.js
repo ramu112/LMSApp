@@ -1,5 +1,5 @@
 (function(module) {
-  mifosX.controllers = _.extend(module, {
+  lms.controllers = _.extend(module, {
     ClientClosedSavingsAccountController: function(scope, resourceFactory, routeParams) {
         resourceFactory.clientAccountResource.get({clientId: routeParams.clientId} , function(data) {
             scope.clientAccounts = data;
@@ -16,7 +16,7 @@
         };
     }
   });
-  mifosX.ng.application.controller('ClientClosedSavingsAccountController', ['$scope', 'ResourceFactory', '$routeParams', mifosX.controllers.ClientClosedSavingsAccountController]).run(function($log) {
+  lms.ng.application.controller('ClientClosedSavingsAccountController', ['$scope', 'ResourceFactory', '$routeParams', lms.controllers.ClientClosedSavingsAccountController]).run(function($log) {
     $log.info("ClientClosedSavingsAccountController initialized");
   });
-}(mifosX.controllers || {}));
+}(lms.controllers || {}));

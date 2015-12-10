@@ -1,5 +1,5 @@
 (function(module) {
-  mifosX.controllers = _.extend(module, {
+  lms.controllers = _.extend(module, {
     ViewDataTableController: function(scope, routeParams , resourceFactory ) {
         resourceFactory.DataTablesResource.getTableDetails({datatablename: routeParams.tableName} , function(data) {
           
@@ -20,7 +20,7 @@
         });
     }
   });
-  mifosX.ng.application.controller('ViewDataTableController', ['$scope', '$routeParams','ResourceFactory', mifosX.controllers.ViewDataTableController]).run(function($log) {
+  lms.ng.application.controller('ViewDataTableController', ['$scope', '$routeParams','ResourceFactory', lms.controllers.ViewDataTableController]).run(function($log) {
     $log.info("ViewDataTableController initialized");
   });
-}(mifosX.controllers || {}));
+}(lms.controllers || {}));

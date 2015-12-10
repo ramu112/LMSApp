@@ -1,5 +1,5 @@
 (function(module) {
-  mifosX.controllers = _.extend(module, {
+  lms.controllers = _.extend(module, {
     AddNewSavingsChargeController: function (scope, resourceFactory, location, routeParams, dateFilter) {
         scope.offices = [];
         scope.cancelRoute = routeParams.id;
@@ -48,7 +48,7 @@
         };
     }
   });
-  mifosX.ng.application.controller('AddNewSavingsChargeController', ['$scope', 'ResourceFactory', '$location', '$routeParams', 'dateFilter', mifosX.controllers.AddNewSavingsChargeController]).run(function($log) {
+  lms.ng.application.controller('AddNewSavingsChargeController', ['$scope', 'ResourceFactory', '$location', '$routeParams', 'dateFilter', lms.controllers.AddNewSavingsChargeController]).run(function($log) {
     $log.info("AddNewSavingsChargeController initialized");
   });
-}(mifosX.controllers || {}));
+}(lms.controllers || {}));

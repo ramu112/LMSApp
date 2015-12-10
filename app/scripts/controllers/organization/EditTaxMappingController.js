@@ -1,5 +1,5 @@
 (function(module) {
-  mifosX.controllers = _.extend(module, {
+  lms.controllers = _.extend(module, {
 	  EditTaxMappingController: function(scope, routeParams, resourceFactory, location,dateFilter,$rootScope) {
 		  scope.start = {};
 		  scope.id = routeParams.id;
@@ -35,14 +35,14 @@
         };
     }
   });
-  mifosX.ng.application.controller('EditTaxMappingController', [
+  lms.ng.application.controller('EditTaxMappingController', [
        '$scope',
        '$routeParams',
        'ResourceFactory',
        '$location',
        'dateFilter',
-       mifosX.controllers.EditTaxMappingController
+       lms.controllers.EditTaxMappingController
        ]).run(function($log) {
     	   $log.info("EditTaxMappingController initialized");
        });
-}(mifosX.controllers || {}));
+}(lms.controllers || {}));

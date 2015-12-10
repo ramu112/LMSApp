@@ -1,5 +1,5 @@
 (function(module) {
-  mifosX.controllers = _.extend(module, {
+  lms.controllers = _.extend(module, {
     AccountingClosureController: function(scope, resourceFactory, location, translate, routeParams,dateFilter) {
             scope.first = {};
             scope.formData = {};
@@ -45,7 +45,7 @@
             }
     }
   });
-  mifosX.ng.application.controller('AccountingClosureController', ['$scope', 'ResourceFactory', '$location', '$translate', '$routeParams','dateFilter', mifosX.controllers.AccountingClosureController]).run(function($log) {
+  lms.ng.application.controller('AccountingClosureController', ['$scope', 'ResourceFactory', '$location', '$translate', '$routeParams','dateFilter', lms.controllers.AccountingClosureController]).run(function($log) {
     $log.info("AccountingClosureController initialized");
   });
-}(mifosX.controllers || {}));
+}(lms.controllers || {}));

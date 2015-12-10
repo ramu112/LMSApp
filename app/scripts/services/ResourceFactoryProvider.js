@@ -1,5 +1,5 @@
 (function(module) {
-  mifosX.services = _.extend(module, {
+  lms.services = _.extend(module, {
     ResourceFactoryProvider: function() {
       var baseUrl = "" , apiVer = "/LMS/api/v1";
       this.setBaseUrl = function(url) {
@@ -431,7 +431,7 @@
       }];
     }
   });
-  mifosX.ng.services.config(function($provide) {
-    $provide.provider('ResourceFactory', mifosX.services.ResourceFactoryProvider);
+  lms.ng.services.config(function($provide) {
+    $provide.provider('ResourceFactory', lms.services.ResourceFactoryProvider);
   }).run(function($log) { $log.info("ResourceFactory initialized"); });
-}(mifosX.services || {}));
+}(lms.services || {}));

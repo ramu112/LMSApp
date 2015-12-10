@@ -1,5 +1,5 @@
 (function(module) {
-    mifosX.controllers = _.extend(module, {
+    lms.controllers = _.extend(module, {
         ProductMixController: function(scope, resourceFactory) {
             scope.productmixes = [];
             resourceFactory.loanProductResource.getAllLoanProducts({associations:'productMixes'},function(data) {
@@ -7,7 +7,7 @@
             });
         }
     });
-    mifosX.ng.application.controller('ProductMixController', ['$scope', 'ResourceFactory', mifosX.controllers.ProductMixController]).run(function($log) {
+    lms.ng.application.controller('ProductMixController', ['$scope', 'ResourceFactory', lms.controllers.ProductMixController]).run(function($log) {
         $log.info("ProductMixController initialized");
     });
-}(mifosX.controllers || {}));
+}(lms.controllers || {}));

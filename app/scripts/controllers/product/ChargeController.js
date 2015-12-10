@@ -1,5 +1,5 @@
 (function(module) {
-  mifosX.controllers = _.extend(module, {
+  lms.controllers = _.extend(module, {
     ChargeController: function(scope, resourceFactory) {
         scope.charges = [];
         scope.$broadcast('ChargeDataLoadingStartEvent');
@@ -9,7 +9,7 @@
         });
     }
   });
-  mifosX.ng.application.controller('ChargeController', ['$scope', 'ResourceFactory', mifosX.controllers.ChargeController]).run(function($log) {
+  lms.ng.application.controller('ChargeController', ['$scope', 'ResourceFactory', lms.controllers.ChargeController]).run(function($log) {
     $log.info("ChargeController initialized");
   });
-}(mifosX.controllers || {}));
+}(lms.controllers || {}));

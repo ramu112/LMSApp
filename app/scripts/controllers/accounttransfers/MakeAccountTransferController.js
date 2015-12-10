@@ -1,5 +1,5 @@
 (function(module) {
-  mifosX.controllers = _.extend(module, {
+  lms.controllers = _.extend(module, {
     MakeAccountTransferController: function(scope, resourceFactory, location, routeParams, dateFilter) {
       scope.restrictDate = new Date();
       var params = {fromAccountId : routeParams.accountId};
@@ -50,7 +50,7 @@
       };
     }
   });
-  mifosX.ng.application.controller('MakeAccountTransferController', ['$scope', 'ResourceFactory', '$location', '$routeParams', 'dateFilter', mifosX.controllers.MakeAccountTransferController]).run(function($log) {
+  lms.ng.application.controller('MakeAccountTransferController', ['$scope', 'ResourceFactory', '$location', '$routeParams', 'dateFilter', lms.controllers.MakeAccountTransferController]).run(function($log) {
     $log.info("MakeAccountTransferController initialized");
   });
-}(mifosX.controllers || {}));
+}(lms.controllers || {}));

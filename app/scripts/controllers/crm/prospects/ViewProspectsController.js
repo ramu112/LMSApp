@@ -1,5 +1,5 @@
 (function(module) {
-	mifosX.controllers = _.extend(module, {
+	lms.controllers = _.extend(module, {
 		ViewProspectsController : function(scope, routeParams, route, location,
 				resourceFactory, httpk, PermissionService) {
 
@@ -43,7 +43,7 @@
 		}
 	});
 	
-	mifosX.ng.application.controller('ViewProspectsController',[ 
+	lms.ng.application.controller('ViewProspectsController',[ 
 	'$scope', 
 	'$routeParams', 
 	'$route', 
@@ -51,8 +51,8 @@
 	'ResourceFactory', 
 	'$http', 
 	'PermissionService',
-	mifosX.controllers.ViewProspectsController 
+	lms.controllers.ViewProspectsController 
 	]).run(function($log) {	
 		$log.info("ViewProspectsController initialized");			
 	});
-}(mifosX.controllers || {}));
+}(lms.controllers || {}));

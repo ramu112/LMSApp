@@ -1,5 +1,5 @@
 (function(module) {
-    mifosX.controllers = _.extend(module, {
+    lms.controllers = _.extend(module, {
         AttachMeetingController: function(scope, resourceFactory, location, routeParams,dateFilter) {
             resourceFactory.attachMeetingResource.get({groupOrCenter : routeParams.entityType, groupOrCenterId : routeParams.id, 
                 templateSource : 'template'}, function(data) {
@@ -69,8 +69,8 @@
             };
         }
     });
-    mifosX.ng.application.controller('AttachMeetingController', ['$scope', 'ResourceFactory', '$location', '$routeParams','dateFilter', mifosX.controllers.AttachMeetingController]).run(function($log) {
+    lms.ng.application.controller('AttachMeetingController', ['$scope', 'ResourceFactory', '$location', '$routeParams','dateFilter', lms.controllers.AttachMeetingController]).run(function($log) {
         $log.info("AttachMeetingController initialized");
     });
-}(mifosX.controllers || {}));
+}(lms.controllers || {}));
 

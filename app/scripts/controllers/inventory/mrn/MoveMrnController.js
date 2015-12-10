@@ -1,5 +1,5 @@
 (function(module) {
-	  mifosX.controllers = _.extend(module, {
+	  lms.controllers = _.extend(module, {
 	    MoveMrnController: function(scope,webStorage, resourceFactory, location,dateFilter,$rootScope) {
 	    	 scope.mrnIds = [];
 	    	 scope.first = {};
@@ -69,7 +69,7 @@
 		    	};
 	    }
 	  });
-	  mifosX.ng.application.controller('MoveMrnController', ['$scope','webStorage', 'ResourceFactory','$location','dateFilter','$rootScope', mifosX.controllers.MoveMrnController]).run(function($log) {
+	  lms.ng.application.controller('MoveMrnController', ['$scope','webStorage', 'ResourceFactory','$location','dateFilter','$rootScope', lms.controllers.MoveMrnController]).run(function($log) {
 	    $log.info("MoveMrnController initialized");
 	  });
-	}(mifosX.controllers || {}));
+	}(lms.controllers || {}));

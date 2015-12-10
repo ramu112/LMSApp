@@ -1,5 +1,5 @@
 (function(module) {
-    mifosX.controllers = _.extend(module, {
+    lms.controllers = _.extend(module, {
         GroupController: function(scope, resourceFactory , paginatorService) {
 
             scope.groups = [];
@@ -12,8 +12,8 @@
 
         }
     });
-    mifosX.ng.application.controller('GroupController', ['$scope', 'ResourceFactory', 'PaginatorService', mifosX.controllers.GroupController]).run(function($log) {
+    lms.ng.application.controller('GroupController', ['$scope', 'ResourceFactory', 'PaginatorService', lms.controllers.GroupController]).run(function($log) {
         $log.info("GroupController initialized");
     });
-}(mifosX.controllers || {}));
+}(lms.controllers || {}));
 

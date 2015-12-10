@@ -1,5 +1,5 @@
 (function(module) {
-  mifosX.controllers = _.extend(module, {
+  lms.controllers = _.extend(module, {
     ViewSavingDetailsController: function(scope, routeParams, resourceFactory, location, route,dateFilter) {
       scope.isDebit = function (savingsTransactionType) {
         return savingsTransactionType.withdrawal == true || savingsTransactionType.feeDeduction == true;
@@ -200,7 +200,7 @@
       };
     }
   });
-  mifosX.ng.application.controller('ViewSavingDetailsController', ['$scope', '$routeParams', 'ResourceFactory', '$location', '$route','dateFilter', mifosX.controllers.ViewSavingDetailsController]).run(function($log) {
+  lms.ng.application.controller('ViewSavingDetailsController', ['$scope', '$routeParams', 'ResourceFactory', '$location', '$route','dateFilter', lms.controllers.ViewSavingDetailsController]).run(function($log) {
     $log.info("ViewSavingDetailsController initialized");
   });
-}(mifosX.controllers || {}));
+}(lms.controllers || {}));

@@ -1,5 +1,5 @@
 (function(module) {
-  mifosX.controllers = _.extend(module, {
+  lms.controllers = _.extend(module, {
     GroupClosedSavingsAccountController: function(scope, resourceFactory, routeParams) {
 
         resourceFactory.groupAccountResource.get({groupId: routeParams.groupId} , function(data) {
@@ -17,7 +17,7 @@
         };
     }
   });
-  mifosX.ng.application.controller('GroupClosedSavingsAccountController', ['$scope', 'ResourceFactory', '$routeParams', mifosX.controllers.GroupClosedSavingsAccountController]).run(function($log) {
+  lms.ng.application.controller('GroupClosedSavingsAccountController', ['$scope', 'ResourceFactory', '$routeParams', lms.controllers.GroupClosedSavingsAccountController]).run(function($log) {
     $log.info("GroupClosedSavingsAccountController initialized");
   });
-}(mifosX.controllers || {}));
+}(lms.controllers || {}));

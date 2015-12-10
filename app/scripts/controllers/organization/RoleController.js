@@ -1,5 +1,5 @@
 (function(module) {
-  mifosX.controllers = _.extend(module, {
+  lms.controllers = _.extend(module, {
     RoleController: function(scope, resourceFactory) {
       scope.roles = [];
       resourceFactory.roleResource.getAllRoles({}, function(data) {
@@ -7,7 +7,7 @@
       });
     }
   });
-  mifosX.ng.application.controller('RoleController', ['$scope', 'ResourceFactory', mifosX.controllers.RoleController]).run(function($log) {
+  lms.ng.application.controller('RoleController', ['$scope', 'ResourceFactory', lms.controllers.RoleController]).run(function($log) {
     $log.info("RoleController initialized"); 
   });
-}(mifosX.controllers || {}));
+}(lms.controllers || {}));

@@ -1,5 +1,5 @@
 (function(module) {
-  mifosX.controllers = _.extend(module, {
+  lms.controllers = _.extend(module, {
     AccFreqPostingController: function(scope, resourceFactory, location,dateFilter) {
 
             scope.formData = {};
@@ -119,7 +119,7 @@
             }
     }
   });
-  mifosX.ng.application.controller('AccFreqPostingController', ['$scope', 'ResourceFactory', '$location','dateFilter', mifosX.controllers.AccFreqPostingController]).run(function($log) {
+  lms.ng.application.controller('AccFreqPostingController', ['$scope', 'ResourceFactory', '$location','dateFilter', lms.controllers.AccFreqPostingController]).run(function($log) {
     $log.info("AccFreqPostingController initialized");
   });
-}(mifosX.controllers || {}));
+}(lms.controllers || {}));

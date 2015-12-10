@@ -1,4 +1,4 @@
-(function(mifosX) {
+(function(lms) {
   var defineHeaders = function($httpProvider , $translateProvider, ResourceFactoryProvider ,HttpServiceProvider) {
         /* var mainLink = getLocation(window.location.href);
     if (mainLink.hostname == "localhost" || mainLink.hostname == "" || mainLink.hostname == null || QueryParameters["baseApiUrl"]) {
@@ -75,10 +75,10 @@
 	  	$translateProvider.fallbackLanguage('en');
 
   };
-  mifosX.ng.application.config(defineHeaders).run(function($log) {
+  lms.ng.application.config(defineHeaders).run(function($log) {
     $log.info("Initial tasks are done!");
   });
-}(mifosX || {}));
+}(lms || {}));
 
 getLocation = function(href) {
     var l = document.createElement("a");

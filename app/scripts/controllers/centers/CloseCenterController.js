@@ -1,5 +1,5 @@
 (function(module) {
-    mifosX.controllers = _.extend(module, {
+    lms.controllers = _.extend(module, {
         CloseCenterController: function(scope, routeParams, route, location, resourceFactory,dateFilter) {
             scope.template = [];
             scope.center = [];
@@ -26,8 +26,8 @@
             };
         }
     });
-    mifosX.ng.application.controller('CloseCenterController', ['$scope', '$routeParams','$route', '$location', 'ResourceFactory','dateFilter', mifosX.controllers.CloseCenterController]).run(function($log) {
+    lms.ng.application.controller('CloseCenterController', ['$scope', '$routeParams','$route', '$location', 'ResourceFactory','dateFilter', lms.controllers.CloseCenterController]).run(function($log) {
         $log.info("CloseCenterController initialized");
     });
-}(mifosX.controllers || {}));
+}(lms.controllers || {}));
 

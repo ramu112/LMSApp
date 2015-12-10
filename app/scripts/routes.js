@@ -1,5 +1,5 @@
 
-(function(mifosX) {
+(function(lms) {
   var defineRoutes = function($routeProvider, $locationProvider) {
     $routeProvider
       .when('/', {
@@ -516,6 +516,9 @@
       .when('/calculator',{
     	  templateUrl: 'views/calculator/calculator.html'
       })
+      .when('/salecalculator',{
+    	  templateUrl: 'views/calculator/salecalculator.html'
+      })
       .when('/feemaster', {
     	  templateUrl: 'views/organization/feemaster.html'
       })
@@ -602,7 +605,7 @@
       });
     $locationProvider.html5Mode(false);
   };
-  mifosX.ng.application.config(defineRoutes).run(function($log) {
+  lms.ng.application.config(defineRoutes).run(function($log) {
     $log.info("Routes definition completed");
   });
-}(mifosX || {}));
+}(lms || {}));

@@ -1,5 +1,5 @@
 (function(module) {
-    mifosX.controllers = _.extend(module, {
+    lms.controllers = _.extend(module, {
         ViewCodeController: function(scope, routeParams , resourceFactory, location,$modal,route ) {
             scope.codevalues = [];
             scope.formData = [];
@@ -87,7 +87,7 @@
 
         }
     });
-    mifosX.ng.application.controller('ViewCodeController', ['$scope', '$routeParams','ResourceFactory','$location','$modal','$route', mifosX.controllers.ViewCodeController]).run(function($log) {
+    lms.ng.application.controller('ViewCodeController', ['$scope', '$routeParams','ResourceFactory','$location','$modal','$route', lms.controllers.ViewCodeController]).run(function($log) {
         $log.info("ViewCodeController initialized");
     });
-}(mifosX.controllers || {}));
+}(lms.controllers || {}));

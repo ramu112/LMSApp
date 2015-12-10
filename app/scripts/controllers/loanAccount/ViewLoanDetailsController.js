@@ -1,6 +1,6 @@
 (function(module) {
-  mifosX.controllers = _.extend(module, {
-      ViewLoanDetailsController: function(scope, routeParams, resourceFactory, location, route, http,$modal,dateFilter,API_VERSION) {
+  lms.controllers = _.extend(module, {
+      ViewLoanDetailsController: function(scope, routeParams, resourceFactory, location, route, http,$modal,dateFilter,API_VERSION,rootScope) {
       scope.loandocuments = [];
       scope.date = {};
       scope.date.payDate = new Date();
@@ -102,6 +102,28 @@
                 $modalInstance.dismiss('cancel');
             };
         };
+        
+        var CREATE_LOANCHARGE = rootScope.hasPermission("CREATE_LOANCHARGE");
+        var CREATE_COLLATERAL = rootScope.hasPermission("CREATE_COLLATERAL");
+        var APPROVE_LOAN = rootScope.hasPermission("APPROVE_LOAN");
+        var UPDATE_LOAN = rootScope.hasPermission("UPDATE_LOAN");
+        var REJECT_LOAN = rootScope.hasPermission("REJECT_LOAN");
+        var UPDATELOANOFFICER_LOAN = rootScope.hasPermission("UPDATELOANOFFICER_LOAN");
+        var WITHDRAW_LOAN = rootScope.hasPermission("WITHDRAW_LOAN");
+        var DELETE_LOAN = rootScope.hasPermission("DELETE_LOAN");
+        var CREATE_GUARANTOR = rootScope.hasPermission("CREATE_GUARANTOR");
+        var CREATE_INSURAR = rootScope.hasPermission("CREATE_INSURAR");
+        var READ_LOAN = rootScope.hasPermission("READ_LOAN");
+        var UPDATELOANOFFICER_LOAN = rootScope.hasPermission("UPDATELOANOFFICER_LOAN");
+        var DISBURSE_LOAN = rootScope.hasPermission("DISBURSE_LOAN");
+        var APPROVALUNDO_LOAN = rootScope.hasPermission("APPROVALUNDO_LOAN");
+        var REPAYMENT_LOAN = rootScope.hasPermission("REPAYMENT_LOAN");
+        var DISBURSALUNDO_LOAN = rootScope.hasPermission("DISBURSALUNDO_LOAN");
+        var WAIVEINTERESTPORTION_LOAN = rootScope.hasPermission("WAIVEINTERESTPORTION_LOAN");
+        var WRITEOFF_LOAN = rootScope.hasPermission("WRITEOFF_LOAN");
+        var CLOSEASRESCHEDULED_LOAN = rootScope.hasPermission("CLOSEASRESCHEDULED_LOAN");
+        var CLOSE_LOAN = rootScope.hasPermission("CLOSE_LOAN");
+        var DISBURSETOSAVINGS_LOAN = rootScope.hasPermission("DISBURSETOSAVINGS_LOAN");
 
       resourceFactory.LoanAccountResource.getLoanAccountDetails({loanId: routeParams.id, associations: 'all'}, function(data) {
           scope.loandetails = data;
@@ -109,6 +131,10 @@
           scope.insuranceDetails=data.insurences;
           scope.status = data.status.value;
           scope.chargeAction = data.status.value == "Submitted and pending approval" ? true : false;
+          
+          if(scope.loandetails.repaymentSchedule.periods && scope.loandetails.repaymentSchedule.periods[0].residualAmount){
+        	  scope.loandetails.repaymentSchedule.periods[0].residualAmount = Math.round(scope.loandetails.repaymentSchedule.periods[0].residualAmount);
+          }
 
           if(scope.loandetails.charges) {
             scope.charges = scope.loandetails.charges;
@@ -145,43 +171,54 @@
             scope.buttons = { singlebuttons : [
                               {
                                 name:"button.addloancharge",
-                                icon :"icon-plus-sign"
+                                icon :"icon-plus-sign",
+                                taskPermissionName: CREATE_LOANCHARGE
                               },
                               {
                                 name:"button.addcollateral",
-                                icon :"icon-link"
+                                icon :"icon-link",
+                                taskPermissionName: CREATE_COLLATERAL
                               },
                               {
                                 name:"button.approve",
-                                icon :"icon-ok"
+                                icon :"icon-ok",
+                                taskPermissionName: APPROVE_LOAN
                               },
                               {
                                 name:"button.modifyapplication",
-                                icon :"icon-edit"
+                                icon :"icon-edit",
+                                taskPermissionName: UPDATE_LOAN
                               },
                               {
                                 name:"button.reject",
-                                icon :"icon-remove"
+                                icon :"icon-remove",
+                                taskPermissionName: REJECT_LOAN
                               }
                             ],
                               options: [
                               {
-                                name:"button.assignloanofficer"
+                                name:"button.assignloanofficer",
+                                taskPermissionName: UPDATELOANOFFICER_LOAN
                               },
                               {
-                                name:"button.withdrawnbyclient"
+                                name:"button.withdrawnbyclient",
+                                taskPermissionName: WITHDRAW_LOAN
                               },
                               {
-                                name:"button.delete"
+                                name:"button.delete",
+                                taskPermissionName: DELETE_LOAN
                               },
                               {
-                                name:"button.guarantor"
+                                name:"button.guarantor",
+                                taskPermissionName: CREATE_GUARANTOR
                               },
                                {
-                                name:"button.insurar"
+                                name:"button.insurar",
+                            	taskPermissionName: CREATE_INSURAR
                               },
                                {
-                                name:"button.loanscreenreport"
+                                name:"button.loanscreenreport",
+                                taskPermissionName: READ_LOAN
                               }]
                               
                             };
@@ -191,28 +228,35 @@
             scope.buttons = { singlebuttons : [
                               {
                                 name:"button.assignloanofficer",
-                                icon :"icon-user"
+                                icon :"icon-user",
+                                taskPermissionName: UPDATELOANOFFICER_LOAN
                               },
                               {
                                 name:"button.disburse",
-                                icon :"icon-flag"
+                                icon :"icon-flag",
+                                taskPermissionName: DISBURSE_LOAN
                               },
                               {
                                 name:"button.undoapproval",
-                                icon :"icon-undo"
+                                icon :"icon-undo",
+                                taskPermissionName: APPROVALUNDO_LOAN
                               }
                             ],
                               options: [{
-                                name:"button.addloancharge"
+                                name:"button.addloancharge",
+                                taskPermissionName: CREATE_LOANCHARGE
                               },
                               {
-                               name:"button.guarantor"
+                               name:"button.guarantor",
+                               taskPermissionName: CREATE_GUARANTOR
                               },
                              {
-                                name:"button.insurar"
+                                name:"button.insurar",
+                            	taskPermissionName: CREATE_INSURAR
                               },
                               {
-                                name:"button.loanscreenreport"
+                                name:"button.loanscreenreport",
+                                taskPermissionName: READ_LOAN
                               }]
                               
                             };
@@ -221,32 +265,40 @@
         if (data.status.value == "Active") {
             scope.buttons = { singlebuttons : [{
                                 name:"button.addloancharge",
-                                icon :"icon-plus-sign"
+                                icon :"icon-plus-sign",
+                                taskPermissionName: CREATE_LOANCHARGE
                               },
                               {
                                 name:"button.makerepayment",
-                                icon:"icon-dollar"
+                                icon:"icon-dollar",
+                                taskPermissionName: REPAYMENT_LOAN
                               },
                               {
                                 name:"button.undodisbursal",
-                                icon :"icon-undo"
+                                icon :"icon-undo",
+                                taskPermissionName: DISBURSALUNDO_LOAN
                               } 
                             ],
                               options: [
                               {
-                                name:"button.waiveinterest"
+                                name:"button.waiveinterest",
+                                taskPermissionName: WAIVEINTERESTPORTION_LOAN
                               },
                               {
-                                name:"button.writeoff"
+                                name:"button.writeoff",
+                                taskPermissionName: WRITEOFF_LOAN
                               },
                               {
-                                name:"button.close-rescheduled"
+                                name:"button.close-rescheduled",
+                                taskPermissionName: CLOSEASRESCHEDULED_LOAN
                               },
                               {
-                                 name:"button.close"
+                                 name:"button.close",
+                                 taskPermissionName: CLOSE_LOAN
                               },
                               {
-                                name:"button.loanscreenreport"
+                                name:"button.loanscreenreport",
+                                taskPermissionName: READ_LOAN
                               }]
                               
                             };
@@ -255,14 +307,16 @@
               if (!data.loanOfficerName) {
                   scope.buttons.singlebuttons.splice(1,0,{
                                 name:"button.assignloanofficer",
-                                icon :"icon-user"
+                                icon :"icon-user",
+                                taskPermissionName: DISBURSE_LOAN
                               });
               }
         }
         if (data.status.value == "Overpaid") {
             scope.buttons = { singlebuttons : [{
                                 name:"button.transferFunds",
-                                icon :"icon-exchange"
+                                icon :"icon-exchange",
+                                taskPermissionName: DISBURSETOSAVINGS_LOAN
                               } 
                             ]                              
                             };
@@ -387,7 +441,7 @@
 
     }
   });
- mifosX.ng.application.controller('ViewLoanDetailsController', ['$scope', '$routeParams', 'ResourceFactory', '$location', '$route', '$http','$modal','dateFilter','API_VERSION', mifosX.controllers.ViewLoanDetailsController]).run(function($log) {
+ lms.ng.application.controller('ViewLoanDetailsController', ['$scope', '$routeParams', 'ResourceFactory', '$location', '$route', '$http','$modal','dateFilter','API_VERSION','$rootScope', lms.controllers.ViewLoanDetailsController]).run(function($log) {
     $log.info("ViewLoanDetailsController initialized");
   });
-}(mifosX.controllers || {}));
+}(lms.controllers || {}));

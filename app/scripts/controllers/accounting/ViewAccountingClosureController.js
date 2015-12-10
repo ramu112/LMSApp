@@ -1,5 +1,5 @@
 (function(module) {
-    mifosX.controllers = _.extend(module, {
+    lms.controllers = _.extend(module, {
         ViewAccountingClosureController: function(scope, resourceFactory, location, routeParams,$modal) {
             scope.accountClosure = {};
             scope.choice = 0;
@@ -26,7 +26,7 @@
 
         }
     });
-    mifosX.ng.application.controller('ViewAccountingClosureController', ['$scope', 'ResourceFactory', '$location','$routeParams','$modal', mifosX.controllers.ViewAccountingClosureController]).run(function($log) {
+    lms.ng.application.controller('ViewAccountingClosureController', ['$scope', 'ResourceFactory', '$location','$routeParams','$modal', lms.controllers.ViewAccountingClosureController]).run(function($log) {
         $log.info("ViewAccountingClosureController initialized");
     });
-}(mifosX.controllers || {}));
+}(lms.controllers || {}));

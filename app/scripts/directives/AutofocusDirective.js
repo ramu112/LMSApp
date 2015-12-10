@@ -1,5 +1,5 @@
 (function(module) {
-    mifosX.directives = _.extend(module, {
+    lms.directives = _.extend(module, {
         AutofocusDirective: function($timeout,$parse) {
             return {
                 link: function(scope, element, attrs) {
@@ -16,8 +16,8 @@
 
         }
     });
-}(mifosX.directives || {}));
+}(lms.directives || {}));
 
-mifosX.ng.application.directive("ngAutofocus", ['$timeout','$parse',mifosX.directives.AutofocusDirective]).run(function($log) {
+lms.ng.application.directive("ngAutofocus", ['$timeout','$parse',lms.directives.AutofocusDirective]).run(function($log) {
     $log.info("AutofocusDirective initialized");
 });

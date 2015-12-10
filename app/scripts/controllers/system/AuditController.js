@@ -1,5 +1,5 @@
 (function(module) {
-    mifosX.controllers = _.extend(module, {
+    lms.controllers = _.extend(module, {
         AuditController: function(scope, resourceFactory,dateFilter,location) {
             scope.formData = [];
             scope.isCollapsed = true;
@@ -65,9 +65,9 @@
 
         }
     });
-    mifosX.ng.application.controller('AuditController', ['$scope', 'ResourceFactory','dateFilter','$location', mifosX.controllers.AuditController]).run(function($log) {
+    lms.ng.application.controller('AuditController', ['$scope', 'ResourceFactory','dateFilter','$location', lms.controllers.AuditController]).run(function($log) {
         $log.info("AuditController initialized");
     });
-}(mifosX.controllers || {}));
+}(lms.controllers || {}));
 
 

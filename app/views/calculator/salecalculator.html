@@ -1,0 +1,186 @@
+ <div ng-controller="SaleCalculatorController" >  
+      <div>
+        <ul class="breadcrumb">
+          <li class="active">{{'label.anchor.calculator' | translate}}</li>
+        </ul>
+      </div>
+  <form name="createcalculatorform" novalidate="" class="form-horizontal well" rc-submit="submit()">
+        <api-validate></api-validate>
+        <fieldset>
+          <legend>{{'label.anchor.calculator' | translate}}</legend>
+		<table>
+         <tr><td>
+          <div class="control-group">
+            <label class="control-label" for="productId">{{ 'label.heading.loanproduct' | translate }}&nbsp;<span class="required">*</span></label>
+            <div class="controls">
+              <select id="productId" id="productId" name="productId" ng-model="formData.productId" ng-options="product.id as product.name for product in leaseproducts" ng-change="leaseProductChange(formData.productId)" required="required">
+                <option style="display:none" value="">{{'label.selectloanproduct' | translate}}</option>
+              </select>
+              <form-validate valattributeform="createcalculatorform" valattribute="productId"/>
+            </div>
+          </div>
+			</td>
+			<td>
+          <div class="control-group">
+            <label class="control-label" for="principal">{{ 'label.calculator.vehicle.cost' | translate }}<span class="required">*</span></label>
+            <div class="controls">
+              <input type="text" id="principal" name="principal" ng-model="formData.principal" required late-Validate/>
+              <form-validate valattributeform="createcalculatorform" valattribute="principal"/>
+            </div>
+          </div>
+          </td>
+          </tr>
+          <tr>
+          <td>
+          <div class="control-group">
+            <label class="control-label" for="costOfFund">{{ 'label.calculator.costOfFund' | translate }}<span class="required">*</span></label>
+            <div class="controls">
+              <input type="text" id="costOfFund" name="costOfFund" ng-model="formData.costOfFund" class="input-small" required late-Validate/>
+              <span><img alt="" src="./images/slash.jpg" width="18px">Term</span>
+              <form-validate valattributeform="createcalculatorform" valattribute="costOfFund"/>
+            </div>
+          </div>
+          </td>
+          <td>
+          <div class="control-group">
+            <label class="control-label" for="maintenance">{{ 'label.calculator.maintenance' | translate }}<span class="required">*</span></label>
+            <div class="controls">
+              <input type="text" id="maintenance" name="maintenance" ng-model="formData.maintenance" class="input-small" required late-Validate/>
+              <span><img alt="" src="./images/slash.jpg" width="18px">Term</span>
+              <form-validate valattributeform="createcalculatorform" valattribute="maintenance"/>
+            </div>
+          </div>
+          </td>
+          </tr>
+          <tr>
+          <td>
+          <div class="control-group">
+            <label class="control-label" for="interest">{{ 'label.calculator.interest' | translate }}<span class="required">*</span></label>
+            <div class="controls">
+              <input type="text" id="interest" name="interest" ng-model="formData.interestRatePerPeriod" required late-Validate/>
+              <form-validate valattributeform="createcalculatorform" valattribute="interest"/>
+            </div>
+          </div>
+          </td>
+          <td>
+          <div class="control-group">
+            <label class="control-label" for="deposit">{{ 'label.calculator.deposit' | translate }}</label>
+            <div class="controls">
+              <input type="text" id="deposit" name="deposit" ng-model="formData.deposit"/>
+            </div>
+          </div>
+       	  </td>
+       	  </tr>
+       	  <tr>
+       	  <td>
+          <div class="control-group">
+            <label class="control-label" for="terms">{{ 'label.calculator.terms' | translate }}<span class="required">*</span></label>
+            <div class="controls">
+              <input type="text" id="terms" name="terms" ng-model="terms" class="input-small" required/>
+              <form-validate valattributeform="createcalculatorform" valattribute="terms"/>
+            </div>
+          </div>
+       	  </td>
+       	  <td>
+       	    <div class="control-group">
+	            <label class="control-label" for="mileage">{{ 'label.calculator.mileage' | translate }}</label>
+	            <div class="controls">
+	              <input type="text" id="mileage" name="mileage" ng-model="formData.mileage" />
+	            </div>
+          	</div>
+       	  </td>
+       	  </tr>
+       	  <tr>
+       	    <td>
+       	      <div class="control-group">
+	            <label class="control-label" for="excess">{{ 'label.calculator.excess' | translate }}</label>
+	            <div class="controls">
+	              <input type="text" id="excess" name="excess" ng-model="formData.excess"/>
+	            </div>
+          	  </div>
+       	    </td>
+       	    <td>
+       	      <div class="control-group">
+	            <label class="control-label" for="flpayout">{{ 'label.calculator.flpayout' | translate }}</label>
+	            <div class="controls">
+	              <input type="text" id="flpayout" name="flpayout" ng-model="formData.FLPForYear"/>
+	            </div>
+          	  </div>
+       	    </td>
+       	  </tr>
+       	  </table>
+       	  <div class="offset9">
+            <a ng-click="save()" class=" btn btn-primary" ng-show="isProspect">{{'label.button.save' | translate}}</a>
+          </div>
+
+    <table style="width: 100%;">
+      <tr>
+        <td>
+          	<div ng-show="isProspect">
+        		<span><a ng-hide="previewRepayment" ng-click="previewRepayments()">{{'label.anchor.repaymentinfo' | translate}}<i class="icon-circle-arrow-right"></i></a></span>
+        		<span><a ng-show="previewRepayment" ng-click="previewRepayment=!previewRepayment"><i class="icon-circle-arrow-left">{{'label.anchor.backtoinfo' | translate}}</i></a><br><br></span>
+      		</div>
+        </td>
+      </tr>
+    </table>
+    <div class="span3" ng-show="previewRepayment">
+	 <table class="table view-table table-bordered">
+	     <tr>
+	       <th class="table-bold">{{'label.heading.taxamount' | translate}}</th>
+	     </tr>
+	     <tr ng-repeat="taxAmount in taxAmounts">
+	       <td><span class="padded-td">{{taxAmount.taxAmount}}</span></td>
+	     </tr>
+	    </table>
+	</div>
+    <div class="control-group" ng-show="previewRepayment">
+         <br/>
+    	<div><a ng-click="download()" class=" btn btn-primary pull-right">{{'label.button.download' | translate}}</a></div>
+        <table class="table" >
+          <thead>
+            <th colspan="3" scope="col"></th>
+            <th colspan="3" scope="col">{{'label.heading.loanamountandbalance' | translate}}</th>
+            <th colspan="2" scope="col">{{'label.heading.totalcostofloan' | translate}}</th>
+            <th></th>
+          </thead>
+          <tbody>
+            <tr>
+              <td>#</td>
+                <td>{{'label.heading.date' | translate}}</td>
+                <td>{{'label.heading.days' | translate}}</td>
+                <td>{{'label.heading.disbursement' | translate}}</td>
+                <td>{{'label.heading.principaldue' | translate}}</td>
+                <td>{{'label.heading.principalbalance' | translate}}</td>
+                <td>{{'label.heading.interestdue' | translate}}</td>
+                <td>{{'label.heading.fees' | translate}}</td>
+                <td>{{'label.heading.due' | translate}}</td>
+            </tr>
+            <tr ng-repeat="period in repaymentscheduleinfo.periods">
+              <td>{{period.period}}</td>
+              <td>{{period.dueDate | DateFormat}}</td>
+              <td>{{period.daysInPeriod}}</td>
+              <td>{{period.principalDisbursed}}</td>
+              <td>{{period.principalDue}}</td>
+              <td>{{period.principalLoanBalanceOutstanding}}</td>
+              <td>{{period.interestDue}}</td>
+              <td>{{period.feeChargesDue}}</td>
+              <td>{{period.totalDueForPeriod}}</td>
+            </tr>
+            <tfoot class="ui-widget-header">
+              <tr>
+                <td colspan="2">{{'label.heading.total' | translate}}</td>
+                <td>{{repaymentscheduleinfo.loanTermInDays}}</td>
+                <td>{{repaymentscheduleinfo.totalPrincipalDisbursed}}</td>
+                <td>{{repaymentscheduleinfo.totalPrincipalExpected}}</td>
+                <td></td>
+                <td>{{repaymentscheduleinfo.totalInterestCharged}}</td>
+                <td>{{repaymentscheduleinfo.totalFeeChargesCharged}}</td>
+                <td>{{repaymentscheduleinfo.totalRepaymentExpected}}</td>
+              </tr>
+            </tfoot>
+          </tbody>
+        </table>
+      </div>
+   </fieldset>
+  </form>
+</div> 

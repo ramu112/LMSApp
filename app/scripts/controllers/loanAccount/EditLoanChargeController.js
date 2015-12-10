@@ -1,5 +1,5 @@
 (function(module) {
-  mifosX.controllers = _.extend(module, {
+  lms.controllers = _.extend(module, {
     EditLoanChargeController: function(scope, resourceFactory, routeParams, location) {
 
         scope.loanId = routeParams.loanId;
@@ -22,7 +22,7 @@
 
     }
   });
-  mifosX.ng.application.controller('EditLoanChargeController', ['$scope', 'ResourceFactory', '$routeParams', '$location', mifosX.controllers.EditLoanChargeController]).run(function($log) {
+  lms.ng.application.controller('EditLoanChargeController', ['$scope', 'ResourceFactory', '$routeParams', '$location', lms.controllers.EditLoanChargeController]).run(function($log) {
     $log.info("EditLoanChargeController initialized");
   });
-}(mifosX.controllers || {}));
+}(lms.controllers || {}));

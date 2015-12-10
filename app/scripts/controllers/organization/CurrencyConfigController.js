@@ -1,5 +1,5 @@
 (function(module) {
-    mifosX.controllers = _.extend(module, {
+    lms.controllers = _.extend(module, {
     CurrencyConfigController: function(scope, resourceFactory, route) {
         
         scope.selectedCurrOptions = [];
@@ -54,7 +54,7 @@
 
      }
   });
-  mifosX.ng.application.controller('CurrencyConfigController', ['$scope', 'ResourceFactory', '$route', mifosX.controllers.CurrencyConfigController]).run(function($log) {
+  lms.ng.application.controller('CurrencyConfigController', ['$scope', 'ResourceFactory', '$route', lms.controllers.CurrencyConfigController]).run(function($log) {
     $log.info("CurrencyConfigController initialized");
   });
-}(mifosX.controllers || {}));
+}(lms.controllers || {}));

@@ -1,5 +1,5 @@
 (function(module) {
-  mifosX.controllers = _.extend(module, {
+  lms.controllers = _.extend(module, {
     AccCoaController: function(scope, resourceFactory) {
       scope.coadata = [];
       scope.isTreeView = false;
@@ -86,7 +86,7 @@
       });
     }
   });
-  mifosX.ng.application.controller('AccCoaController', ['$scope', 'ResourceFactory', mifosX.controllers.AccCoaController]).run(function($log) {
+  lms.ng.application.controller('AccCoaController', ['$scope', 'ResourceFactory', lms.controllers.AccCoaController]).run(function($log) {
     $log.info("AccCoaController initialized");
   });
-}(mifosX.controllers || {}));
+}(lms.controllers || {}));

@@ -1,5 +1,5 @@
 (function(module) {
-  mifosX.controllers = _.extend(module, {
+  lms.controllers = _.extend(module, {
     EditOfficeController: function(scope, routeParams, resourceFactory, location,dateFilter) {
         scope.formData = {};
         scope.first = {};
@@ -26,7 +26,7 @@
         };
     }
   });
-  mifosX.ng.application.controller('EditOfficeController', ['$scope', '$routeParams', 'ResourceFactory', '$location','dateFilter', mifosX.controllers.EditOfficeController]).run(function($log) {
+  lms.ng.application.controller('EditOfficeController', ['$scope', '$routeParams', 'ResourceFactory', '$location','dateFilter', lms.controllers.EditOfficeController]).run(function($log) {
     $log.info("EditOfficeController initialized");
   });
-}(mifosX.controllers || {}));
+}(lms.controllers || {}));

@@ -1,5 +1,5 @@
 (function(module) {
-    mifosX.controllers = _.extend(module, {
+    lms.controllers = _.extend(module, {
         NewLoanAccAppController: function(scope, routeParams, resourceFactory, location,dateFilter,rootScope) {
 
             scope.previewRepayment = false;
@@ -78,7 +78,8 @@
               scope.formData.graceOnInterestPayment = scope.loanaccountinfo.graceOnInterestPayment;
               scope.formData.transactionProcessingStrategyId = scope.loanaccountinfo.transactionProcessingStrategyId;
               scope.formData.graceOnInterestCharged = scope.loanaccountinfo.graceOnInterestCharged;
-              scope.taxAmountCal(0);
+              /*scope.taxAmountCal(function(returnData){
+              });*/
              
             }
             
@@ -99,7 +100,8 @@
             			data.taxInclusive = data.taxInclusive == 1 ? true :false;
             			scope.taxesArray.push(data);
             			scope.taxFormData.taxId = undefined;
-            			scope.taxAmountCal(0);
+            			/*scope.taxAmountCal(function(returnData){
+                        });*/
             		});
             	}
             }
@@ -123,7 +125,8 @@
             
             scope.deleteTax = function(index) {
             	scope.taxesArray.splice(index,1);
-            	scope.taxAmountCal(0);
+            	/*scope.taxAmountCal(function(returnData){
+                });*/
             }
             
             scope.deleteDeposit = function(index) {
@@ -155,7 +158,7 @@
               scope.collaterals.splice(index,1);
             };
             
-            scope.taxAmountCal = function(flagVal){
+            scope.taxAmountCal = function(handerFun,flagVal){
             	var taxCalformData = {};
             	if(scope.depositArray && scope.depositArray.length > 0){
             		taxCalformData.principal = scope.subtract(scope.formData.principal,scope.depositArray[0].amount);
@@ -168,37 +171,16 @@
             		taxCalformData.taxes.push({"id":scope.taxesArray[i].taxId,"type":scope.taxesArray[i].taxType,
             										"taxValue":scope.taxesArray[i].rate})
             	}
-            	resourceFactory.taxCalculationResource.save({"flag" : flagVal},taxCalformData,function(data){
-            		var resultData = {};
-            		resultData  = angular.fromJson(data.resourceIdentifier);
-            		scope.finalPrincipalAmount = resultData.finalAmount;
-            		scope.updateTaxArray = resultData.taxArray;
-            		if(flagVal == 1){
-            			scope.actualPrincipalAmount = scope.formData.principal;
-                        scope.formData.principal = scope.finalPrincipalAmount;
-            			resourceFactory.loanResource.save(scope.formData,function(data){
-                        	
-                        	var updateData = {"taxArray":scope.updateTaxArray,"loanId":data.loanId};
-                        	resourceFactory.taxCalculationResource.update(updateData,function(data){
-                        		
-                        		location.path('/viewloanaccount/' + data.resourceId);
-                        	},function(errorData){
-                            	scope.formData.principal = scope.actualPrincipalAmount; 
-                            });
-                          
-                        },function(errorData){
-                        	
-                        	scope.errorData = rootScope.errorDetails;
-                        	var updateData = {"taxMapArray":scope.updateTaxArray};
-                        	
-                        	resourceFactory.taxCalculationResource.remove({},updateData,function(data){
-                        		rootScope.errorDetails = scope.errorData;
-                        		});
-                        	
-                        	scope.formData.principal = scope.actualPrincipalAmount; 
-                        });
-            		}
-            	});
+            	if(flagVal){
+            		scope.inputParams = {"flag" : flagVal};
+            	}
+            	if(scope.taxesArray.length > 0){
+	            	resourceFactory.taxCalculationResource.save(scope.inputParams,taxCalformData,function(data){
+	            		var resultData = {};
+	            		resultData  = angular.fromJson(data.resourceIdentifier);
+	            		if(angular.isFunction(handerFun)) handerFun(resultData);
+	            	});
+            	}
             }
 
             scope.previewRepayments = function() {
@@ -206,6 +188,7 @@
                 // Make sure charges and collaterals are empty before initializing.
                 delete scope.formData.charges;
                 delete scope.formData.depositArray;
+                delete scope.formData.taxes;
                 delete scope.formData.collateral;
                 var reqFirstDate = dateFilter(scope.date.first,'dd MMMM yyyy');
                 var reqSecondDate = dateFilter(scope.date.second,'dd MMMM yyyy');
@@ -225,12 +208,12 @@
                 	}
                 }
                 
-                /*if (scope.taxesArray.length > 0) {
-                	scope.formData.taxesArray = [];
+                if (scope.taxesArray.length > 0) {
+                	scope.formData.taxes = [];
                 	for (var i in scope.taxesArray) {
-                		scope.formData.taxesArray.push({ taxId:scope.taxesArray[i].taxId });
+                		scope.formData.taxes.push({ id:scope.taxesArray[i].taxId,type :scope.taxesArray[i].taxType,taxValue :scope.taxesArray[i].rate});
                 	}
-                }*/
+                }
 
                 if (scope.collaterals.length > 0) {
                   scope.formData.collateral = [];
@@ -253,24 +236,41 @@
                 this.formData.expectedDisbursementDate = reqSecondDate;
                 this.formData.submittedOnDate = reqFirstDate;
                 
-                scope.taxAmountCal(0);
-                scope.actualPrincipalAmount = scope.formData.principal;
-                this.formData.principal = scope.finalPrincipalAmount;
-              resourceFactory.loanResource.save({command:'calculateLoanSchedule'}, this.formData,function(data){
-                scope.repaymentscheduleinfo = data;
-                scope.previewRepayment = true;
-                scope.formData.syncRepaymentsWithMeeting = scope.syncRepaymentsWithMeeting;
-                scope.formData.principal = scope.actualPrincipalAmount;
-              },function(errorData){
-            	  scope.formData.principal = scope.actualPrincipalAmount;
-              });
+                /*if(scope.taxesArray.length > 0){
+	                scope.taxAmountCal(function(returnData){
+	                	
+	                	var actualPrincipalAmount = scope.formData.principal;
+	                	scope.formData.principal = returnData.finalAmount;
+	                	resourceFactory.loanResource.save({command:'calculateLoanSchedule'}, scope.formData,function(data){
+	                		scope.repaymentscheduleinfo = data;
+	                		scope.previewRepayment = true;
+	                		scope.formData.syncRepaymentsWithMeeting = scope.syncRepaymentsWithMeeting;
+	                		scope.formData.principal = actualPrincipalAmount;
+	                	},function(errorData){
+	                		scope.formData.principal = actualPrincipalAmount;
+	                	});
+	                });
+                }else{*/
+                	var actualPrincipalAmount = scope.formData.principal;
+                	if(scope.depositArray && scope.depositArray.length > 0){
+                		scope.formData.principal = scope.subtract(scope.formData.principal,scope.depositArray[0].amount);
+                	}
+                	resourceFactory.loanResource.save({command:'calculateLoanSchedule'}, scope.formData,function(data){
+                		scope.repaymentscheduleinfo = data;
+                		scope.previewRepayment = true;
+                		scope.formData.syncRepaymentsWithMeeting = scope.syncRepaymentsWithMeeting;
+                		scope.formData.principal = actualPrincipalAmount;
+                	},function(errorData){
+                		scope.formData.principal = actualPrincipalAmount;
+                	});
+                //}
 
             }
 
             scope.submit = function() {
                 // Make sure charges and collaterals are empty before initializing.
                 delete scope.formData.charges;
-                delete scope.formData.taxesArray;
+                delete scope.formData.taxes;
                 delete scope.formData.depositArray;
                 delete scope.formData.collateral;
                 var reqFirstDate = dateFilter(scope.date.first,'dd MMMM yyyy');
@@ -290,6 +290,13 @@
                 	scope.formData.depositArray = [];
                 	for (var i in scope.depositArray) {
                 		scope.formData.depositArray.push({ depositId:scope.depositArray[i].feeMasterId, amount:scope.depositArray[i].amount });
+                	}
+                }
+                
+                if (scope.taxesArray.length > 0) {
+                	scope.formData.taxes = [];
+                	for (var i in scope.taxesArray) {
+                		scope.formData.taxes.push({ id:scope.taxesArray[i].taxId,type :scope.taxesArray[i].taxType,taxValue :scope.taxesArray[i].rate});
                 	}
                 }
                 
@@ -313,7 +320,45 @@
                 this.formData.expectedDisbursementDate = reqSecondDate;
                 this.formData.submittedOnDate = reqFirstDate;
                 
-                scope.taxAmountCal(1);
+                /*if(scope.taxesArray.length > 0){
+                
+                  scope.taxAmountCal(function(returnData){
+                	
+	    			var actualPrincipalAmount = scope.formData.principal;
+	                scope.formData.principal = returnData.finalAmount;
+	    			resourceFactory.loanResource.save(scope.formData,function(data){
+	                	
+	                	var updateData = {"taxArray":returnData.taxArray,"loanId":data.loanId};
+	                	resourceFactory.taxCalculationResource.update(updateData,function(data){
+	                		
+	                		location.path('/viewloanaccount/' + data.resourceId);
+	                	},function(errorData){
+	                    	scope.formData.principal = actualPrincipalAmount; 
+	                    });
+	                  
+	                },function(errorData){
+	                	
+	                	scope.errorData = rootScope.errorDetails;
+	                	
+	                	resourceFactory.taxCalculationResource.remove({},{"taxMapArray":returnData.taxArray},function(data){
+	                		rootScope.errorDetails = scope.errorData;
+	                		});
+	                	
+	                	scope.formData.principal = actualPrincipalAmount; 
+	                });
+                	
+                  },1);
+                }else{*/
+                	var actualPrincipalAmount = scope.formData.principal;
+                	if(scope.depositArray && scope.depositArray.length > 0){
+                		scope.formData.principal = scope.subtract(scope.formData.principal,scope.depositArray[0].amount);
+                	}
+                	resourceFactory.loanResource.save(scope.formData,function(data){
+                		location.path('/viewloanaccount/' + data.resourceId);
+	                },function(errorData){
+	                	scope.formData.principal = actualPrincipalAmount;
+	                });	
+               // }
 
             };
 
@@ -326,7 +371,7 @@
             }
         }
     });
-    mifosX.ng.application.controller('NewLoanAccAppController', ['$scope', '$routeParams', 'ResourceFactory', '$location','dateFilter','$rootScope', mifosX.controllers.NewLoanAccAppController]).run(function($log) {
+    lms.ng.application.controller('NewLoanAccAppController', ['$scope', '$routeParams', 'ResourceFactory', '$location','dateFilter','$rootScope', lms.controllers.NewLoanAccAppController]).run(function($log) {
         $log.info("NewLoanAccAppController initialized");
     });
-}(mifosX.controllers || {}));
+}(lms.controllers || {}));

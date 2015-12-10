@@ -1,4 +1,4 @@
-define(['underscore', 'mifosX'], function() {
+define(['underscore', 'LMS'], function() {
   var components = {
     models: [
       'LoggedInUser',
@@ -178,6 +178,7 @@ define(['underscore', 'mifosX'], function() {
       'main/ExpertSearchController',
       'main/ProfileController',
       'calculator/CalculatorController',
+      'calculator/SaleCalculatorController',
       'crm/prospects/ProspectsController',
       'crm/prospects/CreateProspectsController',
       'crm/prospects/EditProspectsController',
@@ -223,7 +224,8 @@ define(['underscore', 'mifosX'], function() {
       'FormSubmitValidateDirective',
       'ApiValidationDirective',
       'ActivitiesDisplayPanelDirective',
-      'ScrollbarTopDirective'
+      'ScrollbarTopDirective',
+      'HasPermissionDirective'
     ]
   };
 

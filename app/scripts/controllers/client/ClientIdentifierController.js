@@ -1,5 +1,5 @@
 (function(module) {
-    mifosX.controllers = _.extend(module, {
+    lms.controllers = _.extend(module, {
         ClientIdentifierController: function(scope, routeParams , location, resourceFactory) {
             scope.clientId = routeParams.clientId;
             scope.formData = {};
@@ -17,8 +17,8 @@
 
         }
     });
-    mifosX.ng.application.controller('ClientIdentifierController', ['$scope', '$routeParams', '$location', 'ResourceFactory', mifosX.controllers.ClientIdentifierController]).run(function($log) {
+    lms.ng.application.controller('ClientIdentifierController', ['$scope', '$routeParams', '$location', 'ResourceFactory', lms.controllers.ClientIdentifierController]).run(function($log) {
         $log.info("ClientIdentifierController initialized");
     });
-}(mifosX.controllers || {}));
+}(lms.controllers || {}));
 

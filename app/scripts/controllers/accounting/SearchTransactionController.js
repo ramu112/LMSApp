@@ -1,5 +1,5 @@
 (function(module) {
-  mifosX.controllers = _.extend(module, {
+  lms.controllers = _.extend(module, {
     SearchTransactionController: function(scope, resourceFactory , paginatorService,dateFilter) {
 
         scope.filters = [{option: "All", value: ""},{option: "Manual Entries", value: true},{option: "System Entries", value: false}];
@@ -51,7 +51,7 @@
 
     }
   });
-  mifosX.ng.application.controller('SearchTransactionController', ['$scope', 'ResourceFactory', 'PaginatorService','dateFilter', mifosX.controllers.SearchTransactionController]).run(function($log) {
+  lms.ng.application.controller('SearchTransactionController', ['$scope', 'ResourceFactory', 'PaginatorService','dateFilter', lms.controllers.SearchTransactionController]).run(function($log) {
     $log.info("SearchTransactionController initialized");
   });
-}(mifosX.controllers || {}));
+}(lms.controllers || {}));

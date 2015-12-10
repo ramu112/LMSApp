@@ -1,5 +1,5 @@
 (function(module) {
-  mifosX.controllers = _.extend(module, {
+  lms.controllers = _.extend(module, {
     EnterCollectionSheetController: function(scope, resourceFactory, location, routeParams, dateFilter, localStorageService, route, $timeout) {
         scope.offices = [];
         scope.centers = [];
@@ -17,7 +17,7 @@
             scope.offices = data;
         });
 
-        if (localStorageService.get('Success') == 'true') {
+        if (localStorageService.getFromLocalStorage('Success') == 'true') {
             scope.savesuccess = true;
             localStorageService.remove('Success');
             scope.val = true;
@@ -314,20 +314,20 @@
           scope.formData.bulkRepaymentTransactions = scope.bulkRepaymentTransactions;
           if (centerOrGroupResource == "centerResource") {
             resourceFactory.centerResource.save({'centerId' : scope.centerId, command : 'saveCollectionSheet'}, scope.formData,function(data){
-              localStorageService.add('Success', true);
+              localStorageService.addToLocalStorage('Success', true);
               route.reload();
             });
           } else if (centerOrGroupResource == "groupResource") {
             resourceFactory.groupResource.save({'groupId' : scope.groupId, command : 'saveCollectionSheet'}, scope.formData,function(data){
-              localStorageService.add('Success', true);
+              localStorageService.addToLocalStorage('Success', true);
               route.reload();
             });
           }
         };
     }
   });
-  mifosX.ng.application.controller('EnterCollectionSheetController', ['$scope', 'ResourceFactory', '$location', '$routeParams', 'dateFilter', 'localStorageService',
-   '$route', '$timeout', mifosX.controllers.EnterCollectionSheetController]).run(function($log) {
+  lms.ng.application.controller('EnterCollectionSheetController', ['$scope', 'ResourceFactory', '$location', '$routeParams', 'dateFilter', 'localStorageService',
+   '$route', '$timeout', lms.controllers.EnterCollectionSheetController]).run(function($log) {
     $log.info("EnterCollectionSheetController initialized");
   });
-}(mifosX.controllers || {}));
+}(lms.controllers || {}));

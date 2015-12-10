@@ -1,5 +1,5 @@
 (function(module) {
-  mifosX.controllers = _.extend(module, {
+  lms.controllers = _.extend(module, {
     JournalEntryController: function(scope, resourceFactory, location,dateFilter) {
 
             scope.formData = {};
@@ -103,7 +103,7 @@
             }
     }
   });
-  mifosX.ng.application.controller('JournalEntryController', ['$scope', 'ResourceFactory', '$location','dateFilter', mifosX.controllers.JournalEntryController]).run(function($log) {
+  lms.ng.application.controller('JournalEntryController', ['$scope', 'ResourceFactory', '$location','dateFilter', lms.controllers.JournalEntryController]).run(function($log) {
     $log.info("JournalEntryController initialized");
   });
-}(mifosX.controllers || {}));
+}(lms.controllers || {}));

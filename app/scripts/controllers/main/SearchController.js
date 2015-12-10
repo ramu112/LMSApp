@@ -1,5 +1,5 @@
 (function(module) {
-  mifosX.controllers = _.extend(module, {
+  lms.controllers = _.extend(module, {
     SearchController: function(scope, routeParams , resourceFactory) {
         
         scope.searchResults = [];
@@ -55,7 +55,7 @@
 
      }
   });
-  mifosX.ng.application.controller('SearchController', ['$scope','$routeParams','ResourceFactory', mifosX.controllers.SearchController]).run(function($log) {
+  lms.ng.application.controller('SearchController', ['$scope','$routeParams','ResourceFactory', lms.controllers.SearchController]).run(function($log) {
     $log.info("SearchController initialized");
   });
-}(mifosX.controllers || {}));
+}(lms.controllers || {}));

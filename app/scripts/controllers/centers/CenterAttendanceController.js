@@ -1,5 +1,5 @@
 (function(module) {
-    mifosX.controllers = _.extend(module, {
+    lms.controllers = _.extend(module, {
         CenterAttendanceController: function(scope, resourceFactory , routeParams, location,dateFilter) {
             scope.center = [];
             scope.tempData = {};
@@ -34,9 +34,9 @@
 
         }
     });
-    mifosX.ng.application.controller('CenterAttendanceController', ['$scope', 'ResourceFactory', '$routeParams','$location','dateFilter', mifosX.controllers.CenterAttendanceController]).run(function($log) {
+    lms.ng.application.controller('CenterAttendanceController', ['$scope', 'ResourceFactory', '$routeParams','$location','dateFilter', lms.controllers.CenterAttendanceController]).run(function($log) {
         $log.info("CenterAttendanceController initialized");
     });
-}(mifosX.controllers || {}));
+}(lms.controllers || {}));
 
 

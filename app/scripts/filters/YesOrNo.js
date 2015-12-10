@@ -1,5 +1,5 @@
 (function(module) {
-    mifosX.filters = _.extend(module, {
+    lms.filters = _.extend(module, {
         YesOrNo: function () {
             return function(input) {
                 var status;
@@ -12,7 +12,7 @@
             }
         }
     });
-    mifosX.ng.application.filter('YesOrNo', ['dateFilter',mifosX.filters.YesOrNo]).run(function($log) {
+    lms.ng.application.filter('YesOrNo', ['dateFilter',lms.filters.YesOrNo]).run(function($log) {
         $log.info("YesOrNo filter initialized");
     });
-}(mifosX.filters || {}));
+}(lms.filters || {}));

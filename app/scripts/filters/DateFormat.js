@@ -1,5 +1,5 @@
 (function(module) {
-    mifosX.filters = _.extend(module, {
+    lms.filters = _.extend(module, {
         DateFormat: function (dateFilter) {
             return function(input) {
                 if(input){
@@ -10,7 +10,7 @@
             }
         }
     });
-    mifosX.ng.application.filter('DateFormat', ['dateFilter',mifosX.filters.DateFormat]).run(function($log) {
+    lms.ng.application.filter('DateFormat', ['dateFilter',lms.filters.DateFormat]).run(function($log) {
         $log.info("DateFormat filter initialized");
     });
-}(mifosX.filters || {}));
+}(lms.filters || {}));

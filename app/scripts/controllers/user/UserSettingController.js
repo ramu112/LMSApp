@@ -1,11 +1,11 @@
 (function(module) {
-  mifosX.controllers = _.extend(module, {
+  lms.controllers = _.extend(module, {
     UserSettingController: function(scope, translate,localStorageService) {
-        if(localStorageService.get('Language')){
-            var temp=localStorageService.get('Language');
-            for(var i in mifosX.models.Langs){
-                if(mifosX.models.Langs[i].code == temp.code){
-                    scope.optlang = mifosX.models.Langs[i];
+        if(localStorageService.getFromLocalStorage('Language')){
+            var temp=localStorageService.getFromLocalStorage('Language');
+            for(var i in lms.models.Langs){
+                if(lms.models.Langs[i].code == temp.code){
+                    scope.optlang = lms.models.Langs[i];
                 }
             }
         }else{
@@ -13,16 +13,16 @@
         }
         translate.uses(scope.optlang.code);
 
-      scope.langs = mifosX.models.Langs;
+      scope.langs = lms.models.Langs;
       scope.changeLang = function (lang) {
           translate.uses(lang.code);
-          localStorageService.add('Language',scope.optlang);
+          localStorageService.addToLocalStorage('Language',scope.optlang);
       };
 
     }
   });
 
-  mifosX.ng.application.controller('UserSettingController', ['$scope', '$translate','localStorageService', mifosX.controllers.UserSettingController]).run(function($log) {
+  lms.ng.application.controller('UserSettingController', ['$scope', '$translate','localStorageService', lms.controllers.UserSettingController]).run(function($log) {
     $log.info("UserSettingController initialized");
   });
-}(mifosX.controllers || {}));
+}(lms.controllers || {}));

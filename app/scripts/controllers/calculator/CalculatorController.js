@@ -1,6 +1,6 @@
 (function(module) {
-  mifosX.controllers = _.extend(module, {
-	  CalculatorController: function(scope, resourceFactory, location,$http,$rootScope,API_VERSION,webStorage,$timeout) {
+  lms.controllers = _.extend(module, {
+	  CalculatorController: function(scope, resourceFactory, location,$http,$rootScope,API_VERSION,webStorage,$timeout,$modal) {
 		  
 		  scope.formData = {};
 		  scope.leaseproducts = [];
@@ -14,6 +14,7 @@
         	
         	resourceFactory.loanProductResource.get({loanProductId : id, template:'true'}, function(data) {
         		scope.formData.principal = data.principal;
+        		scope.formData.productName = data.name;
         		scope.formData.interestRatePerPeriod = data.interestRatePerPeriod;
         		if(data.feeMasterData){
         			scope.formData.deposit = data.feeMasterData[0].amount;
@@ -136,7 +137,7 @@
             		scope.costWithOutMaintenance.push({"costWithOutMaintenance":(scope.calculationData[i].costWithOutMaintenance).toFixed(2)});
             		scope.rateWithMaintenance.push({"rateWithMaintenance":(scope.calculationData[i].rateWithMaintenance).toFixed(2)});
             		scope.residualDeprecisation.push({"residualDeprecisation":(scope.calculationData[i].residualDeprecisation*100).toFixed(2)});
-            		scope.residualCost.push({"residualCost":Math.round(scope.calculationData[i].residualCost*100)});
+            		scope.residualCost.push({"residualCost":(scope.calculationData[i].residualCost*100).toFixed(2)});
             		scope.residualAmountVEP.push({"residualAmountVEP":Math.round(scope.calculationData[i].residualAmountVEP)});
             		scope.residualAmountVIP.push({"residualAmountVIP":Math.round(scope.calculationData[i].residualAmountVIP)});
             		scope.quoteWithOutMaintenance.push({"quoteWithOutMaintenance":Math.round(scope.calculationData[i].quoteWithOutMaintenance)});
@@ -219,22 +220,48 @@
            }
         
         scope.downloadFile = function (){
-            
-          console.log(forYearChangeJsonData);
-          var json = {}; 
-           json = (forYearChangeJsonData.deprecisationArray.length > 0 || forYearChangeJsonData.residualArray.length > 0) ? forYearChangeJsonData : scope.formData;
-        	resourceFactory.calculationExportResource.save(json,function(data){
-        		data = angular.fromJson(angular.toJson(data));
-        		var fileName = data.fileName;
-        		window.open($rootScope.hostUrl+ API_VERSION +'/loans/calculator/export?tenantIdentifier=default&file='+fileName);
-        	});
+        	
+        	 $modal.open({
+                 templateUrl: 'download.html',
+                 controller: downloadController,
+                 resolve:{}
+             });
        };
+       
+       function downloadController($scope, $modalInstance) {
+    	   
+    	   $scope.fileType = 'pdf';
+    	   
+           $scope.confirm = function (fileType) {
+               var json = {}; 
+                json = (forYearChangeJsonData.deprecisationArray.length > 0 || forYearChangeJsonData.residualArray.length > 0) ? forYearChangeJsonData : scope.formData;
+                if(scope.isProspect){
+     	           json.customerName = prospectFormData.firstName+" "+prospectFormData.lastName;
+     	           json.address = prospectFormData.address;
+     	           json.phone = prospectFormData.mobileNumber;
+                }
+             	resourceFactory.calculationExportResource.save({downloadType:fileType,isProspect : false}, json,function(data){
+             		data = angular.fromJson(angular.toJson(data));
+             		var fileName = data.fileName;
+             		window.open($rootScope.hostUrl+ API_VERSION +'/loans/calculator/export?tenantIdentifier=default&file='+fileName);
+             		$modalInstance.close('delete');
+             	});
+           };
+           $scope.cancel = function () {
+               $modalInstance.dismiss('cancel');
+           };
+       }
        
        scope.saveFile = function (){
     	   
     	   var json = {}; 
-    	   json = (forYearChangeJsonData.deprecisationArray.length > 0 || forYearChangeJsonData.residualArray.length > 0) ? forYearChangeJsonData : scope.formData; 
-        	resourceFactory.calculationExportResource.save({command:"PROSPECT"},json,function(data){
+    	   json = (forYearChangeJsonData.deprecisationArray.length > 0 || forYearChangeJsonData.residualArray.length > 0) ? forYearChangeJsonData : scope.formData;
+    	   if(scope.isProspect){
+	           json.customerName = prospectFormData.firstName+" "+prospectFormData.lastName;
+	           json.address = prospectFormData.address;
+	           json.phone = prospectFormData.mobileNumber;
+           }
+        	resourceFactory.calculationExportResource.save( {downloadType:"excel",isProspect : true},json,function(data){
         		data = angular.fromJson(angular.toJson(data));
         		
         		var formData = {};
@@ -247,6 +274,8 @@
         			var id = formData.id; delete formData.id;
         			resourceFactory.prospectResource.update({id:id},formData, function(data) {
 						location.path('/prospects');										
+					},function(errorData){
+						formData.id = id;
 					});
         		}else{
 	        		resourceFactory.prospectResource.save(formData, function(data) {
@@ -258,7 +287,7 @@
        };
     }
   });
-  mifosX.ng.application.controller('CalculatorController', ['$scope', 'ResourceFactory', '$location','$http','$rootScope','API_VERSION','webStorage','$timeout', mifosX.controllers.CalculatorController]).run(function($log) {
+  lms.ng.application.controller('CalculatorController', ['$scope', 'ResourceFactory', '$location','$http','$rootScope','API_VERSION','webStorage','$timeout','$modal', lms.controllers.CalculatorController]).run(function($log) {
     $log.info("CalculatorController initialized");
   });
-}(mifosX.controllers || {}));
+}(lms.controllers || {}));

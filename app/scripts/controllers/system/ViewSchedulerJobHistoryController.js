@@ -1,6 +1,6 @@
 
 (function(module) {
-  mifosX.controllers = _.extend(module, {
+  lms.controllers = _.extend(module, {
     ViewSchedulerJobHistoryController: function(scope, resourceFactory , paginatorService, routeParams) {
         scope.jobhistory = [];
         var fetchFunction = function(offset, limit, callback) {
@@ -9,7 +9,7 @@
         scope.jobhistory = paginatorService.paginate(fetchFunction, 14);
     }
   });
-  mifosX.ng.application.controller('ViewSchedulerJobHistoryController', ['$scope', 'ResourceFactory', 'PaginatorService', '$routeParams', mifosX.controllers.ViewSchedulerJobHistoryController]).run(function($log) {
+  lms.ng.application.controller('ViewSchedulerJobHistoryController', ['$scope', 'ResourceFactory', 'PaginatorService', '$routeParams', lms.controllers.ViewSchedulerJobHistoryController]).run(function($log) {
     $log.info("ViewSchedulerJobHistoryController initialized");
   });
-}(mifosX.controllers || {}));
+}(lms.controllers || {}));

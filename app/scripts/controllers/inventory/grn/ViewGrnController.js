@@ -1,5 +1,5 @@
 (function(module) {
-	  mifosX.controllers = _.extend(module, {
+	  lms.controllers = _.extend(module, {
 		  ViewGrnController: function(scope, routeParams , resourceFactory ,location,webStorage) {
 			  scope.grn = [];
 			  
@@ -18,7 +18,7 @@
 	        };
 	    }
 	  });
-	  mifosX.ng.application.controller('ViewGrnController', ['$scope', '$routeParams','ResourceFactory', '$location','webStorage',mifosX.controllers.ViewGrnController]).run(function($log) {
+	  lms.ng.application.controller('ViewGrnController', ['$scope', '$routeParams','ResourceFactory', '$location','webStorage',lms.controllers.ViewGrnController]).run(function($log) {
 	    $log.info("ViewGrnController initialized");
 	  });
-	}(mifosX.controllers || {}));
+	}(lms.controllers || {}));

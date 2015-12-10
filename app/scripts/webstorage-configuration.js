@@ -1,6 +1,6 @@
 define(['angular', 'webstorage'], function(angular) {
   angular.module('webStorageModule')
-  .constant('prefix', 'mifosX')
+  .constant('prefix', 'lms')
   .run(function($log, webStorage) {
     if (webStorage.isSupported) {
       if (webStorage.local.isSupported) {

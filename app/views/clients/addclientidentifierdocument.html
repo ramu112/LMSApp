@@ -31,7 +31,8 @@
 
 			<div class="offset3">
 				<a href="#/viewclient/{{clientId}}"><button type="reset" class="btn">{{'label.button.cancel' | translate}}</button></a>
-				<button type="submit" ng-disabled="!clientidentifierform.$valid" class="btn btn-primary">{{'label.button.save' | translate}}</button>
+				<button type="submit" ng-disabled="!clientidentifierform.$valid" class="btn btn-primary" 
+					has-permission='CREATE_DOCUMENT'>{{'label.button.save' | translate}}</button>
 			</div>
 		</fieldset>
 	</form>

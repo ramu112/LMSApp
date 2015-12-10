@@ -1,5 +1,5 @@
 (function(module) {
-  mifosX.controllers = _.extend(module, {
+  lms.controllers = _.extend(module, {
     LoginFormController: function(scope, authenticationService) {
       scope.loginCredentials = {};
       scope.authenticationFailed = false;
@@ -20,7 +20,7 @@
 
     }
   });
-  mifosX.ng.application.controller('LoginFormController', ['$scope', 'AuthenticationService', mifosX.controllers.LoginFormController]).run(function($log) {
+  lms.ng.application.controller('LoginFormController', ['$scope', 'AuthenticationService', lms.controllers.LoginFormController]).run(function($log) {
     $log.info("LoginFormController initialized");
   });
-}(mifosX.controllers || {}));
+}(lms.controllers || {}));

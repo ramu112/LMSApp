@@ -1,5 +1,5 @@
 (function(module) {
-  mifosX.controllers = _.extend(module, {
+  lms.controllers = _.extend(module, {
     DataTableController: function(scope, resourceFactory) {
 
         resourceFactory.DataTablesResource.getAllDataTables(function(data) {
@@ -8,7 +8,7 @@
 
     }
   });
-  mifosX.ng.application.controller('DataTableController', ['$scope', 'ResourceFactory', mifosX.controllers.DataTableController]).run(function($log) {
+  lms.ng.application.controller('DataTableController', ['$scope', 'ResourceFactory', lms.controllers.DataTableController]).run(function($log) {
     $log.info("DataTableController initialized");
   });
-}(mifosX.controllers || {}));
+}(lms.controllers || {}));

@@ -1,5 +1,5 @@
 (function(module) {
-  mifosX.controllers = _.extend(module, {
+  lms.controllers = _.extend(module, {
     MakerCheckerController: function(scope, route, resourceFactory) {
       
       scope.permissions = [];
@@ -73,7 +73,7 @@
       };
     }
   });
-  mifosX.ng.application.controller('MakerCheckerController', ['$scope', '$route', 'ResourceFactory', mifosX.controllers.MakerCheckerController]).run(function($log) {
+  lms.ng.application.controller('MakerCheckerController', ['$scope', '$route', 'ResourceFactory', lms.controllers.MakerCheckerController]).run(function($log) {
     $log.info("MakerCheckerController initialized"); 
   });
-}(mifosX.controllers || {}));
+}(lms.controllers || {}));
